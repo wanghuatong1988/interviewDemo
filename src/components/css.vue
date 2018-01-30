@@ -38,21 +38,23 @@
 
         <ul>
           <li><strong>position有多少个值分别是什么有什么作用</strong></li>
-          <li>- absolute:生成绝对定位的元素，相对于值不为static的第一个父元素进行定位。</li>
-          <li>- fixed：生成绝对定位元素，相对于浏览器窗口进行定位。</li>
+          <li>- absolute: 针对有定位父级的原点进行定位，如果父级没有定位，会找父级的父级,如果都没就针对document进行定位</li>
+          <li>- fixed：相对于浏览器窗口进行定位。</li>
           <li>- static: 默认什么，没有定位</li>
-          <li>- relative: 生成相对定位的元素，相对于正常位置进行定位。</li>
+          <li>- relative: 针对自己本身的位置进行定位。</li>
           <li>- inherit: 规定应该从父元素继承position属性的值。</li>
         </ul>
 
         <ul style="text-align:left">
           <li style="text-align:center"><strong>css兼容性问题</strong></li>
-          <li>1、ie6下如果设置高度小于10px,显示出来的样子比实际设置的还有要高，解决办法overflow:hidden</li>
+          <li>1、ie6下如果设置高度小于19px,显示出来的样子比实际设置的还有要高，解决办法overflow:hidden</li>
           <li>2、ie6块级元素如果加了float,又有margin的情况下，显示的margin要比设置的大一倍，解决办法display:inline</li>
           <li>3、ie下如果两个块级元素设置了margin值，第一个bottom和第二个top的间距他会取两个元素中较大的值</li>
           <li>4、ie6\7下li元素都浮动下会产生4px的间隙，解决办法{vertacal-algin:top}</li>
           <li>5、ie6下png24位的图片会有问题，做成png8</li>
           <li>6、浏览器默认的margin和padding不同</li>
+          <li>7、ie6下父级的宽度(宽:200px)会被子级(宽:200px + padding: 10px)撑大</li>
+          <li>8、ie下p标签不能套div,页面会生成错误</li>
           <li>
             css hack<br/>
             {<br/>
@@ -99,13 +101,39 @@
           <li><strong>css多列等高如何实现</strong></li>
           <li>利用padding-bottom|margin-bottom正负值相抵</li>
         </ul>
+
+        <ul style="overflow:hidden">
+          <li><strong>什么是BFC</strong></li>
+          <li>BFC就是清浮动,就是用来处理浮动元素脱离文档流的问题</li>
+          <li>形成BFC的几个条件</li>
+          <li>1、浮动元素，float 除 none 以外的值</li>
+          <li>2、绝对定位元素，position（absolute，fixed）</li>
+          <li>3、display 为以下其中之一的值 inline-blocks，table-cells，table-captions</li>
+          <li>4、overflow 除了 visible 以外的值（hidden，auto，scroll）</li>
+          <li>如下面所示：1、外面的div高度受里面的浮动影响，高度塌陷</li>
+          <li>2、浮动兄弟遮盖问题</li>
+          <li>3、margin塌陷问题,在标准文档流中，块级标签之间竖直方向的margin会以大的为准</li>
+          <li>清除浮动的方法可为伪类:after{content:'';display:block;clear:both}</li>
+          <li>1<div class="bfcDiv1 clear"><span></span><span></span><span></span><span></span></div></li>
+          <li style="overflow:hidden">2<div class="bfcDiv2"><span></span><span></span><span></span><span class="clear"></span></div></li>
+          <li style="overflow:hidden">3<div class="bfcDiv3"><div></div><div class="clear"></div></div></li>
+        </ul>
+
+        <ul>
+          <li><strong>什么是zoom:1</strong></li>
+          <li>zoom是ie浏览器下的特性,在ie下大部份兼容性都是因为haslayout属性的触发问题,尽量触发haslayout属性,可以减少很多兼容性问题</li>
+          <li>haslayout是ie渲染引擎的一个内部组成部分</li>
+          <li>有些属性是可以触发haslayout比如display:inline-block,height,float,position,width,zoom</li>
+          <li>zoom常规看就是放大元素的倍数</li>
+        </ul>
     </div>
 
 </template>
 <style lang="scss" scoped="" type="text/css">
 ul,li {
   margin: 0;
-  padding: 0;
+  padding: 10px;
+  list-style-type: none;
 }
 ul {
   border:1px solid #000;
@@ -226,4 +254,59 @@ $w: 100px;
     // }
   }
 }
+
+//浮动脱离文档流1
+.bfcDiv1 {
+  width: 400px;
+  border: 5px solid #F90;
+  margin: 0 auto;
+  span:not(:nth-child(4)) {
+    width: 100px;
+    height: 200px;
+    border:1px solid #592;
+    float: left;
+  }
+  // span:nth-child(4) {
+  //     width: 300px;
+  //     height: 300px;
+  //     background: #999;
+  //     display: block;
+  // }
+}
+//浮动脱离文档流2
+.bfcDiv2 {
+  width: 400px;
+  border: 5px solid #F90;
+  margin: 0 auto;
+  span:not(:nth-child(4)) {
+    width: 100px;
+    height: 200px;
+    border:1px solid #592;
+    float: left;
+  }
+  span:nth-child(4) {
+      width: 300px;
+      height: 300px;
+      background: #999;
+      display: block;
+  }
+}
+//浮动脱离文档流3
+.bfcDiv3 {
+  width: 400px;
+  border: 5px solid #F90;
+  margin: 0 auto;
+  div{
+    width: 300px;
+    height: 200px;
+    margin: 20px auto;
+    background: red;
+  }
+  div:nth-child(2) {
+    margin: 40px auto;
+  }
+}
+
+//清浮动的方法
+.clear::after{content:"";display:block;clear:both}
 </style>

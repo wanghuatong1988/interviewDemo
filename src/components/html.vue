@@ -93,6 +93,43 @@
         </ul>
 
         <ul>
+          <li> <strong>html5标签如何兼容低版本浏览器</strong> </li>
+          <li>1、通过document.createElement(html5标签)可让低版本浏览器识别</li>
+          <li>2、使用html shim插件</li>
+        </ul>
+        
+        <ul>
+          <li><strong>html5的语义化</strong></li>
+          <li>1、header标签页眉</li>
+          <li>2、nav标签导航</li>
+          <li>3、articel标签内容</li>
+          <li>4、footer标签页脚</li>
+          <li>5、aside侧边栏部份</li>
+          <li>
+          6、section主题内容<br/>
+          <textarea style="width:300px;height:100px;border:1px solid red;margin:0 auto;">
+            <section>
+              <header>开始之放</header>
+            </section>
+            <!--section就像div-->
+          </textarea>
+        </li>
+          <li>
+            7、main显示页面主体内容<br/>
+            比如左右布局，左边是导航，右边是导航对应的内容
+          </li>
+          <li>
+            8、figure元素组合比如图片会带文字标题的组合<br/>
+            <textarea style="width:300px;height:100px;border:1px solid red;margin:0 auto;">
+              <figure>
+                <img src="#"/>
+                <figcaption>图片标题</figcaption>
+              </figure>
+            </textarea>
+          </li>
+        </ul>
+
+        <ul>
             <li><strong>rem、em、px的区别</strong></li>
             <li>px:就是页面上的实际像素,不支持浏览器缩放</li>
             <li>em：是一种相对值,它会继承法父级元素的大小</li>
@@ -121,6 +158,8 @@
                 <br/>
             </li>
         </ul>
+
+
     </div>
 </template>
 <script>

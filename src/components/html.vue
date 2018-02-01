@@ -84,7 +84,7 @@
 
         <ul>
             <li><strong>div怎么模拟textarea</strong></li>
-            <li>给div加一个contentditable</li>
+            <li>给div加一个contenteditable</li>
         </ul>
 
         <ul>
@@ -98,7 +98,27 @@
             <li>em：是一种相对值,它会继承法父级元素的大小</li>
             <li>rem:是根据根元素html的font-size对应大小，比如html大小为50px那么1rem就为50px;</li>
             <li>
-                这里说下em:<br/>
+                这里说下em:
+                <textarea name="" id="" cols="80" rows="10">
+                    <style>
+                        body {
+                            font-size: 12px;
+                        }
+                        #div{
+                             /* 该元素没有设置font-size，因此继承了父元素的font-size: 12px; */
+                            width: 10em;    /* 10em = 12px * 10 = 120px */
+                        }
+                        #div1 {
+                            font-size: 20px;
+                            width: 10em;    /* 10em = 20px * 10 = 200px */
+                        }
+                    </style>
+                    <body>
+                        <div id="div"></div>
+                        <div id="div1"></div>
+                    </body>
+                </textarea>
+                <br/>
             </li>
         </ul>
     </div>

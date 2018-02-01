@@ -89,7 +89,11 @@
 
         <ul>
             <li><strong>忽略页面中的电话号码</strong></li>
-            <li><meta name="format-detection" content="telephone=no" /></li>
+            <li>
+              <textarea style="width:300px;height:100px;border:1px solid red;margin:0 auto;">
+                <meta name="format-detection" content="telephone=no" />
+              </textarea>
+            </li>
         </ul>
 
         <ul>

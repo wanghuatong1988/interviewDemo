@@ -51,7 +51,7 @@
           <li><strong>盒模型分为：标准盒模型、IE盒模型</strong></li>
           <li>- 标准盒模型：内容(content)、填充(padding)、边界(maring)、边框(border)</li>
           <li>- IE盒模型：它把border和padding算进content</li>
-          <li>box-szing属性：</li>
+          <li>box-sizing属性：</li>
           <li>1、content-box,默认值，border-padding不计算入width内</li>
           <li>2、padding-box, padding计算入width内</li>
           <li>3、border-box, border和padding计算入width内</li>
@@ -112,7 +112,7 @@
           <li>7、属性选择器(a[rel='external'])</li>
           <li>8、伪类选择器(a:hover, li:nth-child)</li>
           <li>可继承的样式：font-size, font-family, color, ul li dl dd dt</li>
-          <li>不可继承的样式：border padding margin whith height</li>
+          <li>不可继承的样式：border padding margin whith height position display float</li>
         </ul>
 
         <ul>
@@ -163,6 +163,79 @@
           <li>共同点：他们都可以让元素脱离文档流</li>
           <li>不同点：float仍会占据位置,position会覆盖文档流中的其他元素</li>
         </ul>
+
+        <ul>
+          <li><strong>css优化、提高性能的方法</strong></li>
+          <li>1、提取通用样式</li>
+          <li>2、使用构建工具(自动补前缀、打包压缩、优雅降级)</li>
+          <li>3、避免使用复杂的选择器</li>
+          <li>4、不使用@import(无法影响css文件加载速度)</li>
+        </ul>
+
+        <ul>
+          <li><strong>浏览器怎样解析css选择器的?</strong></li>
+          <li>
+          按照从右到左解析如下所示：<br/>
+          <textarea style="width:400px;height:250px;overflow:hidden;">
+              <div class="mod-nav">
+                  <header>
+                    <h3>
+                      <span></span>
+                    </h3>
+                  </header>
+                  <div>
+                    <ul>
+                      <li><a href=""></a></li>
+                      <li><a href=""></a></li>
+                    </ul>
+                  </div>
+              </div>
+          </textarea><br/>
+          为什么会这样，假如DOM的匹配规则是.mod-nav h3 span<br/>
+          <div style="color:red">
+          看从左到右的匹配，他会从.mod-nav开始，遍历子节点header和div，然后再遍历他们下面的子节点<br/>
+          在右侧的div下最后遍历到叶子节点a,发现不符合规则需求回溯到ul节点<br/>
+          假如有1000个li这样的遍历会损失 很多性能。
+          </div>
+          <div style="color: green">
+          再看从右到左的匹配,先找到所有最右节点为span，很明显如果在子叶节点下没有span那么将不会做遍历
+          </div>
+          所以后代选择器在标准里是不那么推荐的，<br/>
+          对于浏览器来说id选择器是最快的，然后是class、html元素选择器<br/>
+          </li>
+        </ul>
+
+        <ul>
+          <li><strong>元素竖向的百分比设定是相对于容器的高度吗？</strong></li>
+          <li>不一定</li>
+          <li>
+            <div class="heightCon">
+              <p>这是测试内容</p>
+            </div>
+          </li>
+        </ul>
+        
+        <ul>
+          <li><strong>line-height如何理解？</strong></li>
+          <li>
+            1、只能影响行内元素,并不能直接用于块级元素<br/>
+            2、具有可继承性,块级元素的子元素会继承该 特性
+          </li>
+          <li>
+            <div style="width:170px;background:#000;margin:0 auto;">
+              <span style="font-size:16px;line-height:20px;background:red;">i'm first line</span>
+              <span style="font-size:16px;line-height:50px;background:green;">i'm second line</span>
+            </div>
+            从上可以前到line-height指的是在同一个元素中,两个文本行基线间的距离<br/>
+            指的是上面的line底到i'm sencond的底部距离为50px
+          </li>
+          <li><strong>line-height和height相等，为什么会使文字居中</strong></li>
+          <li>
+            <span style="height:40px;line-height:40px;background:red; display:inline-block;">i;m first line</span><br/>
+            原因是这样文本属于textNode,它也是一个DOM元素,当外层元素设了line-height,它自然继承过来了
+          </li>
+        </ul>
+        
     </div>
 
 </template>
@@ -450,6 +523,18 @@ $w: 100px;
         background: #0f0;
       }
     }
+  }
+}
+
+.heightCon {
+  width: 200px;
+  height: 200px;
+  background: gray;
+  margin: auto;
+  p {
+    margin-top: 20%;
+    background: cornflowerblue;
+    // height: 50%;
   }
 }
 </style>

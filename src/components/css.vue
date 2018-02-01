@@ -13,10 +13,33 @@
         <div class="thumbanil"><img src="../assets/logo.png"></div>  
         <!-- calc用法 -->
         <ul class="calcBox"><li></li><li></li><li></li><li></li></ul>
-        <!--CSS 清除浮动的作用是什么-->
-        <div class="floatBox"><div></div><div></div><div></div></div>
+        
+        <ul>
+          <li>左右布局：左边定宽、右边自知应，三种</li>
+          <li>
+            <div class="layoutBox">
+              <div class="layout1"><div>左边绝对定位</div><div>右边padding-left:左边的宽度</div></div>
+              <div class="layout2"><div>flex布局：左边设置宽高</div><div>flex布局：右边flex-grow:1</div></div>
+              <div class="layout3"><div>calc布局：左边左浮动</div><div>calc布局：右边右浮动并且用calc计算width: calc(100% - 左边宽px)</div></div>
+            </div>
+          </li>
+        </ul>
+
+        <ul>
+          <li>左中固定，中间自适应</li>
+          <li>
+            <div class="layoutBox2">
+              <div class="layout1"><div>flex布局：左边flex:0 0 100px;</div><div>flex布局：中间flex:1</div><div>flex布局：右边flex:0 0 100px;</div></div>
+              <div class="layout2"><div>calc布局：左边浮动</div><div>calc布局：中间浮动并且用calc计算100% - 左右两边之和</div><div>calc布局：右边浮动</div></div>
+            </div>
+          </li>
+        </ul>
         <ul>
           <li><strong>CSS 清除浮动的作用是什么</strong></li>
+          <li>
+            <!--CSS 清除浮动的作用是什么-->
+            <div class="floatBox"><div></div><div></div><div></div></div>
+          </li>
           <li>
             如上三个div,中间div设置了浮动那么它将脱离文档流,<br/>
             紧接着他后面的元素将占据浮动元素的位置,变成新的标准流<br/>
@@ -125,6 +148,20 @@
           <li>haslayout是ie渲染引擎的一个内部组成部分</li>
           <li>有些属性是可以触发haslayout比如display:inline-block,height,float,position,width,zoom</li>
           <li>zoom常规看就是放大元素的倍数</li>
+        </ul>
+
+        <ul>
+          <li><strong>CSS中link和@import的区别</strong></li>
+          <li>1、link属于html标签,而@import属于css提供的</li>
+          <li>2、页面被加载时,link会同时被加载,而@import引用的css会等到页面加载完再加载</li>
+          <li>3、import在低版本浏览器上无法被识别，而link不存在这个问题</li>
+          <li>4、link的样式权重高于@import的权重</li>
+        </ul>
+
+        <ul>
+          <li><strong>position:absolute和float属性的异同</strong></li>
+          <li>共同点：他们都可以让元素脱离文档流</li>
+          <li>不同点：float仍会占据位置,position会覆盖文档流中的其他元素</li>
         </ul>
     </div>
 
@@ -240,6 +277,7 @@ $w: 100px;
   border: 1px solid #ff6666;
   margin: 20px;
   overflow: hidden;
+  margin: 0 auto;
   div {
     width: 100px;
     height: 100px;
@@ -309,4 +347,106 @@ $w: 100px;
 
 //清浮动的方法
 .clear::after{content:"";display:block;clear:both}
+
+//左右布局三种
+.layoutBox {
+  width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  text-align: left;
+  //css布局
+  .layout1 {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    div:nth-child(1) {
+      position: absolute;
+      width: 100px;
+      left: 0;
+      height: 100%;
+      background: #0f0;
+    }
+    div:nth-child(2) {
+      background: #f00;
+      width: 100%;
+      height: 100%;
+      padding-left: 100px;
+    }
+  }
+  //flex布局
+  .layout2 {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    div:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      background: #ff6666;
+    }
+    div:nth-child(2) {
+      flex-grow: 1;
+      height: 100%;
+      background: #F90;
+    }
+  }
+  //calc方法
+  .layout3 {
+    height: 100px;
+    width: 100%;
+    div:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      background: #656786;
+      float: left;
+    }
+    div:nth-child(2) {
+      width: calc(100% - 100px);
+      height: 100%;
+      background: #bcb;
+      float: right;
+    }
+  }
+}
+
+//左右固定中间自适应
+.layoutBox2 {
+  width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  text-align: left;
+  .layout1 {
+    display: flex;
+    div{
+      height: 100px;
+      &:nth-child(1) {
+        width: 100px;
+        background: #ff6666;
+        flex: 0 0 100px;
+      }
+      &:nth-child(2) {
+        flex: 1;
+        background: #F90;
+      }
+      &:nth-child(3) {
+        flex: 0 0 100px;
+        background: #ff6666;
+      }
+    }
+  }
+  .layout2 {
+    div {
+      height: 100px;
+      float: left;
+      &:nth-child(1),&:nth-child(3) {
+        width: 100px;
+        height: 100px;
+        background: #F90;
+      }
+      &:nth-child(2) {
+        width: calc(100% - 200px);
+        background: #0f0;
+      }
+    }
+  }
+}
 </style>

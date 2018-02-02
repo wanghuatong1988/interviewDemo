@@ -234,6 +234,11 @@
             <span style="height:40px;line-height:40px;background:red; display:inline-block;">i;m first line</span><br/>
             原因是这样文本属于textNode,它也是一个DOM元素,当外层元素设了line-height,它自然继承过来了
           </li>
+          <li>
+            <div style="font-size:20px; line-height:0; border:1px solid #cccccc; background:#eeeeee;">测试</div>
+            <br/><br/>
+            <div style="font-size:0; line-height:20px; border:1px solid #cccccc; background:#eeeeee;">测试</div>
+          </li>
         </ul>
         
     </div>

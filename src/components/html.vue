@@ -61,7 +61,7 @@
 
         <ul>
             <li><strong>多个标签之间的通信？</strong></li>
-            <li>用localStroge</li>
+            <li>用localStroge、cookie</li>
         </ul>
 
         <ul>
@@ -114,8 +114,8 @@
           <textarea style="width:300px;height:100px;border:1px solid red;margin:0 auto;">
             <section>
               <header>开始之放</header>
+              <!--section就像div-->
             </section>
-            <!--section就像div-->
           </textarea>
         </li>
           <li>

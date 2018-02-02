@@ -55,8 +55,70 @@
 			<li><strong>描述DOM事件冒泡的具体流程</strong></li>
 			<li>目标对象 -> ... -> body -> html -> document -> window</li>
 			<li>addEventListener监听事件最后一个参数true为捕获false为冒泡</li>
-			<li></li>
-			<li></li>
+			<li><strong>事件委托</strong></li>
+			<li>
+				<textarea>
+					oUl.onclick = function(ev) {
+				  		var ev = ev || window.event;
+				  		var target = ev.target || ev.srcElement;
+				  		if(target.nodeName.toLowerCase() == 'li') {
+				  			//.....
+				  		}
+				  	}
+				</textarea>
+			</li>
+			<li><strong>自定义事件触发</strong></li>
+			<li>
+				<textarea style="height:250px;">
+					function customClickEvent() {
+				  		var clickEvt;
+				  		if(window.CustomEvent) {
+				  			clickEvt = new window.CustomEvent('click',{
+				  				canBubble: true,
+				  				cancelabe: true,
+				  			})
+				  		}else{
+				  			clickEvt = document.createEvent('Event');
+				  			clickEvt.initEvent('click', true, true);
+				  		}
+				  		return clickEvt;
+				  	}
+
+				  	document.querySelector('#cc').dispatchEvent(customClickEvent());
+				</textarea>
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>localStorage的缺点</strong></li>
+			<li>
+				1、浏览器的存储大小不一<br/>
+				2、localStorage的值只可限定为string类型<br/>
+				3、localStorage在浏览器隐私模式下是不可读取<br/>
+				4、如果存储内容过多会导致页面变卡<br/>
+				5、爬虫抓取不到
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>有几种跨域？</strong></li>
+			<li>
+				1、jsonp：原理利用script标签不会跨域的限制<br/>
+				jsonp优点：可以解决跨域、兼容性好<br/>
+				jsonp缺点：只支持get请求、不会返回http状态码、存在安全性问题
+			</li>
+			<li>2、CORS: 原理告诉浏览器这个请求是安全的</li>
+			<li>3、postMessage</li>
+			<li>4、nginx代理转发</li>
+		</ul>
+
+		<ul>
+			<li><strong>怎样会引起内存泄漏?</strong></li>
+			<li>1、全局变量引起内存泄漏</li>
+			<li>2、闭包引起的内存泄漏</li>
+			<li>3、清除dom但没有清除dom上的事件</li>
+			<li>4、定时器忘记清理</li>
+			<li>5、移除父级的时候没有把他下面的子级同时清理,只移除父级子级还在会存在</li>
 		</ul>
 
 		<ul>
@@ -340,6 +402,15 @@
 				</textarea>
 			</li>
 		</ul>
+			
+		<ul>
+			<li><strong>如何判断一个对象是否属于某个类？</strong></li>
+			<li>
+				console.log(a instanceof Person)
+			</li>
+			<li><strong>Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</strong></li>
+			<li>hasOwnProperty</li>
+		</ul>
 	</div>
 
 </template>
@@ -354,7 +425,7 @@
               	return $2 + ',';
           });
   	}
-  	console.log(commafy('12000000.11'))
+  	console.log(commafy('12000000.11'));
 
 </script>
 <style lang="scss" scoped="" type="text/css">

@@ -157,6 +157,21 @@
 				Object.prototype.toString.call(对象名);
 			</li>
 		</ul>
+
+		<ul>
+			<li><strong>执行上下文堆栈</strong></li>
+			<li>ECMAScript代码分为三种：全局代码、函数代码、eval代码,每个代码是在其执行上下文中被求值的</li>
+			<li>对函数的每次调用,会进入到函数执行上下文中,并对函数代码类型进行求值</li>
+			<li>对eval函数进行调用,会进入eval执行上下文并对其代码进行求值</li>
+			<li>一个函数可能会创建无数个上下文,因为对函数的每次调用都会生成一个新状态的上下文</li>
+			<li>一个执行上下文可能会触发另一个上下文,比如一个函数调用另一个函数</li>
+			<li>一个触发其他上下文的上下文叫作caller,被触发的上下文叫作callee</li>
+			<li>当一个caller触发了一个callee,这个caller会暂缓自身的执行,然后把控制权传递给callee,这个callee被push到栈中</li>
+			<li>在callee上下文结束后,它会把控制权返回给caller,然后caller上下文继续执行</li>
+			<li>换句话说,所有ECMAScript程序的运行时,可以执行上下文栈来表示,栈顶是当前活跃的上下文</li>
+			<li></li>
+			<li></li>
+		</ul>
 		<ul>
 			<li><strong>什么是原型、原型链</strong></li>
 			<li>

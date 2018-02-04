@@ -2,7 +2,7 @@
 	<div>
 		<ul>
 			<li><strong>基本类型和引用类型都有哪些?</strong></li>
-			<li>基本类型：Undefined、Null、Boolean、String、Number、Symbol</li>
+			<li>基本类型：Undefined、Null(特殊的对象值)、Boolean、String、Number、Symbol</li>
 			<li>引用类型：Object、Array、Date、Function</li>
 			<li>基本类型存放在栈上,引用类型存放在堆上</li>
 		</ul>
@@ -42,6 +42,19 @@
 				2、将this指向这个新对象<br/>
 				3、执行构造函数中的代码<br/>
 				4、返回新对象
+			</li>
+			<li>
+				<textarea>
+					function Person(){}
+					var person = new Person(); 
+					// 上一行代码等同于以下过程 ==> 
+					var person = {};
+					person.__proto__ = Person.prototype;
+					Person.call(person);
+					我先创建了一个空对象 person，然后把 person.__proto__ 指向了 Person 的原型对象，
+					便继承了 Person 原型对象中的所有属性和方法，
+					最后又以 person 为作用域执行了 Person 函数，person 便就拥有了 Person 的所有属性和方法
+				</textarea>
 			</li>
 		</ul>
 
@@ -119,6 +132,133 @@
 			<li>3、清除dom但没有清除dom上的事件</li>
 			<li>4、定时器忘记清理</li>
 			<li>5、移除父级的时候没有把他下面的子级同时清理,只移除父级子级还在会存在</li>
+		</ul>
+		
+		<ul>
+			<li><strong>如何判断一个对象是否属于某个类？</strong></li>
+			<li>
+				console.log(a instanceof Person)
+			</li>
+			<li><strong>Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</strong></li>
+			<li>hasOwnProperty</li>
+		</ul>
+
+		<ul>
+			<li><strong>为啥要深拷贝?</strong></li>
+			<li>
+				在很多情况下,我们都需要给变量赋值,给内存地址赋予一个值,但是在赋值引用类型的时候<br/>
+				只是共享一个内存区域,导致赋值的时候,还跟之前的值保持一样
+			</li>
+		</ul>
+		
+		<ul>
+			<li><strong>判断对象类型</strong></li>
+			<li>
+				Object.prototype.toString.call(对象名);
+			</li>
+		</ul>
+		<ul>
+			<li><strong>什么是原型、原型链</strong></li>
+			<li>
+				所有对象(Object)或数组(Array)都是function(函数)<br/>
+				原型其实就是一个对象,其它对象可以通过它来继承<br/>
+				使用原型的好处是让所有对象实共享它所包含的属性和方法，节约内存<br/>
+				<textarea style="height:400px;">
+					//普通构造函数
+				  	function obj(name){
+				  		this.name = name;
+				  		this.sayName = function() {
+				  			console.log(this.name)
+				  		}
+				  	}
+
+				  	var a = new obj('wanghuatong');
+				  	var b = new obj('wanghuatong');
+
+				  	console.log(a.sayName === b.sayName);// false
+
+				  	//原型
+				  	function obj22(name){
+				  		this.name = name;
+				  	}
+				  	obj22.prototype.sayName = function() {
+				  		console.log(this.name);
+				  	}
+
+				  	var a22 = new obj22('wanghuatong');
+				  	var b22 = new obj22('wanghuatong');
+				  	console.log(a22.sayName === b22.sayName);// true
+
+				  	function Fn(){}
+				  	Fn.prototype.name = 'wanghuatong';
+				  	var fn = new Fn();
+				  	console.log(fn.name);
+				  	//上面fn对象是从Fn函数new出来的,这样fn对象就可以调用Fn.prototype中的属性,
+				  	//因为每个对象都有一个隐藏属性"__proto__",这个属性引用了创建这个对象的函数prototype,
+				  	//即：fn.__proto__ = Fn.prototype;
+				  	//Function也是一个函数，函数是一种对象，也有__proto__属性。既然是函数，那么它一定是被Function创建
+				  	//console.log(Fn.__proto__ === Function.prototype); //true
+				</textarea><br/>
+				<img src="./../assets/a.png" /><br/>
+				先说下prototype和__proto__的区别:<br/>
+				prototype是<strong>函数</strong>才有的属性,但是__proto__是每个对象都有的属性包括函数。<br/>
+				<textarea style="height:120px;">
+					var a = {};
+					console.log(a.prototype); //undefined;
+					console.log(a.__proto__); //object{};
+
+					var b = function(){};
+					console.log(b.prototype);// b{}
+					console.log(b.__proto__);// function(){}
+				</textarea><br/>
+				所有函数或对象都有constructor属性,指向这个函数本身<br/>
+				__proto__属性指向谁？<br/>
+				它指向创建它的构造函数的prototype(原型)属性<br/>
+				xx.__proto__指向它的构造函数原型xx.constructor.prototype<br/>
+				<textarea style="height:250px;">
+					//1、字面量方式
+					var a = {};
+					console.log(a.constructor); //function Object()
+					console.log(a.__proto__ === a.constructor.prototype); //true
+					//2、构造器方式
+					var A = function(){};
+					var a = new A();
+					console.log(a.constructor); // function(){}
+					console.log(a.__proto__ === a.constructor.prototype); //true
+				</textarea>
+			</li>
+			<li>
+				<strong>什么是原型链？</strong>
+			</li>
+			<li>
+				<strong>instanceof</strong><br/>
+				<textarea>
+					function Foo(){};
+					var f1 = new Foo();
+					console.log(f1 instanceof Foo); //true;
+					console.log(f1 instanceof Object); // true;
+
+					//还有下面这三个看上面的图就知道为什么为true
+					console.log(Object instanceof Function);// true;
+					console.log(Function instanceof Object);//true;
+					console.log(Function instanceof Function);// true
+				</textarea><br/>
+			</li>
+			<li>
+				访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着__proto__这条链向上找，这就是原型链。<br/>
+				<textarea>
+					function Foo(){};
+					var f1 = new Foo();
+					f1.a = 10;
+
+					Foo.prototype.a = 100;
+					Foo.prototype.b = 200;
+
+					console.log(f1.a); //10;
+					console.log(f1.b); // 200
+					//hasOwnProperty用来判断不存在原型的属性					
+				</textarea>
+			</li>
 		</ul>
 
 		<ul>
@@ -403,14 +543,6 @@
 			</li>
 		</ul>
 			
-		<ul>
-			<li><strong>如何判断一个对象是否属于某个类？</strong></li>
-			<li>
-				console.log(a instanceof Person)
-			</li>
-			<li><strong>Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</strong></li>
-			<li>hasOwnProperty</li>
-		</ul>
 	</div>
 
 </template>
@@ -426,6 +558,7 @@
           });
   	}
   	console.log(commafy('12000000.11'));
+
 
 </script>
 <style lang="scss" scoped="" type="text/css">

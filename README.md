@@ -26,4 +26,4 @@ npm run e2e
 # run all tests
 npm test
 ```
-# 前端技术身笔记
+# 前端技术笔记

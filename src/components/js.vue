@@ -13,6 +13,13 @@
 		</ul>
 		
 		<ul>
+			<li><strong>script标签的defer、async的区别</strong></li>
+			<li>
+				1、defer是在HTML解析完之后才会执行,如果是多个,按照加载的顺序依次执行<br/>
+				2、async是在加载完成后立即执行,如果是多个,执行顺序和加载顺序无关
+			</li>
+		</ul>
+		<ul>
 			<li><strong>null、undefined的区别？</strong></li>
 			<li>
 				null：表示一个对象是没有值，值为空<br/>

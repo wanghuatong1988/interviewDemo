@@ -15,7 +15,7 @@
 		<ul>
 			<li><strong>script标签的defer、async的区别</strong></li>
 			<li>
-				1、defer是在HTML解析完之后才会执行,如果是多个,按照加载的顺序依次执行<br/>
+				1、defer是在DOMContentLoaded事件(仅当DOM加载成不包括样式表、图片)解析完之后才会执行,如果是多个,按照加载的顺序依次执行<br/>
 				2、async是在加载完成后立即执行,如果是多个,执行顺序和加载顺序无关
 			</li>
 		</ul>
@@ -156,6 +156,71 @@
 				在很多情况下,我们都需要给变量赋值,给内存地址赋予一个值,但是在赋值引用类型的时候<br/>
 				只是共享一个内存区域,导致赋值的时候,还跟之前的值保持一样
 			</li>
+			<li>
+				<textarea style="height:300px;">
+					function deepClone(source) {
+				  		if(!source || typeof source !== 'object') {
+				  			throw new Erro('error arguments', 'shallowClone');
+				  		}
+				  		for(var keys in source) {
+				  			if(source.hasOwnProperty(keys)) {
+				  				if(source[keys] && typeof source[keys] === 'object') {
+				  					targetObj[keys] = deepClone(source[keys]);
+				  				}else{
+				  					targetObj[keys] = source[keys];
+				  				}
+				  			}
+				  		}
+				  		return targetObj;
+				  	}
+
+				  	var o1 = {
+				  		arr: 1,
+				  		obj: {
+				  			key: 'value'
+				  		},
+				  		func: function() {
+				  			return 1;
+				  		}
+				  	};
+
+				  	var o3 = deepClone(o1);
+				  	o1.obj.key = 'hello';
+				  	console.log(o3);
+				</textarea>
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>为什么要对函数进行柯里化?</strong></li>
+			<li>
+				1、算是一种小技巧<br/>
+				2、延迟计算<br/>
+				3、固定易变因素
+			</li>
+			<li>
+				<textarea>
+					function curryingHelper(fn) {
+				  		var _args = Array.prototype.slice.call(arguments, 1);
+
+				  		return function() {
+				  			var _newArgs = Array.prototype.slice.call(arguments);
+				  			var _totalArgs = _args.concat(_newArgs);
+				  			return fn.apply(this, _totalArgs);
+				  		}
+				  	}
+
+				  	function showMsg(name, age, fruit) {
+				  		console.log('我的名字是：' , name , '我', age, '岁,我喜欢吃：',fruit);
+				  	}
+
+				  	var curryingShowMsg1 = curryingHelper(showMsg, 'dreamapple');
+				  	curryingShowMsg1(22, 'apple');
+
+				  	var curryingShowMsg2 = curryingHelper(showMsg, 'dreamapple', 20);
+				  	curryingShowMsg2('watermelon');
+				</textarea>
+			</li>
 		</ul>
 		
 		<ul>
@@ -179,6 +244,43 @@
 			<li></li>
 			<li></li>
 		</ul>
+		
+		<ul>
+			<li><strong>单线程</strong></li>
+			<li>
+				是指在JS引擎中负责解释和执行javascript代码的线程,可以叫做主线程<br/>
+				但是实际上还存在其他线程,例如：处理ajax请求的线程、处理DOM事件的线程、定时 器线程、等<br/>
+				这些线程可能存在js引擎之内,也可能存在js引擎之外,暂时叫做工作线程<br/>
+				主线程负责派任务,工作线程负责执行任务并返回结果
+			</li>
+			<li><strong>消息队列和事件循环(Event Loop)</strong></li>
+			<li>
+				在异步过程中,工作线程在异步操作完成后需要通知主线程,那么个通知机制就是靠消息队列和事件循环<br/>
+				工作线程将消息(回调函数)放到消息队列,主线程通过事件循环获取消息<br/>
+				<strong>消息队列中放的消息具体是什么东西？</strong><br/>
+				消息就是注册异步任务时添加的<b>回调函数</b>比如：<br/>
+				<textarea>
+					主线程发起ajax请求 $.ajax(),工作线程合到响应后,会把他封装成一个javascript对象:
+					var message = function() {
+						callbackFn(response);
+					}
+					这个callbackFn就是回调函数
+				</textarea>
+			</li>
+			<li><strong>异步与事件</strong></li>
+			<li>
+				事件循环为什么里面会有个事件呢？那是因为<b>消息队列中的每条消息实际上都对应着一个事件</b><br/>
+				举例来说:<br/>
+				<textarea>
+					var btn = document.getElementById('#btn');
+					btn.addEventListener('click',function(e){
+						alert(1);
+					})
+				</textarea><br/>
+				当按钮被触发,事件监听器函数被调用
+			</li>
+		</ul>
+
 		<ul>
 			<li><strong>什么是原型、原型链</strong></li>
 			<li>
@@ -487,6 +589,25 @@
 		</ul>
 
 		<ul>
+			<li><strong>斐波那契数列</strong></li>
+			<li>
+				<textarea>
+					//斐波那契数列：1、1、2、3、5、8、13、21、34
+				  	function fn(n) {
+				  		if(n <= 0) {
+				  			return 0;
+				  		}else if (n == 1) {
+				  			return 1;
+				  		}else{
+				  			return fn(n-1) + fn(n-2);
+				  		}
+				  	}
+				  	console.log(fn(4));
+				</textarea>
+			</li>
+		</ul>
+
+		<ul>
 			<li><strong>冒泡排序</strong></li>
 			<li>
 				<textarea style="height:250px;">
@@ -580,6 +701,79 @@
           });
   	}
   	console.log(commafy('12000000.11'));
+
+
+  	var ObjCreate = {name:'one'};
+	var ObjCreate2 = Object.create(ObjCreate);
+	ObjCreate2.name = 'two';
+	console.log(ObjCreate.name); //one
+
+  	var ObjCreate3 = {prop:{name: 'one',}}
+  	var ObjCreate4 = Object.create(ObjCreate3);
+  	ObjCreate4.prop.name = 'two';
+  	console.log(ObjCreate3.prop.name);// two
+
+  	//一在赋值前可以输出下obj2.name的值，其实是one，赋值的时候obj2.name，
+  	//会当成属性去找，但是这时候是把自身的name属性赋值成了two，
+  	//并不会动obj1中的属性，也就是说对象的属性是无法修改其原型链中的同名属性，
+  	//而只会自身创建一个同名的属性并为其赋值。
+
+
+  	var obj = new Object();
+  	var events = {
+  		m1: 'clicked',
+  		m2: 'changed'
+  	}
+
+  	for(var e in events) {
+  		(function(){
+  			var aValue = e;
+  			obj[e] = function() {
+  				console.log(events[aValue]);
+  			}
+  		}());
+  	};
+
+  	console.log(obj.m1 === obj.m2);
+
+  	obj.m1();
+  	obj.m2();
+
+  	function aFunc() {
+  		function MyFunc(){}
+  		return MyFunc;
+  	}
+  	var f1 = aFunc();
+  	var f2 = aFunc();
+  	console.log(f1 === f2);
+  	//每次执行aFunc的时候,都会创建一个aFunc的新执行环境
+  	//每次执行aFunc都会创建一个新的myFunc
+  	//因此f1与f2是两个不同的内存地址的函数
+
+  	var aFunc_3 = function() {
+  		var MyFunc = function(){}
+  		return function(){
+  			return MyFunc;
+  		}
+  	}();
+
+  	var f3 = aFunc_3();
+  	var f4 = aFunc_3();
+  	console.log(f3 === f4);
+
+  	//aFunc3右侧是一个立即执行函数,aFunc的值即是立即执行函数的返回值.
+  	//aFunc_3指向一个立即执行函数执行后返回的函数，这个函数处在一个闭包环境中，每次执行总是返回闭包中的MyFunc函数，所以f3和f4是相同的
+
+  	function a(){
+        var i=0;
+        function b(){
+            console.log(++i);
+        }
+        return b;
+    }
+
+    var c=a(); //函数a执行后返回函数b，并将函数b赋给c
+    c();//输出 1
 
 
 </script>

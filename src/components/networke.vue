@@ -123,29 +123,16 @@
 			</textarea>
 		</li>
 	</ul>
+
+	<ul>
+		<li><strong>Https</strong></li>
+		<li>
+			HTTPS：它是一个安全的http数据传输,在HTTP协议的基础上加上SSL安全协议<br/>
+			他的特点是数据加密,客户端和服务器端双方拥有相同的密钥
+		</li>
+	</ul>
 	</div>
 </template>
 <script>
 </script>
-<style lang="scss" scoped="" type="text/css">
-ul,li {
-  margin: 0;
-  padding: 10px;
-  list-style-type: none;
-}
-ul {
-  border:1px solid #000;
-  margin: 10px 0;
-}
-strong {
-    color: firebrick;
-}
-textarea {
-	width: 80%;
-	height: 100px;
-}
-.contenteditable {
-	width:80%;border:1px solid #000;
-	margin:0 auto;
-}
-</style>
+

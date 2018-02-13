@@ -127,7 +127,7 @@
 
         <ul style="overflow:hidden">
           <li><strong>什么是BFC</strong></li>
-          <li>BFC就是清浮动,就是用来处理浮动元素脱离文档流的问题</li>
+          <li>BFC: 提供一个环境，html元素会在这个环境中按照一定的规则进行布局。</li>
           <li>形成BFC的几个条件</li>
           <li>1、浮动元素，float 除 none 以外的值</li>
           <li>2、绝对定位元素，position（absolute，fixed）</li>

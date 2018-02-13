@@ -1,5 +1,13 @@
 <template>
-
+	<div>
+		<ul>
+			<li><strong>快速搭建vue-cli</strong></li>
+			<li>
+				1、cnpm install -g vue-cli<br/>
+				2、vue init webpack 项目名
+			</li>
+		</ul>
+	</div>
 </template>
 <script>
 </script>

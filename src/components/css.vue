@@ -57,8 +57,6 @@
           <li>3、border-box, border和padding计算入width内</li>
         </ul>
 
-
-
         <ul>
           <li><strong>position有多少个值分别是什么有什么作用</strong></li>
           <li>- absolute: 针对有定位父级的原点进行定位，如果父级没有定位，会找父级的父级,如果都没就针对document进行定位</li>
@@ -241,6 +239,11 @@
           </li>
         </ul>
         
+
+        <ul>
+          <li><strong>怎么让Chrome支持小于12px的文字？</strong></li>
+          <li>p{font-size:10px;-webkit-transform:scale(0.8)}</li>
+        </ul>
     </div>
 
 </template>

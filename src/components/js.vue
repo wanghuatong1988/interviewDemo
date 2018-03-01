@@ -8,6 +8,18 @@
 		</ul>
 
 		<ul>
+			<li><strong>查找元素有几种?</strong></li>
+			<li>
+				document.querySelector("#demo"); <br/>
+				document.getElementById('demo'); //查找id为demo<br/>
+				document.querySelectorAll(".demo"); //查找所有带demo的class<br/>
+				document.getElementsByName('input');//查找元素为name="input"的属性<br/>
+				document.getElementsByTagName('h1'); //返回所有带h1元素的名<br/>
+				document.getElementsByClassName('tag');// 获取页面用所有带tag的类名集合
+			</li>
+		</ul>
+
+		<ul>
 			<li><strong>如何将字符串转化为数字,例如'12.3b'</strong></li>
 			<li>parseFloat('12.3b')</li>
 		</ul>
@@ -144,10 +156,23 @@
 		<ul>
 			<li><strong>如何判断一个对象是否属于某个类？</strong></li>
 			<li>
-				console.log(a instanceof Person)
+				<textarea style="height:230px;">
+					var a=new Array();
+					alert(a instanceof Array); // true，
+					同时 alert(a instanceof Object) //也会返回 true;
+					这是因为 Array 是 object 的子类。
+
+					另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型,例如：
+
+					function Foo(){} 
+					Foo.prototype = new Aoo();//JavaScript 原型继承 
+					var foo = new Foo(); 
+					console.log(foo instanceof Foo)//true 
+					console.log(foo instanceof Aoo)//true
+				</textarea>
 			</li>
-			<li><strong>Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</strong></li>
-			<li>hasOwnProperty</li>
+			<li>in判断的是对象的所有属性，包括对象实例及其原型的属性</li>
+			<li>hasOwnProperty不会去查找原型的属性方法</li>
 		</ul>
 
 		<ul>

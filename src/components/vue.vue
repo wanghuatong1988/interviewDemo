@@ -121,7 +121,7 @@
 			<li><strong>vue-router有哪几种导航钩子?</strong></li>
 			<li>
 				三种：<br/>
-				第1种：全局导航钩子点击导航前router.beforeEach(),点击导航后router.beforeEach()<br/>
+				第1种：全局导航钩子点击导航前router.beforeEach(),点击导航后router.afterEach()<br/>
 				第2种：组件内的钩子beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave<br/>
 				第3种：单独路由独享组件beforeEnter
 			</li>

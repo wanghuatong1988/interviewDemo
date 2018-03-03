@@ -96,75 +96,39 @@
 				2、我们在使用v-for进行渲染时，尽可能使用渲染元素自身属性的id给渲染的元素绑定一个key值，这样在当前渲染元素的DOM结构发生变化时，能够单独响应该元素而不触发所有元素的渲染
 			</li>
 		</ul>
+
+		<ul>
+			<li><strong>自定义组件怎样完善?</strong></li>
+			<li>
+				1、可以通用<br/>
+				2、代码尽量简洁<br/>
+				3、容易修改<br/>
+				4、功能丰富
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>对vue的理解？</strong></li>
+			<li>
+				1、vue不必担心对dom操作,因为他靠数据驱动双向绑定<br/>
+				2、组件化开发,让项目可拓展、可复用、重用性高<br/>
+				3、单页应用体验好<br/>
+				4、学习成本低小而轻量<br/>
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>vue-router有哪几种导航钩子?</strong></li>
+			<li>
+				三种：<br/>
+				第1种：全局导航钩子点击导航前router.beforeEach(),点击导航后router.beforeEach()<br/>
+				第2种：组件内的钩子beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave<br/>
+				第3种：单独路由独享组件beforeEnter
+			</li>
+		</ul>
 	</div>
 </template>
 <script>
-	
-	function observe(data) {
-		if(!data || typeof data !== 'object') {
-			return;
-		}
-
-		Object.keys(data).forEach(function(key) {
-			defineReactive(data, key, data[key]);
-		})
-	}
-
-	function Dep() {
-		this.subs = [];
-	}
-
-	Dep.prototype = {
-		addSub: function(sub) {
-			this.subs.push(sub);
-		},
-		notify: function() {
-			this.subs.forEach(function(sub){
-				sub.update();
-			})
-		}
-	}
-
-	Watcher.prototype = {
-		get: function(key) {
-			Dep.target = this;
-			this.value = data[key];
-			Dep.target = null;
-		}
-	}
-
-	function defineReactive(data, key, val) {
-
-		var dep = new Dep();
-		observe(val);
-
-		Object.defineProperty(data, key, {
-			enumerable: true,
-			configurable: false,
-			get: function() {
-
-				Dep.traget && dep.addDep(Dep.target);
-				return val;
-			},
-			set: function(newVal) {
-				if(val === newVal) return;
-
-				console.log('哈哈,监听到值变化了',val, '--->', newVal);
-				val = newVal;
-
-				dep.notify();
-			}
-		})
-	}
-
-	var data = {
-		name: 'kindeng'
-	};
-
-	observe(data);
-	console.log(data.name)
-	data.name = 'dmq';
-
 </script>
 <style lang="scss" scoped="" type="text/css">
 ul,li {

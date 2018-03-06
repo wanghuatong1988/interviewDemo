@@ -130,7 +130,7 @@
 </template>
 <script>
 </script>
-<style lang="scss" scoped="" type="text/css">
+<style lang="scss" type="text/css">
 ul,li {
   margin: 0;
   padding: 10px;

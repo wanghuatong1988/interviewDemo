@@ -52,7 +52,7 @@
           <li>- 标准盒模型：内容(content)、填充(padding)、边界(maring)、边框(border)</li>
           <li>- IE盒模型：它把border和padding算进content</li>
           <li>box-sizing属性：</li>
-          <li>1、content-box,默认值，border-padding不计算入width内</li>
+          <li>1、content-box,默认值，border/padding不计算入width内</li>
           <li>2、padding-box, padding计算入width内</li>
           <li>3、border-box, border和padding计算入width内</li>
         </ul>
@@ -291,7 +291,7 @@ $w: 100px;
   width: 0;
   height: 0;
   border:20px solid transparent;
-  //border-color: rgba(0,0,0,0) red rgba(0,0,0,0) rgba(0,0,0,0); 
+  //border-color: rgba(0,0,0,0) red rgba(0,0,0,0) rgba(0,0,0,0);
   border-color: transparent red transparent transparent;
 }
 
@@ -332,8 +332,8 @@ $w: 100px;
 
 //未知图片大小，让其居中显示纯css方法
 .thumbanil {
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border:1px solid #ccc;
   border-radius: 3px;
   display: table-cell;

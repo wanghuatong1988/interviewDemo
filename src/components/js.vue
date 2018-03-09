@@ -63,7 +63,7 @@
 				4、返回新对象
 			</li>
 			<li>
-				<textarea>
+				<textarea style="height:170px;">
 					function Person(){}
 					var person = new Person(); 
 					// 上一行代码等同于以下过程 ==> 

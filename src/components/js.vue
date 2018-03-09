@@ -27,6 +27,7 @@
 		<ul>
 			<li><strong>script标签的defer、async的区别</strong></li>
 			<li>
+				(他两都是异步加载)<br/>
 				1、defer是在DOMContentLoaded事件(仅当DOM加载成不包括样式表、图片)解析完之后才会执行,如果是多个,按照加载的顺序依次执行<br/>
 				2、async是在加载完成后立即执行,如果是多个,执行顺序和加载顺序无关
 			</li>
@@ -89,7 +90,7 @@
 			<li>addEventListener监听事件最后一个参数true为捕获false为冒泡</li>
 			<li><strong>事件委托</strong></li>
 			<li>
-				<textarea>
+				<textarea style="height:130px;">
 					oUl.onclick = function(ev) {
 				  		var ev = ev || window.event;
 				  		var target = ev.target || ev.srcElement;
@@ -101,7 +102,7 @@
 			</li>
 			<li><strong>自定义事件触发</strong></li>
 			<li>
-				<textarea style="height:250px;">
+				<textarea style="height:280px;">
 					function customClickEvent() {
 				  		var clickEvt;
 				  		if(window.CustomEvent) {

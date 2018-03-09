@@ -80,8 +80,8 @@
             css hack<br/>
             {<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;background: orange; // 所有浏览器<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;background: red\0; // ie8\9\10<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;background: blue\9\0; // ie9\10<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;background: red\0; // ie8\9\10<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;*background: black; // ie6\7<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;_background: green; // ie6<br/>
             }

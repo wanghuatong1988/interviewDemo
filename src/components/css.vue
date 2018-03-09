@@ -142,7 +142,8 @@
 
         <ul>
           <li><strong>什么是zoom:1</strong></li>
-          <li>zoom是ie浏览器下的特性,在ie下大部份兼容性都是因为haslayout属性的触发问题,尽量触发haslayout属性,可以减少很多兼容性问题</li>
+          <li>zoom是ie浏览器下的特性,在ie下大部份兼容性都是因为haslayout属性的触发问题,譬如外边距（margin）的重叠,譬如浮动的清除,尽量触发haslayout属性,可以减少很多兼容性问题</li>
+          <li>当设置了zoom的值之后，所设置的元素就会就会扩大或者缩小，高度宽度就会重新计算了，这里一旦改变zoom值时其实也会发生重新渲染</li>
           <li>haslayout是ie渲染引擎的一个内部组成部分</li>
           <li>有些属性是可以触发haslayout比如display:inline-block,height,float,position,width,zoom</li>
           <li>zoom常规看就是放大元素的倍数</li>

@@ -188,6 +188,7 @@
 				  		if(!source || typeof source !== 'object') {
 				  			throw new Erro('error arguments', 'shallowClone');
 				  		}
+				  		var targetObj = {};
 				  		for(var keys in source) {
 				  			if(source.hasOwnProperty(keys)) {
 				  				if(source[keys] && typeof source[keys] === 'object') {
@@ -800,6 +801,39 @@
 
     var c=a(); //函数a执行后返回函数b，并将函数b赋给c
     c();//输出 1
+
+
+    console.log('对象深拷贝')
+    function deepClone(source) {
+  		if(!source || typeof source !== 'object') {
+  			throw new Erro('error arguments', 'shallowClone');
+  		}
+  		var targetObj = {};
+  		for(var keys in source) {
+  			if(source.hasOwnProperty(keys)) {
+  				if(source[keys] && typeof source[keys] === 'object') {
+  					targetObj[keys] = deepClone(source[keys]);
+  				}else{
+  					targetObj[keys] = source[keys];
+  				}
+  			}
+  		}
+  		return targetObj;
+  	}
+
+  	var o1 = {
+  		arr: 1,
+  		obj: {
+  			key: 'value'
+  		},
+  		func: function() {
+  			return 1;
+  		}
+  	};
+
+  	var o3 = deepClone(o1);
+  	o1.obj.key = 'hello';
+  	console.log(o3);
 
 
 </script>

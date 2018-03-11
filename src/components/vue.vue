@@ -67,7 +67,7 @@
 		<ul>
 			<li><strong>对vue的认知</strong></li>
 			<li>
-				<textarea style="height:250px;">
+				<textarea style="height:150px;">
 					1、vue通过把真实的DOM树抽象成一棵javaScript抽象树,通过修改抽象树数据后,
 						将抽象树转化成真实DOM重绘到页面上,它通过VNode节点模拟真实DOM,
 						VNode性能的展现是通过diff算法进行计算,它通过对比同层节点，而非对树进行遍历搜索
@@ -80,7 +80,7 @@
 		<ul>
 			<li><strong>Vuex源码</strong></li>
 			<li>
-				<textarea style="height:200px;">
+				<textarea style="height:100px;">
 					vuex源码有将进一千行代码,里面分为几块，一块是定义了一些工具方法,一个Model类，一个Store类,
 					页面进来先看是否安装了vuex,然后分版本去初始化vuex,挂载Store到根组件,方便统一访问,
 					像commit、watch、dipsatch都是定义在Store原型方法上的

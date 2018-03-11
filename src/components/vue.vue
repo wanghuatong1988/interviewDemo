@@ -56,7 +56,7 @@
 
 				    Observer是监听数据对象的获取和设置工作,一旦有数据的获取或变更,会把这次行为当做是一个订阅者
 				    存放到一个Dep对象里,订阅者其实就是Watcher,
-				    它通过对每个数据绑定Object.defineProperty,然后在getter方法下定义了一个属性,
+				    通过对每个数据绑定Object.defineProperty,然后在getter方法下定义了一个属性,
 				    在Watcher每次实例化的时候就会把这个属性指向自己,
 				    Watcher获取到值后他会通知Complie这个对象对视图进行更新,
 				    Compile对象是利用文档碎片,对模板里面的表达式进行正则匹配和指令进行解析从而更新视图

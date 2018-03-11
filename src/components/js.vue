@@ -366,7 +366,7 @@
 				__proto__属性指向谁？<br/>
 				它指向创建它的构造函数的prototype(原型)属性<br/>
 				xx.__proto__指向它的构造函数原型xx.constructor.prototype<br/>
-				<textarea style="height:250px;">
+				<textarea style="height:160px;">
 					//1、字面量方式
 					var a = {};
 					console.log(a.constructor); //function Object()
@@ -383,7 +383,7 @@
 			</li>
 			<li>
 				<strong>instanceof</strong><br/>
-				<textarea>
+				<textarea style="height:170px;">
 					function Foo(){};
 					var f1 = new Foo();
 					console.log(f1 instanceof Foo); //true;
@@ -397,7 +397,7 @@
 			</li>
 			<li>
 				访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着__proto__这条链向上找，这就是原型链。<br/>
-				<textarea>
+				<textarea style="height:180px;">
 					function Foo(){};
 					var f1 = new Foo();
 					f1.a = 10;
@@ -415,7 +415,7 @@
 		<ul>
 			<li><strong>数组反序</strong></li>
 			<li>
-				<textarea>
+				<textarea style="height:180px;">
 					var a = [1,2,3,4];
 					var arr = [];
 					for(var i = a.length - 1; i>=0; i--) {
@@ -433,7 +433,7 @@
 		<ul>
 			<li><strong>数组随机排序</strong></li>
 			<li>
-				<textarea>
+				<textarea style="height:60px;">
 					[1,2,3,4].sort(function(){
 						return Math.random() - 0.5
 					})
@@ -443,7 +443,7 @@
 		<ul>
 			<li><strong>数组slice、splice方法</strong></li>
 			<li>
-				<textarea>
+				<textarea style="height:130px;">
 					var colors = ['red', 'yellow', 'orange', 'blue'];
 					// 获取yellow、orange 从第一位开始，到第三位结束(不包括第三位)
 					var removed = colors.slice(1,3);
@@ -459,7 +459,7 @@
 		<ul>
 			<li><strong>js循环</strong></li>
 			<li>
-				<textarea style="height:300px;">
+				<textarea style="height:550px;">
 					var numbers = [1,2,3,4,5,4,3,2,1];
 					//every只要其中一个不满足就返回false
 					var everyResult = numbers.every(function(item){
@@ -498,7 +498,7 @@
 		<ul>
 			<li><strong>常规正则</strong></li>
 			<li>
-				<textarea style="height:300px;">
+				<textarea style="height:600px;">
 					//去掉左右两边的空格
 					var add = ' sdsfsds '
 					String.prototype.trim = function() {
@@ -558,7 +558,7 @@
 		<ul>
 			<li><strong>数组去重</strong></li>
 			<li>
-				<textarea style="height:300px;">
+				<textarea style="height:340px;">
 					//第一种
 					var arr = [1,2,5,4,3,3,4,2];
 
@@ -585,7 +585,7 @@
 		<ul>
 			<li><strong>对象继承</strong></li>
 			<li>
-				<textarea style="height:200px;">
+				<textarea style="height:230px;">
 					function Person() {}
 					Person.prototype.name = 'wanghuatong';
 					Person.prototype.sayName = function() {
@@ -618,7 +618,7 @@
 		<ul>
 			<li><strong>斐波那契数列</strong></li>
 			<li>
-				<textarea>
+				<textarea style="height:200px;">
 					//斐波那契数列：1、1、2、3、5、8、13、21、34
 				  	function fn(n) {
 				  		if(n <= 0) {
@@ -637,7 +637,7 @@
 		<ul>
 			<li><strong>冒泡排序</strong></li>
 			<li>
-				<textarea style="height:250px;">
+				<textarea style="height:340px;">
 					function aaa(arr) {
 						for(var i = 0; i < arr.length; i++) {
 							for(var j = 0; j < arr.length; j++) {
@@ -664,7 +664,7 @@
 		<ul>
 			<li><strong>选择排序</strong></li>
 			<li>
-				<textarea style="height:250px;">
+				<textarea style="height:350px;">
 					function aaa(arr) {
 						if(arr.length === 1) {
 							return arr;
@@ -691,24 +691,24 @@
 		<ul>
 			<li><strong>二分查找</strong></li>
 			<li>
-				<textarea style="height:250px">
+				<textarea style="height:300px">
 					function binSearch (arr, data) {
-		                var low = 0;
-		                var high = arr.length - 1;
-		                while(low <= high) {//左边一定要小于等于右边
-		                    var middle = Math.floor((low + high) / 2);//计算出一个中间值
-		                    if(arr[middle] < data) {//用中间值去比较传进来的值如果小于他左边就要变为中间值+1
-		                        low = middle + 1;
-		                    }else if (arr[middle] > data) {//如果中间值大于传进来的值右边就要变为中间值-1
-		                        high = middle - 1;
-		                    }else {//如果不是大于小于那就是等于就直接返回
-		                        return middle
-		                    }
-		                }
-		                return -1;//如果都没有就返回-1
-		            }
-		            var arr = ["a","b","c","d","e","f","g","h","i","j"];
-		            console.log(binSearch(arr, 'g'));
+				                var low = 0;
+				                var high = arr.length - 1;
+				                while(low <= high) {//左边一定要小于等于右边
+				                    var middle = Math.floor((low + high) / 2);//计算出一个中间值
+				                    if(arr[middle] < data) {//用中间值去比较传进来的值如果小于他左边就要变为中间值+1
+				                        low = middle + 1;
+				                    }else if (arr[middle] > data) {//如果中间值大于传进来的值右边就要变为中间值-1
+				                        high = middle - 1;
+				                    }else {//如果不是大于小于那就是等于就直接返回
+				                        return middle
+				                    }
+				                }
+				                return -1;//如果都没有就返回-1
+		            		}
+			            var arr = ["a","b","c","d","e","f","g","h","i","j"];
+			            console.log(binSearch(arr, 'g'));
 				</textarea>
 			</li>
 		</ul>
@@ -724,6 +724,7 @@
       return num && num
           .toString()
           .replace(/(\d)(?=(\d{3})+\.)/g, function($1, $2){
+          		console.log('.....', $1 , '.....', $2)
               	return $2 + ',';
           });
   	}
@@ -835,6 +836,8 @@
   	o1.obj.key = 'hello';
   	console.log(o3);
 
+  	var a = null;
+  	console.log(a instanceof Object)
 
 </script>
 <style lang="scss" scoped="" type="text/css">

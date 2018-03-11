@@ -139,8 +139,8 @@
             <li>em：是一种相对值,它会继承法父级元素的大小</li>
             <li>rem:是根据根元素html的font-size对应大小，比如html大小为50px那么1rem就为50px;</li>
             <li>
-                这里说下em:
-                <textarea name="" id="" cols="80" rows="10">
+                这里说下em:<br/>
+                <textarea style="height:300px;">
                     <style>
                         body {
                             font-size: 12px;

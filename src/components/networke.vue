@@ -131,6 +131,17 @@
 			他的特点是数据加密,客户端和服务器端双方拥有相同的密钥
 		</li>
 	</ul>
+
+	<ul>
+		<li><strong>http协议</strong></li>
+		<li>
+			<b>http是一个基于请求与响应模式、无状态的应用层协议,基于TCP的连接方式</b><br/>
+			<b>是客户端和服务器端之间数据传输的格式规范简称：超文本传输协议</b>
+			<b>http请求由三部分组成：分别是请求头、消息报头、请求正文</b><br/>
+			<b>1、常用的HTTP方法有：get、post、put、head、delete、option</b><br/>
+			<b>常用的http状态码：1**、2**、3**、4**、5**</b>
+		</li>
+	</ul>
 	</div>
 </template>
 <script>

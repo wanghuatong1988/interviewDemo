@@ -5,6 +5,29 @@
 			<li>
 				Echarts底层依赖轻量级的Canvas类库ZRender,zRender这个库使用的是mvc结构,分别对应三个js
 			</li>
+			<li>基本配置参数：</li>
+			<textarea style="height:250px;">
+				theme = {
+					//全图默认背景
+					backgroundColor: 'red',
+					//默认色板
+					color: ['red','green','blue'],
+					//图表标题
+					title:{
+
+					}
+					//提示框 
+					tooltip:{
+
+					}
+					//网格配置
+					grid: {
+						xAxis: {},//x轴
+						yAxis: {},//y轴
+					}
+					
+				}
+			</textarea>
 		</ul>
 		<ul>
 			<li><strong>esLint规范</strong></li>

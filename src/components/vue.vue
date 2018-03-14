@@ -56,8 +56,8 @@
 
 				    Observer是监听数据对象的获取和设置工作,一旦有数据的获取或变更,会把这次行为当做是一个订阅者
 				    存放到一个Dep对象里,订阅者其实就是Watcher,
-				    通过对每个数据绑定Object.defineProperty,然后在getter方法下定义了一个属性,
-				    在Watcher每次实例化的时候就会把这个属性指向自己,
+				    触发Watcher的方式是通过对数据对象绑定Object.defineProperty,在getter方法下定义一个属性，
+				    在Watcher每次实例化的时候就会把数据对象下getter下的属性指向自己,
 				    Watcher获取到值后他会通知Complie这个对象对视图进行更新,
 				    Compile对象是利用文档碎片,对模板里面的表达式进行正则匹配和指令进行解析从而更新视图
 				</textarea>
@@ -124,6 +124,20 @@
 				第1种：全局导航钩子点击导航前router.beforeEach(),点击导航后router.afterEach()<br/>
 				第2种：组件内的钩子beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave<br/>
 				第3种：单独路由独享组件beforeEnter
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>v-if和v-show的区别</strong></li>
+			<li>
+				<b>共同点：</b>都是动态显示DOM元素<br/>
+				<b>区别：</b><br/>
+				1、v-if是动态向DOM添加或删除DOM元素,v-show是通过设置DOM的display样式控制显示隐藏<br/>
+				2、<b>编译过程：</b>v-if切换有一个局部编译/卸载过程，切换过程中合适销毁和重建内部事件监听子组件,
+				v-show只是简单的基于css切换<br/>
+				3、<b>编译条件：</b>v-if是惰性的,如果初始条件为假,则什么也不做,v-show是在任何条件 下都会被编译<br/>
+				4、<b>性能消耗：</b>v-if有更高的切换消耗,v-show有更高的初始渲染消耗<br/>
+				5、<b>使用场景：</b>v-if适合运营条件不太可能改变,v-show适合频繁切换
 			</li>
 		</ul>
 	</div>

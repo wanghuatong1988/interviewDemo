@@ -79,6 +79,23 @@
 			</li>
 		</ul>
 
+		<ul>
+			<li><strong>常用webpack人Loader和plugin</strong></li>
+			<li>
+				<textarea style="height:250px;">
+					Plugin:
+					1、webpack.HotModuleReplacementPlugin()  //热加载插件
+					2、webpack.DefinePlugin //配置全局变量
+					3、ParallelUglifyPlugin //代码压缩
+					4、ExtractTextPlugin //代码提取
+					5、webpack.optimize.MinChunkSizePlugin  //合并小文件
+					6、webpack.optimize.CommonsChunkPlugin  //提取公用代码插件
+					Loader:
+					1、(vue、html、css、less、sass、style、babel、url、file)-loader
+				</textarea>
+			</li>
+		</ul>
+
 	</div>
 </template>
 <script>

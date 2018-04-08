@@ -23,7 +23,7 @@
 			<li><strong>如何将字符串转化为数字,例如'12.3b'</strong></li>
 			<li>parseFloat('12.3b')</li>
 		</ul>
-		
+
 		<ul>
 			<li><strong>script标签的defer、async的区别</strong></li>
 			<li>
@@ -66,8 +66,8 @@
 			<li>
 				<textarea style="height:170px;">
 					function Person(){}
-					var person = new Person(); 
-					// 上一行代码等同于以下过程 ==> 
+					var person = new Person();
+					// 上一行代码等同于以下过程 ==>
 					var person = {};
 					person.__proto__ = Person.prototype;
 					Person.call(person);
@@ -153,7 +153,7 @@
 			<li>4、定时器忘记清理</li>
 			<li>5、移除父级的时候没有把他下面的子级同时清理,只移除父级子级还在会存在</li>
 		</ul>
-		
+
 		<ul>
 			<li><strong>如何判断一个对象是否属于某个类？</strong></li>
 			<li>
@@ -165,10 +165,10 @@
 
 					另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型,例如：
 
-					function Foo(){} 
-					Foo.prototype = new Aoo();//JavaScript 原型继承 
-					var foo = new Foo(); 
-					console.log(foo instanceof Foo)//true 
+					function Foo(){}
+					Foo.prototype = new Aoo();//JavaScript 原型继承
+					var foo = new Foo();
+					console.log(foo instanceof Foo)//true
 					console.log(foo instanceof Aoo)//true
 				</textarea>
 			</li>
@@ -249,7 +249,7 @@
 				</textarea>
 			</li>
 		</ul>
-		
+
 		<ul>
 			<li><strong>判断对象类型</strong></li>
 			<li>
@@ -271,7 +271,7 @@
 			<li></li>
 			<li></li>
 		</ul>
-		
+
 		<ul>
 			<li><strong>单线程</strong></li>
 			<li>
@@ -407,7 +407,7 @@
 
 					console.log(f1.a); //10;
 					console.log(f1.b); // 200
-					//hasOwnProperty用来判断不存在原型的属性					
+					//hasOwnProperty用来判断不存在原型的属性
 				</textarea>
 			</li>
 		</ul>
@@ -422,7 +422,7 @@
 						arr.push(a[i])
 					}
 					console.log(arr)//[4,3,2,1]
-					
+
 					//第二种方法
 					a.reverse();
 					console.log(a) // [4,3,2,1]
@@ -485,7 +485,7 @@
 					var forEachResult = numbers.forEach(function(item){
 						return item * 2;
 					})
-					
+
 					//reduce 对数组进行计算
 					var reduceResult = number.reduce(function(prev,cur,index,array){
 						return prev + cur; //
@@ -506,18 +506,19 @@
 					}
 
 					//匹配电话号码邮箱
-					
+
 					var reg = {
-						regEmail: /^(\w*)@[a-z]*\.(\w+)$/, 邮箱
+						regEmail: /^(\w*)@[a-z1-9]*\.(\w+)$/, 邮箱
 						regMobile: /^1[3|4|5|8][0-9]\d{8}$/,手机
 						regTel: /^0[\d]{3}-[\d]{7,8}$/,电话号码
+						regFloatNumber: /^[1-9][0-9]*(\.?)[0-9]{1,2}$/,纯数字保留两位小数
 					}
-					
+
 					//获取路径的字段
 					var url = 'http://www.wanghuatong.com/ss=11&ss=22';
 					var reg = /(^|\\?|&)ss=(\w*)/g;
 					url.replace(reg, function($0,$1,$2){
-						//$0 全部()内容 
+						//$0 全部()内容
 						//$1 第一个()
 						//$2 第二个()
 						console.log($2);
@@ -533,7 +534,7 @@
 				          });
 				  	}
 				  	console.log(commafy('12000000.11'))
-				</textarea>			
+				</textarea>
 			</li>
 		</ul>
 
@@ -575,7 +576,7 @@
 					}
 
 					console.log(arr.unqiure());
-					
+
 					//第二种
 					console.log([...new Set(arr)])
 				</textarea>
@@ -651,7 +652,7 @@
 								temp = arr[prev];
 								arr[prev] = arr[next];
 								arr[next] = temp;
-							} 
+							}
 						}
 						return arr;
 					}
@@ -712,13 +713,13 @@
 				</textarea>
 			</li>
 		</ul>
-			
+
 	</div>
 
 </template>
 <script>
 	console.log(parseFloat('12.3b')) //12.3
-	console.log(0.1 + 0.2) // 0.30000000000000004; 
+	console.log(0.1 + 0.2) // 0.30000000000000004;
 
 	function commafy(num){
       return num && num

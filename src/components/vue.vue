@@ -29,7 +29,7 @@
 			<li><strong>Vue怎样会无法监听依赖数据？</strong></li>
 			<li>
 				1、当你利用索引直接设置一个项时,vm.items[2] = newValue;<br/>
-				2、当你修改数组的长度时,vm.items.length = newLength 
+				2、当你修改数组的长度时,vm.items.length = newLength
 			</li>
 			<li>
 				解决方法：<br/>
@@ -51,7 +51,7 @@
 				<textarea style="height:200px;">
 					大致原理：
 				    有三个函数对象一个是Observer管理数据模型的变更
-				                  一个是Compile管理视图变更 
+				                  一个是Compile管理视图变更
 				                  一个是Watcher上以上两个的互通桥梁
 
 				    Observer是监听数据对象的获取和设置工作,一旦有数据的获取或变更,会把这次行为当做是一个订阅者
@@ -139,6 +139,16 @@
 				3、<b>编译条件：</b>v-if是惰性的,如果初始条件为假,则什么也不做,v-show是在任何条件 下都会被编译<br/>
 				4、<b>性能消耗：</b>v-if有更高的切换消耗,v-show有更高的初始渲染消耗<br/>
 				5、<b>使用场景：</b>v-if适合运营条件不太可能改变,v-show适合频繁切换
+			</li>
+		</ul>
+
+		<ul>
+			<li><strong>vue开发过程中遇到的问题</strong></li>
+			<li>
+				 <textarea>
+				 		1、初始定义了一个data数组对象为空，然后把请求的对象赋给data，在渲染的时候如果是对象下的对象会出现undefined
+				 		比如:data.children.name,他会报name为undefined，则时需要在判断v-if="data.children"是否存在
+				 </textarea>
 			</li>
 		</ul>
 	</div>

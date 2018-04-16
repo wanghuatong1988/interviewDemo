@@ -145,9 +145,11 @@
 		<ul>
 			<li><strong>vue开发过程中遇到的问题</strong></li>
 			<li>
-				 <textarea>
+				 <textarea  style="height:200px">
 				 		1、初始定义了一个data数组对象为空，然后把请求的对象赋给data，在渲染的时候如果是对象下的对象会出现undefined
 				 		比如:data.children.name,他会报name为undefined，则时需要在判断v-if="data.children"是否存在
+				 		2、有时添加router-link链接时少写一个"/"和多写一个"/"是有差别的，比如链接地址是www.dd.com/aa/12,你要跳到
+				 		www.dd.com/bb/12,如果是to="bb/12"它是会变成拼接最后成为"www.dd.com/aa/12/bb/12",所以要加上"/"号"/bb/12"
 				 </textarea>
 			</li>
 		</ul>

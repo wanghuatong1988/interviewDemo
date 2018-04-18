@@ -29,11 +29,11 @@ npm test
 # 好记性不如破笔头，记录前端笔记 [css、es6、git、html、js、networke、other、vue、webpack]
 # 一些组件开发
   - inputSearch  [下拉搜索组件](http://chuantu.biz/t6/289/1524029920x-1404793244.gif)
-###
+```
   这是一款下拉搜索的插件，像类似下拉搜索的实现还算比较简单
   只需全局对键盘进行监听，没有实现太多的配置，一般需求是够用
   参数的设置有如下：
   getSearchName 获取搜索内容
   data 数据格式 [{label: '飞机', value: 1}]
   width 设置搜索框宽度
-###
+```

@@ -16,7 +16,7 @@
 					title:{
 
 					}
-					//提示框 
+					//提示框
 					tooltip:{
 
 					}
@@ -25,7 +25,7 @@
 						xAxis: {},//x轴
 						yAxis: {},//y轴
 					}
-					
+
 				}
 			</textarea>
 		</ul>
@@ -55,7 +55,19 @@ ul {
   border:1px solid #000;
   margin: 20px 0;
 }
-strong {
-    color: firebrick;
+ul {
+  border:1px solid #000;
+  margin: 10px 0;
+}
+textarea {
+  width: 80%;
+  height: 100px;
+}
+.contenteditable {
+  width:80%;border:1px solid #000;
+  margin:0 auto;
+}
+ul {
+ box-shadow: 2px 2px 5px #333;
 }
 </style>

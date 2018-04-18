@@ -1,6 +1,6 @@
 <template>
 	<div>
-		
+
 		<ul>
 			<li><strong>怎样使用webpack?</strong></li>
 			<li>
@@ -55,7 +55,7 @@
 					 //3.判断模块是否缓存，若是缓存了就不用加载，直接返还这个已缓存的模块
 					 if(installedModules[moduleId]) {
 					     return installedModules[moduleId].exports;}
-					     
+
 					 // 4.若是没有被缓存，则缓存这个模块
 					 var module = installedModules[moduleId] = {
 					     i: moduleId, //模块ID
@@ -63,7 +63,7 @@
 					     exports: {}
 					 };
 
-					 //5.执行模块函数，modules代表一系列的模块函数，要动态绑定module.exports，绑定this；可以交叉连续引用。     
+					 //5.执行模块函数，modules代表一系列的模块函数，要动态绑定module.exports，绑定this；可以交叉连续引用。
 					 modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
 					 // 6.标记模块已经被加载
@@ -71,7 +71,7 @@
 
 					 // 7.返回该模块的exports
 					 return module.exports;}
-					 
+
 					 //8.require第一个 模块
 					 return __webpack_require__(0);
 					}
@@ -110,7 +110,19 @@ ul {
   border:1px solid #000;
   margin: 20px 0;
 }
-strong {
-    color: firebrick;
+ul {
+  border:1px solid #000;
+  margin: 10px 0;
+}
+textarea {
+  width: 80%;
+  height: 100px;
+}
+.contenteditable {
+  width:80%;border:1px solid #000;
+  margin:0 auto;
+}
+ul {
+ box-shadow: 2px 2px 5px #333;
 }
 </style>

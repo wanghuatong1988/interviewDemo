@@ -10,10 +10,10 @@
         <!-- 三种居中方式 -->
         <div class="divCenter"><span></span><span></span><span></span></div>
         <!-- css居中未知图片大小 -->
-        <div class="thumbanil"><img src="../assets/logo.png"></div>  
+        <div class="thumbanil"><img src="../assets/logo.png"></div>
         <!-- calc用法 -->
         <ul class="calcBox"><li></li><li></li><li></li><li></li></ul>
-        
+
         <ul>
           <li>左右布局：左边定宽、右边自知应，三种</li>
           <li>
@@ -213,7 +213,7 @@
             </div>
           </li>
         </ul>
-        
+
         <ul>
           <li><strong>line-height如何理解？</strong></li>
           <li>
@@ -239,7 +239,7 @@
             <div style="font-size:0; line-height:20px; border:1px solid #cccccc; background:#eeeeee;">测试</div>
           </li>
         </ul>
-        
+
 
         <ul>
           <li><strong>怎么让Chrome支持小于12px的文字？</strong></li>
@@ -249,6 +249,26 @@
 
 </template>
 <style lang="scss" scoped="" type="text/css">
+
+ul {
+  border:1px solid #000;
+  margin: 10px 0;
+}
+strong {
+    color: firebrick;
+}
+textarea {
+  width: 80%;
+  height: 100px;
+}
+.contenteditable {
+  width:80%;border:1px solid #000;
+  margin:0 auto;
+}
+ul {
+ box-shadow: 2px 2px 5px #333;
+}
+
 ul,li {
   margin: 0;
   padding: 10px;
@@ -282,7 +302,7 @@ $w: 100px;
   width: $w;
   border: 1px solid red;
   color: $nav-color;
-  @include round-s; 
+  @include round-s;
   @include fn(10,blue);
   @extend .extend;
 }

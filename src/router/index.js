@@ -9,6 +9,7 @@ import networke from '@/components/networke'
 import other from '@/components/other'
 import vue from '@/components/vue'
 import webpack from '@/components/webpack'
+import inputSelect from '@/components/input-select'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/webpack',
       name: 'webpack',
       component: webpack
+    },
+    {
+      path: '/inputselect',
+      name: 'inputselect',
+      component: inputSelect
     }
   ]
 })

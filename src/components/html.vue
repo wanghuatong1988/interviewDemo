@@ -101,7 +101,7 @@
           <li>1、通过document.createElement(html5标签)可让低版本浏览器识别</li>
           <li>2、使用html shim插件</li>
         </ul>
-        
+
         <ul>
           <li><strong>html5的语义化</strong></li>
           <li>1、header标签页眉</li>
@@ -178,7 +178,19 @@ ul {
   border:1px solid #000;
   margin: 20px 0;
 }
-strong {
-    color: firebrick;
+ul {
+  border:1px solid #000;
+  margin: 10px 0;
+}
+textarea {
+  width: 80%;
+  height: 100px;
+}
+.contenteditable {
+  width:80%;border:1px solid #000;
+  margin:0 auto;
+}
+ul {
+ box-shadow: 2px 2px 5px #333;
 }
 </style>

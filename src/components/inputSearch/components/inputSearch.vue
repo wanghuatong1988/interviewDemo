@@ -6,7 +6,7 @@
         </div>
         <transition name="fade">
             <div class="input-box" v-show="show" :style="{width: width + 'px'}">
-                <div class="inputStyle">
+                <div class="inputStyle" v-if="visibleInput">
                     <input type="input" v-model="textValue"  placeholder="请输入搜索内容"/>
                 </div>
                 <ul class="ul-box" @mouseleave="mouseLeaveList">
@@ -40,6 +40,10 @@ export default {
             type: [Array],
             default: ''
         },
+        visibleInput: {
+            type: [Boolean],
+            default: true
+        }
     },
     data() {
         return{

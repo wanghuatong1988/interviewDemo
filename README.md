@@ -26,7 +26,8 @@ npm run e2e
 # run all tests
 npm test
 ```
-# 好记性不如破笔头，记录前端笔记 [css、es6、git、html、js、networke、other、vue、webpack]
+# 好记性不如破笔头，记录前端笔记
+  - [css、es6、git、html、js、networke、other、vue、webpack]
 # 组件开发
   - inputSearch  [下拉搜索组件 /src/components/input-select](http://chuantu.biz/t6/289/1524031014x-1404793244.gif)
 ```

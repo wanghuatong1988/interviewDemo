@@ -142,6 +142,16 @@
 			<b>常用的http状态码：1**、2**、3**、4**、5**</b>
 		</li>
 	</ul>
+
+	<ul>
+			<li><strong>Fiddler代理</strong></li>
+			<li>
+				<textarea>
+					1、有时我们要用Fiddler抓取线上的https网站，但是如果没有证书的话他是不会让你抓取的
+					这里是一个让你怎么抓取https的教程：https://blog.csdn.net/d1240673769/article/details/74298429
+				</textarea>
+			</li>
+	</ul>
 	</div>
 </template>
 <script>

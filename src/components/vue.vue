@@ -150,7 +150,26 @@
 				 		比如:data.children.name,他会报name为undefined，则时需要在判断v-if="data.children"是否存在
 				 		2、有时添加router-link链接时少写一个"/"和多写一个"/"是有差别的，比如链接地址是www.dd.com/aa/12,你要跳到
 				 		www.dd.com/bb/12,如果是to="bb/12"它是会变成拼接最后成为"www.dd.com/aa/12/bb/12",所以要加上"/"号"/bb/12"
+				 		3、有时父组件传给子组件的值是异步的，你在created或moutheds打印获取的值是空的，这时要在子组件上去判断传给子
+				 		组件的对象是否不为空<child v-if="dataList"/>,或者可以在子组件里watch下dataList
 				 </textarea>
+			</li>
+		</ul>
+
+		<ul>
+			<li>
+				<strong>什么时候需要用的Vue.nextTick()</strong>
+			</li>
+			<li>
+				<textarea style="height:200px">
+					1、你在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中。
+						原因是什么呢，原因是在created()钩子函数执行的时候DOM 其实并未进行任何渲染，
+						而此时进行DOM操作无异于徒劳，所以此处一定要将DOM操作的js代码放进Vue.nextTick()的回调函数中。
+						与之对应的就是mounted钩子函数，因为该钩子函数执行时所有的DOM挂载和渲染都已完成，
+						此时在该钩子函数中进行任何DOM操作都不会有问题 。
+					2、在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，
+						这个操作都应该放进Vue.nextTick()的回调函数中。
+				</textarea>
 			</li>
 		</ul>
 	</div>

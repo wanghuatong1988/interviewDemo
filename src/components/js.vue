@@ -717,7 +717,7 @@
 	</div>
 
 </template>
-<script>
+<script type="text/javascript">
 	console.log(parseFloat('12.3b')) //12.3
 	console.log(0.1 + 0.2) // 0.30000000000000004;
 
@@ -732,10 +732,31 @@
   	console.log(commafy('12000000.11'));
 
 
+  	//获取指定时间和当前时间相差多少天多少分多少秒
+
+  	var date1 = new Date('2013/04/02 18:00')
+		var date2 = new Date('2013/04/02 19:25:35')
+
+		var s1 = date1.getTime(),
+			s2 = date2.getTime();
+		var total = (s2 - s1)/1000;
+
+
+		var day = parseInt(total / (24*60*60));//计算整数天数
+		var afterDay = total - day*24*60*60;//取得算出天数后剩余的秒数
+		var hour = parseInt(afterDay/(60*60));//计算整数小时数
+		var afterHour = total - day*24*60*60 - hour*60*60;//取得算出小时数后剩余的秒数
+		var min = parseInt(afterHour/60);//计算整数分
+		var afterMin = total - day*24*60*60 - hour*60*60 - min*60;//取得算出分后剩余的秒数
+
+
+
+
+  	/**
   	var ObjCreate = {name:'one'};
-	var ObjCreate2 = Object.create(ObjCreate);
-	ObjCreate2.name = 'two';
-	console.log(ObjCreate.name); //one
+		var ObjCreate2 = Object.create(ObjCreate);
+		ObjCreate2.name = 'two';
+		console.log(ObjCreate.name); //one
 
   	var ObjCreate3 = {prop:{name: 'one',}}
   	var ObjCreate4 = Object.create(ObjCreate3);
@@ -838,7 +859,7 @@
   	console.log(o3);
 
   	var a = null;
-  	console.log(a instanceof Object)
+  	console.log(a instanceof Object)*/
 
 </script>
 <style lang="scss" scoped="" type="text/css">

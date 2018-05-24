@@ -732,22 +732,38 @@
   	console.log(commafy('12000000.11'));
 
 
-  	//获取指定时间和当前时间相差多少天多少分多少秒
+  	function timeDiffer(oldtime, time) {
 
-  	var date1 = new Date('2013/04/02 18:00')
-		var date2 = new Date('2013/04/02 19:25:35')
+				/***
+				 *  @params oldtime {String => 开始时间} [YY-MM-DD hh:mm:ss]
+				 *  @params time {Number => 多少小时结束}
+				 */
+				let date = new Date(),
+					y = date.getFullYear(),
+					m = date.getMonth() + 1,
+				 	d = date.getDate(),
+					h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
+					mi = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes(),
+					s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds(),
 
-		var s1 = date1.getTime(),
-			s2 = date2.getTime();
-		var total = (s2 - s1)/1000;
+					totalTime = '', total = '', day = '', afterDay = '', hour = '', afterHour = '', min = '',
+					date1 = new Date('2018-5-23 14:10:00'),
+					date2 = new Date(`${y}-${m}-${d} ${h}:${mi}:${s}`);
 
+					if(date1 > date2 && !time) {
+						return '';
+					}
 
-		var day = parseInt(total / (24*60*60));//计算整数天数
-		var afterDay = total - day*24*60*60;//取得算出天数后剩余的秒数
-		var hour = parseInt(afterDay/(60*60));//计算整数小时数
-		var afterHour = total - day*24*60*60 - hour*60*60;//取得算出小时数后剩余的秒数
-		var min = parseInt(afterHour/60);//计算整数分
-		var afterMin = total - day*24*60*60 - hour*60*60 - min*60;//取得算出分后剩余的秒数
+					totalTime = (date2.getTime() - date1.getTime())/1000, //当前时间 - 开始时间 = 走掉的时间 (秒为单位)
+					total = (time * 60 * 60) - totalTime, //固定时间 - 走掉的时间 = 剩余的时间
+					day = parseInt(total / (24 * 60 * 60)),//计算整数天数
+					afterDay = total - day * 24 * 60 * 60,//取得算出天数后剩余的秒数
+					hour = parseInt(afterDay / (60 * 60)),//计算整数小时数
+					afterHour = total - day * 24 * 60 * 60 - hour * 60 * 60,//取得算出小时数后剩余的秒数
+					min = parseInt(afterHour / 60);//计算整数分
+
+					return `${day > 0 ? day + '天' : ''}${hour === 0 ? '' : hour + '小时'}${min === 0 ? '' : min + '分钟'}`;
+		}
 
 
 

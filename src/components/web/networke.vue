@@ -37,7 +37,7 @@
 			有了渲染树就能知道网页中有哪些节点、各个节点css及他们的关系,下一步就是Layout,计算出每个节点在屏幕的位置<br/>
 			再下一步就是绘制,即遍历渲染树<br/>
 			这里渲染引擎不会等到所有的html都解析完再去构建渲染树,它是解析一部分显示一部分<br/>
-			<img src="./../assets/tt.png" alt=""/>
+			<img src="./../../assets/tt.png" alt=""/>
 		</li>
 		<li>
 			<strong>Reflow(回流)和Repaint(重绘)</strong><br/>

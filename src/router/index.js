@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import css from '@/components/css'
-import es6 from '@/components/es6'
-import git from '@/components/git'
-import html from '@/components/html'
-import js from '@/components/js'
-import networke from '@/components/networke'
-import other from '@/components/other'
-import vue from '@/components/vue'
-import webpack from '@/components/webpack'
+import css from '@/components/web/css'
+import es6 from '@/components/web/es6'
+import git from '@/components/web/git'
+import html from '@/components/web/html'
+import js from '@/components/web/js'
+import networke from '@/components/web/networke'
+import other from '@/components/web/other'
+import vue from '@/components/web/vue'
+import webpack from '@/components/web/webpack'
 import inputSelect from '@/components/input-select'
+import tabSelect from '@/components/tab-select'
+import dragEnlargeRotate from '@/components/drag-enlarge-rotate'
 
 Vue.use(Router)
 
@@ -61,9 +63,19 @@ export default new Router({
       component: webpack
     },
     {
+      path: '/tabselect',
+      name: 'tab-select',
+      component: tabSelect
+    },
+    {
       path: '/inputselect',
-      name: 'inputselect',
+      name: 'input-select',
       component: inputSelect
+    },
+    {
+      path: '/dragenlargerotate',
+      name: 'drag-enlarge-rotate',
+      component: dragEnlargeRotate
     }
   ]
 })

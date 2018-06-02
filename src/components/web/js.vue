@@ -350,7 +350,7 @@
 				  	//Function也是一个函数，函数是一种对象，也有__proto__属性。既然是函数，那么它一定是被Function创建
 				  	//console.log(Fn.__proto__ === Function.prototype); //true
 				</textarea><br/>
-				<img src="./../assets/a.png" /><br/>
+				<img src="./../../assets/a.png" /><br/>
 				先说下prototype和__proto__的区别:<br/>
 				prototype是<strong>函数</strong>才有的属性,但是__proto__是每个对象都有的属性包括函数。<br/>
 				<textarea style="height:120px;">

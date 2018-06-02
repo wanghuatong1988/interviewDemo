@@ -1,6 +1,10 @@
 <template>
 
     <div>
+        <div class="flex-poistion">
+          <div></div>
+        </div>
+
         <!--sass用法-->
         <div class="sass">你好<article>hello</article></div>
 
@@ -10,7 +14,7 @@
         <!-- 三种居中方式 -->
         <div class="divCenter"><span></span><span></span><span></span></div>
         <!-- css居中未知图片大小 -->
-        <div class="thumbanil"><img src="../assets/logo.png"></div>
+        <div class="thumbanil"><img src="../../assets/logo.png"></div>
         <!-- calc用法 -->
         <ul class="calcBox"><li></li><li></li><li></li><li></li></ul>
 
@@ -566,4 +570,5 @@ $w: 100px;
     // height: 50%;
   }
 }
+
 </style>

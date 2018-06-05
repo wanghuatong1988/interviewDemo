@@ -767,6 +767,142 @@
 
 
 
+    var a = [
+      {
+        checked:false,
+        name:"一级",
+        id:1,
+        isOk:false,
+        parent_id: 0,
+        child:[
+        {
+          checked:false,
+          name:"二级",
+          id:2,
+          isOk:false,
+          parent_id: 1,
+        	child:[
+          	{
+          		checked:true,
+          		name:"三级a",
+          		id:4,
+          		parent_id: 2
+          	},{
+          		checked:false,
+          		name:"三级b",
+          		id:5,
+          		parent_id: 2
+          	}
+          ]
+        },
+        {
+          checked:false,
+          name:"二级",
+          id:3,
+          isOk:false,
+          parent_id: 1,
+          child:[
+            {
+              checked:true,
+              name:"三级c",
+              parent_id: 3,
+              id:6
+            },{
+              checked:false,
+              name:"三级d",
+              parent_id: 3,
+              id:7
+            }
+          ]
+        }]
+      },
+      {
+        checked:false,
+        name:"一级",
+        id:8,
+        isOk:false,
+        parent_id: 0,
+        child:[
+        {
+          checked:false,
+          name:"二级",
+          id:9,
+          isOk:false,
+          parent_id: 8,
+        	child:[
+          	{
+          		checked:true,
+          		name:"三级a",
+          		id:11,
+          		parent_id: 9
+          	},{
+          		checked:false,
+          		name:"三级b",
+          		id:12,
+          		parent_id: 9
+          	}
+          ]
+        },
+        {
+          checked:false,
+          name:"二级",
+          id:10,
+          isOk:false,
+          parent_id: 8,
+          child:[
+            {
+              checked:false,
+              name:"三级c",
+              parent_id: 10,
+              id:13
+            },{
+              checked:false,
+              name:"三级d",
+              parent_id: 10,
+              id:14
+            }
+          ]
+        }]
+      },
+    ];
+
+    //给对象加层级
+    (function setLevel(data, depth){
+    	for(let v of data) {
+    		v.depth = depth
+    		if(v.child && v.child.length) {
+    			setLevel(v.child, depth + 1)
+    		}
+    	}
+    })(a, 1)
+
+    let arr = [], removeArr = [];
+    function getLevel(obj) {
+      obj.forEach((item, index)=>{
+        item.index = index;
+        if(item.child && item.child.length) {
+          getLevel(item.child);
+        }else {
+          if(item.checked) {
+            getLastChenked([a[index]]);
+          }else {
+            //记录要删除的id
+            removeArr.push(item.id);
+          }
+        }
+      })
+      return Array.from(new Set([...new Set(arr)].filter(x=> !new Set(removeArr).has(x))));
+    }
+
+    function getLastChenked(obj) {
+      for(let v of obj) {
+        arr.push(v.id);
+        if(v.child && v.child.length) {
+          getLastChenked(v.child);
+        }
+      }
+    }
+
 
   	/**
   	var ObjCreate = {name:'one'};

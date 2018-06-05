@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div style="text-align:left;">
         <div class="flex-poistion">
           <div></div>
         </div>
@@ -17,6 +17,68 @@
         <div class="thumbanil"><img src="../../assets/logo.png"></div>
         <!-- calc用法 -->
         <ul class="calcBox"><li></li><li></li><li></li><li></li></ul>
+
+        <ul>
+          <li>table布局</li>
+          <li>
+              <div class="common-table">
+                <table class="table_head">
+                  <thead>
+                    <tr>
+                      <td width="61%"><div class="order-title"><em>商品信息</em><em>所属品牌</em><em>单价</em><em>数量</em></div></td>
+                      <td width="7%" align="center">收货人</td>
+                      <td width="7%" align="center">状态</td>
+                      <td width="7%" align="center">实收货款</td>
+                      <td width="7%" align="center">平台佣金</td>
+                      <td width="11%" align="center">详情</td>
+                    </tr>
+                  </thead>
+                </table>
+                <table class="table_main">
+                  <thead>
+                    <tr>
+                      <td colspan="10" class="fieldList">
+                        <span>订单号：2185080</span>
+                        <span>下单时间：2018</span>
+                        <span>实体店：飞夺</span>
+                        <span>联系厂商：18666929287</span>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td width="61%" style='padding: 15px'>
+                          <div class='mergeBox'>
+                            <div>
+                              <div>
+                                  <img src="https://afp.alicdn.com/afp-creative/creative/u124884735/e751d4e390fa705a4029b49b47b05909.jpg" alt="" height="120">
+                              </div>
+                              <div>
+                                <div>品牌名称</div>
+                                <div>规格：12356</div>
+                                <div>商家型号：165</div>
+                                <div>
+                                  <div><span>样</span><span>预</span><span>限</span></div>
+                                  <div><em>活动扣点/金额：</em></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div><span class="brand-name">在洒洛杉矶</span></div>
+                            <div >$135</div>
+                            <div>111</div>
+                          </div>
+                      </td>
+                      <td width="7%" align="center">中国</td>
+                      <td width="7%" align="center">美 国</td>
+                      <td width="7%" align="center">芬芬</td>
+                      <td width="7%" align="center">张砂要</td>
+                      <td width="11%" align="center">已催单</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </li>
+        </ul>
 
         <ul>
           <li>左右布局：左边定宽、右边自知应，三种</li>
@@ -568,6 +630,117 @@ $w: 100px;
     margin-top: 20%;
     background: cornflowerblue;
     // height: 50%;
+  }
+}
+
+.common-table {
+  .table_head {
+    td {
+      padding: 15px 20px;
+      span {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .order-title {
+        display: flex;
+        em:not(:nth-child(1)) {
+          flex: 0 0 12%;
+          text-align: center;
+        }
+        em:first-child {
+          flex: 1;
+        }
+      }
+    }
+    font-weight: bold;
+    color: #000;
+    border: 1px solid #eee;
+    background: #f5f7fa;
+    margin: 0 0 20px 0;
+  }
+  .table_main {
+    width: 100%;
+    margin: 0 0 20px 0;
+    thead {
+      tr {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #eee;
+        background: #f5f7fa;
+        .fieldList {
+          span {
+            margin:  0 15px;
+            &:last-child {
+              float: right;
+              color: #FF0063;
+            }
+          }
+        }
+      }
+    }
+    tbody {
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      overflow: hidden;
+      td {
+        .mergeBox {
+            display: flex;
+            > div:not(:nth-child(1)) {
+                flex: 0 0 12%;
+                align-self: center;
+                text-align: center;
+                .brand-name {
+                    padding: 3px 10px;
+                    display: inline-block;
+                    margin: 0 8px 0 0;
+                    background: #ECF5FF;
+                    color: #409EFF;
+                    border:1px solid #CAE4FF;
+                    border-radius: 4px;
+                }
+            }
+            > div:nth-child(1) {
+                flex: 1;
+                overflow: hidden;
+                margin: 5px 0;
+                > div:nth-child(1) {
+                    width: 120px;
+                    float: left;
+                    overflow: hidden;
+                }
+                > div:nth-child(2) {
+                    width: calc(100% - 140px);
+                    margin: 0 10px;
+                    float: right;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 120px;
+                    div:last-child {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        div {
+                            &:nth-child(1) {
+                                span {
+                                    padding: 3px 10px;
+                                    display: inline-block;
+                                    margin: 0 8px 0 0;
+                                    background: #ECF5FF;
+                                    color: #409EFF;
+                                    border:1px solid #CAE4FF;
+                                    border-radius: 4px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+      }
+    }
   }
 }
 

@@ -767,49 +767,43 @@
 
 
 
-    var a = [
-      {
-        checked:false,
-        name:"一级",
+    var arrList = [
+    	{
+        name:"新闻",
         id:1,
-        isOk:false,
         parent_id: 0,
         child:[
         {
-          checked:false,
-          name:"二级",
+          name:"广东新闻",
           id:2,
-          isOk:false,
           parent_id: 1,
-        	child:[
-          	{
-          		checked:true,
-          		name:"三级a",
-          		id:4,
-          		parent_id: 2
-          	},{
-          		checked:false,
-          		name:"三级b",
-          		id:5,
-          		parent_id: 2
-          	}
+            child:[
+              {
+                now: true,
+                  name:"深圳新闻",
+                  id:4,
+                  parent_id: 2
+              },{
+                now: false,
+                  name:"广州新闻",
+                  id:5,
+                  parent_id: 2
+              }
           ]
         },
         {
-          checked:false,
-          name:"二级",
+          name:"湖南新闻",
           id:3,
-          isOk:false,
           parent_id: 1,
           child:[
             {
-              checked:true,
-              name:"三级c",
+              now: true,
+              name:"株洲新闻",
               parent_id: 3,
               id:6
             },{
-              checked:false,
-              name:"三级d",
+              now: false,
+              name:"长沙新闻",
               parent_id: 3,
               id:7
             }
@@ -817,49 +811,85 @@
         }]
       },
       {
-        checked:false,
-        name:"一级",
+        name:"学院",
         id:8,
-        isOk:false,
         parent_id: 0,
         child:[
         {
-          checked:false,
-          name:"二级",
+          name:"广东学院",
           id:9,
-          isOk:false,
           parent_id: 8,
-        	child:[
-          	{
-          		checked:true,
-          		name:"三级a",
-          		id:11,
-          		parent_id: 9
-          	},{
-          		checked:false,
-          		name:"三级b",
-          		id:12,
-          		parent_id: 9
-          	}
+            child:[
+              {
+                now: true,
+                  name: "深圳大学",
+                  id:11,
+                  parent_id: 9
+              },{
+                now: false,
+                  name:"中山大学",
+                  id:12,
+                  parent_id: 9
+              }
           ]
         },
         {
-          checked:false,
-          name:"二级",
+          name:"湖南学院",
           id:10,
-          isOk:false,
           parent_id: 8,
           child:[
             {
-              checked:false,
-              name:"三级c",
+              now: false,
+              name:"长沙师范学院",
               parent_id: 10,
               id:13
             },{
-              checked:false,
-              name:"三级d",
+              now: false,
+              name:"株洲学院",
               parent_id: 10,
               id:14
+            }
+          ]
+        }]
+      },
+      {
+        name:"篮球",
+        id:15,
+        parent_id: 0,
+        child:[
+        {
+          name:"湖人",
+          id:16,
+          parent_id: 15,
+            child:[
+              {
+                now: false,
+                  name: "科比",
+                  id:17,
+                  parent_id: 16
+              },{
+                now: false,
+                  name:"魔术师",
+                  id:18,
+                  parent_id: 16
+              }
+          ]
+        },
+        {
+          name:"勇士",
+          id:19,
+          parent_id: 15,
+          child:[
+            {
+              now: false,
+              name:"库里",
+              parent_id: 19,
+              id:20
+            },{
+              now: true,
+              name:"佛祖",
+              parent_id: 19,
+              id:21
             }
           ]
         }]
@@ -874,35 +904,72 @@
     			setLevel(v.child, depth + 1)
     		}
     	}
-    })(a, 1)
+    })(arrList, 1)
 
-    let arr = [], removeArr = [];
-    function getLevel(obj) {
-      obj.forEach((item, index)=>{
-        item.index = index;
-        if(item.child && item.child.length) {
-          getLevel(item.child);
-        }else {
-          if(item.checked) {
-            getLastChenked([a[index]]);
-          }else {
-            //记录要删除的id
-            removeArr.push(item.id);
-          }
-        }
-      })
-      return Array.from(new Set([...new Set(arr)].filter(x=> !new Set(removeArr).has(x))));
-    }
+  //   function objP(bArr, inArr){
+	 //    var rt = [];
+	 //    for(var i = 0; i<inArr.length;i++){
+	 //        if(inArr[i].now===false){
+	 //            continue;
+	 //        } else if(inArr[i].now){
+	 //            var newBArr=bArr.concat(inArr[i].id);
+	 //            rt.push(newBArr);
+	 //            continue;
+	 //        } else if(inArr[i].child){
+	 //            var tmp=objP([inArr[i].id], inArr[i].child)
+	 //            for(var j=0;j<tmp.length;j++){
+	 //                rt.push(bArr.concat(tmp[j]));
+	 //            }
+	 //        }
+	 //    }
+	 //    return rt;
+		// }
 
-    function getLastChenked(obj) {
-      for(let v of obj) {
-        arr.push(v.id);
-        if(v.child && v.child.length) {
-          getLastChenked(v.child);
-        }
-      }
-    }
+		function objP(bArr, inArr) {
+			var rt = [];
+			for(var i = 0; i < inArr.length; i++) {
+				if(inArr[i].child) {
+					var tmp = objP([inArr[i].id], inArr[i].child);
+					for(var j = 0; j < tmp.length; j++) {
+						rt.push(bArr.concat(tmp[j]));
+					}
+				} else if(inArr[i].now) {
+					var newBArr = bArr.concat(inArr[i].id);
+					rt.push(newBArr);
+					continue;
+				}
+			}
+			return rt;
+		}
 
+		console.log(JSON.stringify(objP([],arrList)));
+
+    // let arr = [], removeArr = [];
+    // function getLevel(obj) {
+    //   obj.forEach((item, index)=>{
+    //     item.index = index;
+    //     if(item.child && item.child.length) {
+    //       getLevel(item.child);
+    //     }else {
+    //       if(item.checked) {
+    //         getLastChenked([arrList[index]]);
+    //       }else {
+    //         //记录要删除的id
+    //         removeArr.push(item.id);
+    //       }
+    //     }
+    //   })
+    //   return Array.from(new Set([...new Set(arr)].filter(x=> !new Set(removeArr).has(x))));
+    // }
+
+    // function getLastChenked(obj) {
+    //   for(let v of obj) {
+    //     arr.push(v.id);
+    //     if(v.child && v.child.length) {
+    //       getLastChenked(v.child);
+    //     }
+    //   }
+    // }
 
   	/**
   	var ObjCreate = {name:'one'};

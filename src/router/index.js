@@ -12,6 +12,7 @@ import webpack from '@/components/web/webpack'
 import inputSelect from '@/components/input-select'
 import tabSelect from '@/components/tab-select'
 import dragEnlargeRotate from '@/components/drag-enlarge-rotate'
+import vant from '@/components/web/vant'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       path: '/dragenlargerotate',
       name: 'drag-enlarge-rotate',
       component: dragEnlargeRotate
+    },
+    {
+      path: '/vant',
+      name: 'vant',
+      component: vant
     }
   ]
 })

@@ -5,8 +5,6 @@ import App from './App'
 import router from './router'
 
 import inputSearch from './components/inputSearch/index';
-import myTouch from './components/drag-enlarge-rotate/mytouch';
-Vue.use(myTouch);
 Vue.use(inputSearch);
 Vue.config.productionTip = false
 

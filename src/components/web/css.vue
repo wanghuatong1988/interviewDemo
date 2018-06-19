@@ -81,6 +81,18 @@
         </ul>
 
         <ul>
+          <li>
+            <div class="base-message-box">
+                <div class="left">
+                        左右高度不一样<br/>设置他们同高<br/>sdfsd<br/>sdfsd<br/>sdfsd<br/>
+                </div>
+                <div class="right">
+                    利用display:flex<br/>justfiy-content:space-between<br/>
+                </div>
+            </div>
+          </li>
+        </ul>
+        <ul>
           <li>左右布局：左边定宽、右边自知应，三种</li>
           <li>
             <div class="layoutBox">
@@ -744,4 +756,16 @@ $w: 100px;
   }
 }
 
+.base-message-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px auto;
+  overflow: hidden;
+  div {
+    width: calc((100% / 2) - 10px);
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px solid #797979;
+  }
+}
 </style>

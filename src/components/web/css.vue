@@ -18,6 +18,21 @@
         <!-- calc用法 -->
         <ul class="calcBox"><li></li><li></li><li></li><li></li></ul>
 
+        <!-- animation 的用法-->
+        <ul>
+          <li>
+            animation 的用法
+          </li>
+          <textarea>
+            @-webkit-keyframes heightscroll{
+                0%   {height: 0}
+                100% {height: 250px;}
+            }
+            animation:heightscroll 1s alternate forwards;
+            -webkit-animation:heightscroll 1s alternate forwards;
+          </textarea>
+        </ul>
+
         <ul>
           <li>table布局</li>
           <li>

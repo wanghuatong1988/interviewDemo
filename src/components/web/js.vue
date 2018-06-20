@@ -496,49 +496,6 @@
 		</ul>
 
 		<ul>
-			<li><strong>常规正则</strong></li>
-			<li>
-				<textarea style="height:600px;">
-					//去掉左右两边的空格
-					var add = ' sdsfsds '
-					String.prototype.trim = function() {
-						return this.replace(/(^\s*)|(\s*$)/g,'');
-					}
-
-					//匹配电话号码邮箱
-
-					var reg = {
-						regEmail: /^(\w*)@[a-z1-9]*\.(\w+)$/, 邮箱
-						regMobile: /^1[3|4|5|8][0-9]\d{8}$/,手机
-						regTel: /^0[\d]{3}-[\d]{7,8}$/,电话号码
-						regFloatNumber: /^[1-9][0-9]*(\.[0-9]{1,2})?$/,纯数字保留两位小数
-					}
-
-					//获取路径的字段
-					var url = 'http://www.wanghuatong.com/ss=11&ss=22';
-					var reg = /(^|\\?|&)ss=(\w*)/g;
-					url.replace(reg, function($0,$1,$2){
-						//$0 全部()内容
-						//$1 第一个()
-						//$2 第二个()
-						console.log($2);
-					})
-
-					//如何将12000000.11转化为12,000,000.11
-
-					function commafy(num){
-				      return num && num
-				          .toString()
-				          .replace(/(\d)(?=(\d{3})+\.)/g, function($1, $2){
-				              	return $2 + ',';
-				          });
-				  	}
-				  	console.log(commafy('12000000.11'))
-				</textarea>
-			</li>
-		</ul>
-
-		<ul>
 			<li><strong>bind的运用</strong></li>
 			<li>
 				<textarea>
@@ -720,17 +677,6 @@
 <script type="text/javascript">
 	console.log(parseFloat('12.3b')) //12.3
 	console.log(0.1 + 0.2) // 0.30000000000000004;
-
-	function commafy(num){
-      return num && num
-          .toString()
-          .replace(/(\d)(?=(\d{3})+\.)/g, function($1, $2){
-          		console.log('.....', $1 , '.....', $2)
-              	return $2 + ',';
-          });
-  	}
-  	console.log(commafy('12000000.11'));
-
 
   	function timeDiffer(oldtime, time) {
 

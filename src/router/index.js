@@ -13,6 +13,7 @@ import inputSelect from '@/components/input-select'
 import tabSelect from '@/components/tab-select'
 import dragEnlargeRotate from '@/components/drag-enlarge-rotate'
 import vant from '@/components/web/vant'
+import regexp from '@/components/web/regexp'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ export default new Router({
       path: '/vant',
       name: 'vant',
       component: vant
+    },
+    {
+      path: '/regexp',
+      name: 'regexp',
+      component: regexp
     }
   ]
 })

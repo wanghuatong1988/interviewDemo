@@ -1,7 +1,7 @@
 <template>
     <div @click.stop.prevent
         :class="['tab-pane', {'tab-min-height': isShow}]"
-        v-show="isShow"
+        v-if="isShow"
         :style="{'background': $parent.bgColor}">
         <div class="close" @click="close"></div>
         <div class="pane-content" >

@@ -1,4 +1,4 @@
-//求两点之间的距离 勾股定理  
+//求两点之间的距离 勾股定理
 function getDistance(a, b) {
     let x = b.pageX - a.pageX,
         y = b.pageY - a.pageY;
@@ -14,9 +14,9 @@ function getAngle(a, b) {
 
 export default {
     bind(el, binding, vnode) {
-        let type = binding.arg, 
+        let type = binding.arg,
             start = [], //记录手指按下位置
-            now = [], //记录当前移动距离 
+            now = [], //记录当前移动距离
             //双指
             double = {
                 obj : {},
@@ -37,7 +37,7 @@ export default {
             }
 
         el.addEventListener('touchstart', (e)=>{
-            
+
             if(Object.keys(e.touches).length >= 2 && Object.keys(e.targetTouches).length >=2 ) {
                 double.isTouch = true;
                 single.isTouch = false;
@@ -52,7 +52,7 @@ export default {
                 // old_scale = +scale;
                 // old_rotation = +rotation;
                 double.old_scale = +(double.obj.scale || 1);
-                double.old_rotation = +(double.obj.rotation || 0); 
+                double.old_rotation = +(double.obj.rotation || 0);
             }else if( start.length === 1 && single.isTouch) { //单指按下
                 single.pageX = start[0].pageX;
                 single.pageY = start[0].pageY;
@@ -62,7 +62,7 @@ export default {
         }, false);
 
         el.addEventListener('touchmove', (e)=>{
-            
+
             now = e.touches;
             if(e.preventDefault){
                 e.preventDefault();
@@ -85,11 +85,15 @@ export default {
                 el.style.left = single.left + (now[0].pageX - single.pageX) + 'px';
                 el.style.top = single.top + (now[0].pageY - single.pageY) + 'px';
             }
+
+            if(type === 'getScaleRotate') {
+                binding.value(el, double);
+            }
         }, false);
-        
+
         el.addEventListener('touchend', (e)=>{
             el.style.border = ''
-         
+
             if(binding.arg === 'doubleEnd') {
                 binding.value();
             }

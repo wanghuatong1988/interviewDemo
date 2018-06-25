@@ -6,6 +6,7 @@ export default {
             ulbox: '',
             timer: null,
             isShow: 0,
+            li_scrollH: 32, //和外面的li高度一致
         }
     },
     render(h) {
@@ -79,9 +80,9 @@ export default {
                 e.preventDefault();
                 let t = 0;
                 if(e.detail < 0) {
-                    t = this.ulbox.offsetTop + 20;
+                    t = this.ulbox.offsetTop + this.li_scrollH;
                 }else{
-                    t = this.ulbox.offsetTop - 20;
+                    t = this.ulbox.offsetTop - this.li_scrollH;
                 }
                 this.directionFn(t);
             }, false);
@@ -97,9 +98,9 @@ export default {
                 };
 
                 if(e.wheelDelta > 0) {
-                    t = this.ulbox.offsetTop + 20;
+                    t = this.ulbox.offsetTop + this.li_scrollH;
                 } else {
-                    t = this.ulbox.offsetTop - 20;
+                    t = this.ulbox.offsetTop - this.li_scrollH;
                 }
 
                 this.directionFn(t);

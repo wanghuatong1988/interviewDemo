@@ -86,10 +86,13 @@ export default {
     },
     methods: {
         liHandler(index) {
-            this.itemIndex = index;
+            if(!this.isCode_40_38) {
+                this.itemIndex = index;
+            }
         },
         keyupChange(ev) {
-            const e = ev || window.event;
+            const e = ev || window.event,
+                  oLi = this.$refs.ulbox.getElementsByTagName('li');
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
                     this.isCode_40_38 = true;
@@ -100,6 +103,11 @@ export default {
                     } else {
                         this.itemIndex++;
                     }
+                    //带到ui的top值改变
+                    if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) > this.scrollHeight) {
+                        this.$refs.ulbox.style.top = -((this.itemIndex + 1) * this.hLi - this.scrollHeight) + 'px';
+                    }
+
                 }
                 if(e.keyCode === 38) { // 向上
                     this.isCode_40_38 = true;
@@ -109,6 +117,11 @@ export default {
                         this.itemIndex = 0;
                     } else {
                         this.itemIndex--;
+                    }
+
+                    //带到ui的top值改变
+                    if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) <= 0) {
+                        this.$refs.ulbox.style.top = -(Math.abs(this.$refs.ulbox.offsetTop) - this.hLi) + 'px';
                     }
                 }
 

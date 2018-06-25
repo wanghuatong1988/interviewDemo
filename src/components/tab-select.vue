@@ -6,7 +6,6 @@
       v-model="tabValue"
       location="left"
       direction="right"
-      @click="tabClick"
       :data="tabList">
       <tab-pane label="场景" name="1">场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/>场景<br/></tab-pane>
       <tab-pane label="灯饰" name="2">灯饰</tab-pane>
@@ -51,9 +50,7 @@
       },
       methods: {
 
-        tabClick(tab) {
-        },
-      }
+      },
   }
 </script>
 

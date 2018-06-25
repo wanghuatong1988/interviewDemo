@@ -87,7 +87,6 @@ export default {
     },
     methods: {
         changeList(item) {
-            //this.$emit('update:value').value
             this.index = item.value;
             this.$emit('input', `${(new Date()).valueOf()}_${item.value}`);
         }

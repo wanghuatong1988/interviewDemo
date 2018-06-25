@@ -179,6 +179,38 @@
 				</textarea>
 			</li>
 		</ul>
+
+		<ul>
+			<li>
+				<strong>如果给组件使用v-model获取值?</strong>
+			</li>
+			<li>
+				<textarea style="height:60px">
+						在当前组件里的prop里加上{value:String},
+						在触发事件里调用 this.$emit('input', '要传的值');
+				</textarea>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<strong>当前组件里怎样获取父级里的所有值？</strong>
+			</li>
+			<li>
+				<textarea style="height:60px">
+						直接调用console.log(this.$emit('update:value'));
+				</textarea>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<strong>父组件获取子组件里的所有值?</strong>
+			</li>
+			<li>
+				<textarea style="height:60px">
+						直接用ref绑在子组件上
+				</textarea>
+			</li>
+		</ul>
 	</div>
 </template>
 <script>

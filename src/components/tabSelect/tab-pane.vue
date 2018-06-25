@@ -44,9 +44,15 @@ export default {
 </script>
 
 <style>
-    @-webkit-keyframes heightscroll{
-        0%   {height: 0}
-        100% {height: 250px;}
+    @keyframes movedown{
+        0%   {
+            transform:translate3d(0,0,0);
+            opacity: 0;
+        }
+        100% {
+            transform:translate3d(0,250,0);
+            opacity: 1;
+        }
     }
    .tab-pane {
         position: fixed;
@@ -57,10 +63,11 @@ export default {
         font-size: 12px;
         color:#fff;
         overflow: hidden;
+        height: 250px;
    }
    .tab-min-height {
-        animation:heightscroll 1s alternate forwards;
-        -webkit-animation:heightscroll 1s alternate forwards;
+        animation:movedown 0.8s alternate forwards;
+        -webkit-animation:movedown 0.8s alternate forwards;
    }
    .close {
        background: url('../../assets/pdb_close.png');
@@ -70,5 +77,6 @@ export default {
        position: absolute;
        top: 5px;
        right: 5px;
+       z-index: 666666;
    }
 </style>

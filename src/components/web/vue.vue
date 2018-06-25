@@ -89,15 +89,6 @@
 				</textarea>
 			</li>
 		</ul>
-
-		<ul>
-			<li><strong>vue开发过程遇到的问题</strong></li>
-			<li>
-				1、组件的嵌套过深，子组件要传递给最上面的父组件值时会传递不到<br/>
-				2、我们在使用v-for进行渲染时，尽可能使用渲染元素自身属性的id给渲染的元素绑定一个key值，这样在当前渲染元素的DOM结构发生变化时，能够单独响应该元素而不触发所有元素的渲染
-			</li>
-		</ul>
-
 		<ul>
 			<li><strong>自定义组件怎样完善?</strong></li>
 			<li>
@@ -152,14 +143,14 @@
 				 		www.dd.com/bb/12,如果是to="bb/12"它是会变成拼接最后成为"www.dd.com/aa/12/bb/12",所以要加上"/"号"/bb/12"
 				 		3、有时父组件传给子组件的值是异步的，你在created或moutheds打印获取的值是空的，这时要在子组件上去判断传给子
 				 		组件的对象是否不为空<child v-if="dataList"/>,或者可以在子组件里watch下dataList
+				 		4、组件的嵌套过深，子组件要传递给最上面的父组件值时会传递不到<br/>
+						5、我们在使用v-for进行渲染时，尽可能使用渲染元素自身属性的id给渲染的元素绑定一个key值，这样在当前渲染元素的DOM结构发生变化时，能够单独响应该元素而不触发所有元素的渲染
 				 </textarea>
 			</li>
 		</ul>
 
 		<ul>
-			<li>
-				<strong>什么时候需要用的Vue.nextTick()</strong>
-			</li>
+			<li><strong>什么时候需要用的Vue.nextTick()</strong></li>
 			<li>
 				<textarea style="height:200px">
 					1、你在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中。
@@ -169,21 +160,17 @@
 						此时在该钩子函数中进行任何DOM操作都不会有问题 。
 					2、在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，
 						这个操作都应该放进Vue.nextTick()的回调函数中。
-
 						Vue是异步执行dom更新，一旦观察到数据变化，Vue就会开启一个队列，然后把数据变化的watcher推送进事件循环队列中，
 						如果这个watcher被触发多次，也只会被推送到队列一次。这种行为可以有效的去掉重复数据和不必要的计算和DOM操作.
 						而在下一个事件循环时,Vue会清空队列,并进行必要的DOM更新。
 						当你设置vm.someData = 'yan',DOM并不会马上更新，而是在异步队列被清除后也就下一个事件循环开始时执行更新才会
 						进行必要的DOM更新。
-
 				</textarea>
 			</li>
 		</ul>
 
 		<ul>
-			<li>
-				<strong>如果给组件使用v-model获取值?</strong>
-			</li>
+			<li><strong>如果给组件使用v-model获取值?</strong></li>
 			<li>
 				<textarea style="height:60px">
 						在当前组件里的prop里加上{value:String},
@@ -192,9 +179,7 @@
 			</li>
 		</ul>
 		<ul>
-			<li>
-				<strong>当前组件里怎样获取父级里的所有值？</strong>
-			</li>
+			<li><strong>当前组件里怎样获取父级里的所有值？</strong></li>
 			<li>
 				<textarea style="height:60px">
 						直接调用console.log(this.$emit('update:value'));
@@ -202,9 +187,7 @@
 			</li>
 		</ul>
 		<ul>
-			<li>
-				<strong>父组件获取子组件里的所有值?</strong>
-			</li>
+			<li><strong>父组件获取子组件里的所有值?</strong></li>
 			<li>
 				<textarea style="height:60px">
 						直接用ref绑在子组件上

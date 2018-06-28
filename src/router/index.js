@@ -14,6 +14,8 @@ import tabSelect from '@/components/tab-select'
 import dragEnlargeRotate from '@/components/drag-enlarge-rotate'
 import vant from '@/components/web/vant'
 import regexp from '@/components/web/regexp'
+import jsFn from '@/components/web/js-fn'
+import jsOther from '@/components/web/js-other'
 
 Vue.use(Router)
 
@@ -88,6 +90,16 @@ export default new Router({
       path: '/regexp',
       name: 'regexp',
       component: regexp
+    },
+    {
+      path: '/jsfn',
+      name: 'jsfn',
+      component: jsFn
+    },
+    {
+      path: '/jsother',
+      name: 'jsOther',
+      component: jsOther
     }
   ]
 })

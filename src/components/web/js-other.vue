@@ -54,6 +54,76 @@
 			</li>
 		</ul>
 
+    <ul>
+      <li>关于在vuejs上使用swpier</li>
+      <li>引入import { swiper, swiperSlide } from 'vue-awesome-swiper' 和 'swiper/dist/css/swiper.css';</li>
+      <li>
+        上下滑动图片要注意的下面这是结构
+      </li>
+      <li>
+        <swiper ref="mySwiper" class="swiper-container my-container" :style="{'height': `${swiperOption.height * pages.length}px`}" :options="swiperOption" >
+          <swiper-slide ref="mySlide"  v-for="(item, index) of pages" :key="index">
+            <div class="img" :style="{'background':'url('+ $imgdesc(item) + ')'}"></div>
+          </swiper-slide>
+        </swiper>
+        <div class="up" v-if="+currrentPage < pages.length - 1" @click="upHandler"></div>
+        <div class="down" v-else @click="downHandler"></div>
+
+        <script type="text/javascript">
+            //配置
+            swiperOption: {
+              mousewheel: true,
+              direction : 'vertical',
+              height: window.innerHeight,
+              watchSlidesProgress: true,
+              on: {
+                slideChange:_=>{
+                  this.currrentPage = this.swiper.activeIndex;
+                },
+                init:_=>{
+                  this.$nextTick(_=>{
+                    this.swiper.myIndex = 0;
+                  })
+                },
+                setTransition: speed =>{
+                  this.$nextTick(_=>{
+                    for (let i = 0; i < this.swiper.slides.length; i++) {
+                      let slide = this.swiper.slides.eq(i);
+                      slide.transition(speed + 'ms');
+                    }
+                    this.swiper.mousewheel.disable();
+                  })
+                },
+                progress: _=> {
+                  this.$nextTick(_=>{
+                    for (let i = 0; i < this.swiper.slides.length; i++) {
+                      let slide = this.swiper.slides.eq(i),
+                        progress = this.swiper.slides[i].progress,
+                        translate = progress * this.swiper.height * 0.8,
+                        scale = 1 - Math.min(Math.abs(progress * 0.2), 1);
+                      if (i == this.swiper.myIndex) {
+                        slide.transform('translate3d(0,' + (translate) + 'px,0) scale(' + scale + ')');
+                        slide.css({'z-index':0,'boxShadow':'0px 0px 10px rgba(0,0,0,.5)'});
+                      }
+                    }
+                  })
+                },
+                transitionEnd:_=> {
+                  this.$nextTick(_=>{
+                    this.swiper.myIndex = this.swiper.activeIndex;
+                    for (let i = 0; i < this.swiper.slides.length; i++) {
+                      let slide = this.swiper.slides.eq(i);
+                      slide.transform('');
+                      slide.css('z-index',1);
+                    }
+                    this.swiper.mousewheel.enable();
+                  })
+                },
+              }
+            },
+        </script>
+      </li>
+    </ul>
 	</div>
 </template>
 <script>

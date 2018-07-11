@@ -20,6 +20,39 @@
 			</li>
 		</ul>
 
+    <ul>
+      <li>截取文字指定数量</li>
+      <li>
+        <textarea>
+            widthCheck(str, maxLen){
+              if(!str) return;
+              var w = 0;
+              //length 获取字数数，不区分汉子和英文
+              for (var i=0; i<str.length; i++) {
+                //charCodeAt()获取字符串中某一个字符的编码
+                var c = str.charCodeAt(i);
+                //单字节加1
+                if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                  w++;
+                } else {
+                  w+=2;
+                }
+                if (w > maxLen) {
+                  return str.substr(0,i) + '...';
+                }
+              }
+
+              if(w < maxLen) {
+                return str;
+              }
+            }
+        </textarea>
+      </li>
+    </ul>
+
+
+
+
 	</div>
 </template>
 <script>

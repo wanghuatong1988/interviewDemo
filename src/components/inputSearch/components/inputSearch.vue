@@ -11,8 +11,8 @@
                 </div>
                 <div class="data-list-box" :style="{ 'height': (data.length > 10 ? scrollHeight : (data.length < 2 ? 160 : data.length * hLi)) + 'px' }">
                     <div class="data-scroll" v-if="data.length">
-                        <ul class="ul-box" ref="ulbox" :style="{ 'height': (data.length * hLi) + 'px' }">
-                            <li v-for="(item,index) in data" @mouseover="liHandler(index)"  :class="{selectLi: index == itemIndex}" @click="selectLiHandler()">
+                        <ul class="ul-box" ref="ulbox" :style="{ 'height': (data.length * hLi) + 'px' }" @mouseleave="leaveUl">
+                            <li v-for="(item,index) in data" @mouseover="moveLi(index)"  :class="{selectLi: index == itemIndex}" @click="selectLiHandler()">
                                 {{item.label}}
                             </li>
                         </ul>
@@ -63,12 +63,12 @@ export default {
         }
     },
     data() {
-        return{
+        return {
             show: false,
             itemIndex: -1, //是否选中列表
             textValue: '',
             title:'',
-            isCode_40_38: false,
+            isCode_40_38: false, //是否按了上下键
             scrollHeight: 320,
             hLi: 32,
             isFlag: true,
@@ -85,19 +85,22 @@ export default {
         }
     },
     methods: {
-        liHandler(index) {
+        moveLi(index) {
             if(!this.isCode_40_38) {
                 this.itemIndex = index;
             }
+        },
+        leaveUl() {
+            this.isCode_40_38 = false;
         },
         keyupChange(ev) {
             const e = ev || window.event,
                   oLi = this.$refs.ulbox.getElementsByTagName('li');
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
+                    this.isFlag = true;
                     this.isCode_40_38 = true;
                     this.$refs.inputblur.blur();
-                    this.isFlag = true;
                     if(this.itemIndex === this.data.length - 1) {
                         this.itemIndex = this.data.length - 1;
                     } else {
@@ -107,18 +110,17 @@ export default {
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) > this.scrollHeight) {
                         this.$refs.ulbox.style.top = -((this.itemIndex + 1) * this.hLi - this.scrollHeight) + 'px';
                     }
-
                 }
+
                 if(e.keyCode === 38) { // 向上
+                    this.isFlag = true;
                     this.isCode_40_38 = true;
                     this.$refs.inputblur.blur();
-                    this.isFlag = true;
                     if(this.itemIndex === 0) {
                         this.itemIndex = 0;
                     } else {
                         this.itemIndex--;
                     }
-
                     //带到ui的top值改变
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) <= 0) {
                         this.$refs.ulbox.style.top = -(Math.abs(this.$refs.ulbox.offsetTop) - this.hLi) + 'px';
@@ -141,6 +143,7 @@ export default {
         searchBtn(){
             if(this.textValue && this.autoQuery) {
                 this.itemIndex = -1;
+                this.$refs.ulbox.style.top = '0';
                 this.$emit('getSearchName', this.textValue);
             }
         },
@@ -151,6 +154,9 @@ export default {
             this.isFlag = false;
         }
     },
+    watch:{
+
+    }
 }
 </script>
 

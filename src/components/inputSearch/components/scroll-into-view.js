@@ -127,7 +127,7 @@ export default {
             this.ulbox.style.top = t + 'px';
             this.el.style.top =- top + 'px';
 
-            this.timer = setTimeout(()=>{
+            this.timer = setTimeout(_=>{
                 this.isShow = 0;
             },1000)
         }

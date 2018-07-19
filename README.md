@@ -39,3 +39,6 @@ npm test
   @  width 设置搜索框宽度
   @  visibleInput 是否显示搜索框
 ```
+
+#记录一些插件
+[打印插件](https://github.com/xyl66/vuePlugs_printjs)

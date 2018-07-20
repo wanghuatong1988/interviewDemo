@@ -7,6 +7,7 @@ export default {
             timer: null,
             isShow: 0,
             li_scrollH: 32, //和外面的li高度一致
+            minHeight: 60, //滚动条最小高度
         }
     },
     render(h) {
@@ -26,7 +27,7 @@ export default {
                     transition: 'opacity 0.8s ease-out'
                 },
                 on: {
-                    mousedown:(ev)=>{
+                    mousedown: ev=> {
                         let e = ev || window.event, scrollH;
 
                         if (e.preventDefault) {
@@ -46,18 +47,18 @@ export default {
                             if(top <= 0) {//最上面
                                 top = 0;
                             }
+
                             if(top >= this.$parent.scrollHeight - this.el.scrollHeight) { //移动最下面
                                 top = this.$parent.scrollHeight - this.el.scrollHeight;
                             }
-
-                            let scale = top / (this.$parent.scrollHeight - this.el.scrollHeight), //获取一个系数,系数(0到1的过程)算法(一个不断相加的值 = 这个最终值)
+                            let scale = top / (this.$parent.scrollHeight - this.el.scrollHeight), //获取一个系数,系数(0到1的过程)
                                 cony = scale * (this.ulbox.clientHeight - this.$parent.scrollHeight); //再用系数乘于要滚动的距离范围
 
                             this.el.style.top = top + 'px';
                             this.ulbox.style.top =-cony + 'px';
                         }
 
-                        document.onmouseup = ev => {
+                        document.onmouseup = _=> {
                             this.isShow = 0;
                             document.onmousemove = null;
                             document.onmouseup = null;
@@ -76,7 +77,7 @@ export default {
 
         let e = window.navigator.userAgent.toLowerCase();
         if(e.indexOf('firefox') !=-1) {
-            this.ulbox.addEventListener('DOMMouseScroll', (e)=>{
+            this.ulbox.addEventListener('DOMMouseScroll', e=>{
                 e.preventDefault();
                 let t = 0;
                 if(e.detail < 0) {
@@ -87,7 +88,7 @@ export default {
                 this.directionFn(t);
             }, false);
         } else {
-            this.ulbox.onmousewheel = (ev)=>{
+            this.ulbox.onmousewheel = ev=>{
                 let e = ev || window.event,
                     t = 0;
 
@@ -123,7 +124,7 @@ export default {
                 top = scale * (this.$parent.scrollHeight - this.el.clientHeight),
                 elH = this.$parent.scrollHeight - ((this.ulbox.clientHeight - this.$parent.scrollHeight) * 0.5);
 
-            this.el.style.height = (elH <= 0 ? 60 : elH) + 'px';
+            this.el.style.height = (elH <= 0 ? this.minHeight : elH) + 'px';
             this.ulbox.style.top = t + 'px';
             this.el.style.top =- top + 'px';
 

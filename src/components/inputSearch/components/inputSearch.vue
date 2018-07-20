@@ -17,7 +17,7 @@
                             </li>
                         </ul>
                         <div class="scroll-box" v-if="data.length > 10" :style="{ 'height': (data.length > 10 ? scrollHeight : data.length * hLi) + 'px' }">
-                            <scroll-into-view/>
+                            <scroll-into-view ref="scrollInto"/>
                         </div>
                     </div>
                     <div v-else class="tiptxt">无数据</div>
@@ -33,6 +33,7 @@
  *   @params data               数据格式 [{label: '飞机', value: 1}]
  *   @params visibleInput       是否隐藏搜索框
  *   @params autoQuery          是否输入后就触发
+ *   @params width              设置输入框宽度值
 */
 
 import scrollIntoView from './scroll-into-view.js';
@@ -69,7 +70,8 @@ export default {
             textValue: '',
             title:'',
             isCode_40_38: false, //是否按了上下键
-            scrollHeight: 320,
+            scrollHeight: 320, //可见高度
+            isMousemove: false, //是否在移动范围内
             hLi: 32,
             isFlag: true,
         }
@@ -85,22 +87,25 @@ export default {
         }
     },
     methods: {
+        //鼠标移入
         moveLi(index) {
+            this.isMousemove = true;
             if(!this.isCode_40_38) {
                 this.itemIndex = index;
             }
         },
+        //鼠标离开时清空
         leaveUl() {
+            this.$refs.scrollInto.isShow = 0;
             this.isCode_40_38 = false;
+            this.isMousemove = false;
         },
         keyupChange(ev) {
             const e = ev || window.event,
                   oLi = this.$refs.ulbox.getElementsByTagName('li');
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
-                    this.isFlag = true;
-                    this.isCode_40_38 = true;
-                    this.$refs.inputblur.blur();
+
                     if(this.itemIndex === this.data.length - 1) {
                         this.itemIndex = this.data.length - 1;
                     } else {
@@ -110,6 +115,7 @@ export default {
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) > this.scrollHeight) {
                         this.$refs.ulbox.style.top = -((this.itemIndex + 1) * this.hLi - this.scrollHeight) + 'px';
                     }
+                    this.operationKey();
                 }
 
                 if(e.keyCode === 38) { // 向上
@@ -125,6 +131,7 @@ export default {
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) <= 0) {
                         this.$refs.ulbox.style.top = -(Math.abs(this.$refs.ulbox.offsetTop) - this.hLi) + 'px';
                     }
+                    this.operationKey();
                 }
 
                 //选中下拉列表内容触发
@@ -132,6 +139,22 @@ export default {
                     this.selectLiHandler();
                 }
             }
+        },
+        //设置滚动条可见、高度、及top值
+        operationKey(){
+            this.isFlag = true;
+            this.isCode_40_38 = true;
+            this.$refs.inputblur.blur();
+
+            if(this.isMousemove) {
+                this.$refs.scrollInto.isShow = 1;
+            }
+
+            let elH = this.scrollHeight - ((this.$refs.ulbox.clientHeight - this.scrollHeight) * 0.5), //计算滚动条高度
+                scale = (this.itemIndex * this.hLi) / this.$refs.ulbox.clientHeight,
+                top = ((this.data.length - 1) * this.hLi == this.itemIndex * this.hLi) ? -(this.scrollHeight - elH) : -scale * (this.scrollHeight - elH);
+            this.$refs.scrollInto.el.style.height = (elH <= 0 ? this.$refs.scrollInto.minHeight : elH) + 'px';
+            this.$refs.scrollInto.el.style.top =- top + 'px';
         },
         selectLiHandler() {
             this.$emit('input', this.data[this.itemIndex]['value']);

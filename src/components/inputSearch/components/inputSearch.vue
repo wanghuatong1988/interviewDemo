@@ -7,12 +7,12 @@
         <transition name="fade">
             <div class="input-box" v-show="show" :style="{width: width + 'px'}">
                 <div class="inputStyle" v-if="visibleInput">
-                    <input ref="inputblur" type="input" v-model="textValue" @keyup.enter="searchBtn" @keyup="clearStatus" @focus="getValue" placeholder="请输入搜索内容"/>
+                    <input ref="inputblur" type="input" v-model="textValue" @keyup.enter="searchBtn" @keyup="isFlag = false;" @focus="isFlag = false;" placeholder="请输入搜索内容"/>
                 </div>
                 <div class="data-list-box" :style="{ 'height': (data.length > 10 ? scrollHeight : (data.length < 2 ? 160 : data.length * hLi)) + 'px' }">
                     <div class="data-scroll" v-if="data.length">
-                        <ul class="ul-box" ref="ulbox" :style="{ 'height': (data.length * hLi) + 'px' }" @mouseleave="leaveUl">
-                            <li v-for="(item,index) in data" @mouseover="moveLi(index)"  :class="{selectLi: index == itemIndex}" @click="selectLiHandler()">
+                        <ul class="ul-box" ref="ulbox" :style="{ 'height': (data.length * hLi) + 'px', 'width': width + 'px' }" @mouseleave="leaveUl">
+                            <li v-for="(item,index) in data" @mouseover="moveLi(index)"  :class="{selectLi: index == itemIndex}" @click="selectLiHandler()" :key="index">
                                 {{item.label}}
                             </li>
                         </ul>
@@ -34,6 +34,7 @@
  *   @params visibleInput       是否隐藏搜索框
  *   @params autoQuery          是否输入后就触发
  *   @params width              设置输入框宽度值
+ *   @params delay              请求延时间隔(autoQuery属于为false时)
 */
 
 import scrollIntoView from './scroll-into-view.js';
@@ -44,23 +45,27 @@ export default {
     props: {
         width: {//设置选择框长度
             type: [String, Number],
-            default: 210,
+            default: 220,
         },
         value: {
             type: [String, Number],
             default: ''
         },
         data: {//数据
-            type: [Array],
+            type: Array,
             default: ''
         },
         visibleInput: {
-            type: [Boolean],
+            type: Boolean,
             default: true
         },
         autoQuery: {
-            type: [Boolean],
+            type: Boolean,
             default: false
+        },
+        delay: {
+            type: Number,
+            default: 500,
         }
     },
     data() {
@@ -74,6 +79,7 @@ export default {
             isMousemove: false, //是否在移动范围内
             hLi: 32,
             isFlag: true,
+            timer: null,
         }
     },
     mounted() {
@@ -85,14 +91,23 @@ export default {
         document.onclick = (ev) => {
             this.show = false;
         }
+
     },
     methods: {
         //鼠标移入
         moveLi(index) {
+
+            //防止正在操作键盘时鼠标不在范围内导致isCode_40_38值不正确
+            if(this.isCode_40_38 && !this.isMousemove) {
+                this.isCode_40_38 = false;
+            }
+
             this.isMousemove = true;
+
             if(!this.isCode_40_38) {
                 this.itemIndex = index;
             }
+
         },
         //鼠标离开时清空
         leaveUl() {
@@ -101,8 +116,8 @@ export default {
             this.isMousemove = false;
         },
         keyupChange(ev) {
-            const e = ev || window.event,
-                  oLi = this.$refs.ulbox.getElementsByTagName('li');
+            const e = ev || window.event;
+
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
 
@@ -165,20 +180,26 @@ export default {
         },
         searchBtn(){
             if(this.textValue && this.autoQuery) {
-                this.itemIndex = -1;
-                this.$refs.ulbox.style.top = '0';
-                this.$emit('getSearchName', this.textValue);
+                this.reductionEmitVal();
             }
         },
-        clearStatus(){
-            this.isFlag = false;
+        reductionEmitVal() {
+            this.itemIndex = -1;
+            if(this.data.length) {
+                this.$refs.ulbox.style.top = '0';
+            }
+            this.$emit('getSearchName', this.textValue);
         },
-        getValue() {
-            this.isFlag = false;
-        }
     },
-    watch:{
-
+    watch: {
+        textValue(val) {
+            if(val && !this.autoQuery) {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(_=>{
+                    this.reductionEmitVal();
+                },this.delay);
+            }
+        }
     }
 }
 </script>
@@ -251,6 +272,7 @@ export default {
         left: -4px;
     }
     .input-search-box .input-box {
+        background: #fff;
         border: 1px solid #C0C4CC;
         border-radius: 3px;
         position: absolute;
@@ -258,6 +280,7 @@ export default {
         left: 0;
         padding: 10px;
         overflow: hidden;
+        z-index: 99999999;
     }
     .input-search-box .inputStyle {
         width: 100%;
@@ -285,7 +308,6 @@ export default {
         position: relative;
     }
     .input-search-box .input-box .ul-box {
-        width: 210px;
         overflow: hidden;
         position: absolute;
         top: 0;

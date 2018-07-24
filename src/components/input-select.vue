@@ -3,8 +3,7 @@
     <input-search
       v-model="text"
       @getSearchName="getName"
-      :data="dataList"
-      :autoQuery="true">
+      :data="dataList">
     </input-search>
   </div>
 </template>
@@ -15,21 +14,14 @@
 
   export default {
       name: '',
-      components: {
-      },
-      props: {
-      },
       data() {
           return{
               text: '',
               dataList:[],
           }
       },
-      created() {
-
-      },
       mounted() {
-        axios.get('/v2/book/search?q=jquery&alt=json&start=1&count=20')
+        axios.get('/v2/book/search?q=vue&alt=json&start=1&count=20')
         .then((data)=>{
             this.dataList = [];
             for(let v of data.data.books) {
@@ -48,7 +40,6 @@
           console.log(this.text);
         },
         getName(val) {
-            //axios.get('/v2/book/search?q=" + val + "&alt=json&start=1&count=10')
             axios({
               method:'POST',
               url:'/v2/book/search',

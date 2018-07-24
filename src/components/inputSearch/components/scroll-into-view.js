@@ -24,7 +24,10 @@ export default {
                     position: 'absolute',
                     left: '20%',
                     opacity: this.isShow,
-                    transition: 'opacity 0.8s ease-out'
+                    transition: 'opacity 0.8s ease-out',
+                    '-moz-transition': 'opacity 0.8s ease-out',
+                    '-webkit-transition': 'opacity 0.8s ease-out',
+                    '-o-transition': 'opacity 0.8s ease-out',
                 },
                 on: {
                     mousedown: ev=> {

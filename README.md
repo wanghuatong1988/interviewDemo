@@ -1,44 +1,159 @@
-# test
 
-> ex
-
-## Build Setup
-
-``` bash
-# install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
+localhost:8088
 
-# build for production and view the bundle analyzer report
-npm run build --report
 
-# run unit tests
-npm run unit
+想开放一些自己在工作中的笔记，不要问我为什么，因为以前也受到别人的帮助，
+虽然自己算不上什么厉害的前端，但是我也是希望能帮助到入坑的小伙伴，解决一些他们还没遇到的困惑，所以我这半年也收集了一些前端的笔记，希望对你们有所帮助，
+不说那么多了，我肚子好饿
+我首先是这几个自己这段时间做的插件
+> * 下拉搜索选择插件
+[下拉搜索组件git演示  /src/components/input-select](http://chuantu.biz/t6/348/1532593131x-1566688688.gif)
+做这样个插件的初衷是工作需要，而且暂时还没有找到适合的vue的下拉搜索组件，
+这个插件并没有太多的配置功能，我只是开发他满足一般的工作需求，这些是他的基本配置
 
-# run e2e tests
-npm run e2e
+| 参数   |  功能  | 默认值|
+| --------  | :----:  |:----:  |
+| getSearchName     |   获取搜索文本    |  |
+| data     |   数据格式 [{label: '飞机', value: 1}]    |  |
+| visibleInput     |   是否隐藏搜索框   | false |
+| autoQuery     |   是否输入后就触发    | true |
+| width     |   设置输入框宽度值    | 210 |
+| delay     |   请求延时间隔(autoQuery属于为false时)    | 500 |
 
-# run all tests
-npm test
+`这里有几个要注意的点`
+1、使用该插件的时候外层不要加overflow:hidden,我这里并没有用坐标的方式去计算下拉框的位置
+2、数据格式还是严格按照[{label: '飞机', value: 1}]的方法，这个我也是参照element-ui的数据格式去做的，没有额外把它分离出来成一个组件
+
+
+---------
+
+> * 移动端放大缩小和旋转插件
+[目录地址(暂无演示，可下载项目自行到真机演示) /src/components/drag-enlarge-rotate]
+这里用的是自定义指令的方法
+
 ```
-# 好记性不如破笔头，记录前端笔记
-  - [css、es6、git、html、js、networke、other、vue、webpack]
-# 组件开发
-  - inputSearch  [下拉搜索组件 /src/components/input-select](http://chuantu.biz/t6/289/1524031014x-1404793244.gif)
+<div class="drag"
+      v-dragScaleRotate:getScaleRotate="getVal"
+      ref="drag"
+      style="background: url('http://www.030.cn/path/pdb/201801/5a1e84cdc4c1f.jpg!bpdb');background-size: cover;">
+    </div>
 ```
-  这是一款下拉搜索的插件，像类似下拉搜索的实现还算比较简单
-  只需全局对键盘进行监听，没有实现太多的配置，一般需求是够用
-  参数的设置有如下：
-  @  getSearchName 获取搜索内容
-  @  data 数据格式 [{label: '飞机', value: 1}]
-  @  width 设置搜索框宽度
-  @  visibleInput 是否显示搜索框
+放大缩小的问题是，在双指下放大缩小会出现bug，这里是通过下面的这个判断下解决的
+```
+//如果是双指同时把手指离开 changedTouches 的长度就等于手指的长度, touches 和 targetTouches 为空
+            //如果是双指同时把手指按下，其中有一个离开, changedTouches、touches、targetTouches长度都为1，
+            //如果是单指按下, touches、targetTouches长度都为0，changedTouches为1
+            let t = Object.keys(e.touches).length,
+                tt = Object.keys(e.targetTouches).length,
+                ct = Object.keys(e.changedTouches).length;
+
+            if(t >= 2) {
+                double.isTouch = true;
+                single.isTouch = true;
+            } else if(t && tt && ct) {
+                double.isTouch = true;
+                single.isTouch = false;
+            } else if(!t && !tt && ct) {
+                double.isTouch = false;
+                single.isTouch = true;
+            }
+```
+在项目中使用没出现什么问题，这里要说的是，双指缩放后可能会太小，再次想放大就很困难了，
+所以分开来再加了个功能就是在图片比例小于1的时候就会显示放大缩小的图标
+```
+<!--这里用指令爆露出来的数据进行放大、缩小(防止缩到太小的时候两指无法操作)-->
+<div class="control-size-box" v-if="show">
+  <div class="big-btn" @click="scaleBtn('enlarge')">放大</div>
+  <div class="small-btn" @click="scaleBtn('narrow')">缩小</div>
+</div>
+```
+通过指令返回的数据进行判断
+```
+scaleBtn(value){
+        let dom = this.$refs.drag.style.transform,
+          s = +this.regText('scale') || 1,
+          r = this.regText('rotate') || '0deg';
+        if(!dom) {
+          if(value === 'enlarge') {
+            this.coefficient +=  this.coefficient * 0.1;
+          }else {
+            this.coefficient -= 0.1;
+          }
+        }else {
+          if(value === 'enlarge') {
+            this.coefficient = s + s * 0.1;
+          } else {
+            this.coefficient = s;
+            this.coefficient -= 0.1;
+          }
+        }
+        this.show = (s <= 0.9) ? true : false;
+        this.$refs.drag.style.transform = `scale(${this.coefficient.toFixed(2)}) rotate(${r})`;
+      },
+      //获取括号里的内容
+      regText(name){
+        let dom = this.$refs.drag.style.transform,
+          val = 0;
+        let reg = new RegExp('\\b(' + name + '\\()(.*?)(\\b\\))','g');
+          dom.replace(reg, ($1, $2, $3)=>{
+            val = $3;
+          });
+        return val;
+      },
+      getVal(el, val) {
+        //缩放比小于1人时候显示
+        this.show = (val.scale <= 0.9) ? true : false;
+      }
 ```
 
-#记录一些插件
-[打印插件](https://github.com/xyl66/vuePlugs_printjs)
+> * 移动端弹窗组件
+[组件git演示  /src/components/tabSelect](http://chuantu.biz/t6/348/1532595763x-1376440150.gif)
+
+| 参数   |  功能  | 默认值|
+| --------  | :----:  |:----:  |
+| location     |   位置(左或者右)    | right |
+| direction     |   往哪个位置弹出(左边或者右边)    | left|right |
+| data     |   格式 {label: '场景', value: '1'}   |  |
+| click     |   点击事件    |  |
+| bgColor     |   主色调设置    | rgba(0,0,0,.6) |
+| beforeClose     |   关闭Dialog前回调    |  |
+
+```
+<tab-select
+  v-model="tabValue"
+  location="left"
+  direction="right"
+  :data="tabList">
+  <tab-pane label="场景" name="1">场景</tab-pane>
+  <tab-pane label="灯饰" name="2">灯饰</tab-pane>
+  <tab-pane label="购物" name="3">购物</tab-pane>
+  <tab-pane label="历史" name="4">历史</tab-pane>
+  <tab-pane label="帮助" name="5">帮助</tab-pane>
+</tab-select>
+
+tabList: [
+    {label: '场景', value: '1'},
+    {label: '灯饰', value: '2'},
+    {label: '购物', value: '3'},
+    {label: '历史', value: '4'},
+    {label: '帮助', value: '5'},
+  ],
+```
+
+
+前端笔记 [路径  /src/components/web]这里包括
+-
+
+> css：一些常见的布局方式比如flex 、table布局，还有一些css的原理
+> js ：记录有关js的技术，如什么是原型链、作用域、单线程、异步与事件、等等及一些算法
+> vue：记录vue的一些MVVM原理、及开发中要注意的东西
+> regexp： 记录一些常用的正则
+> networke： 记录的内容是前端安全防范、浏览器渲染、缓存机制、状态码等
+
+嗯嗯，就这些了，这些是我这半年收集的东西(主要是自己也记性差，哈哈)，希望对大家有用，如果觉得有用的可以给我加个
+**Star**吧
+[git项目地址](https://github.com/wanghuatong1988/interviewDemo)

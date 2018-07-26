@@ -121,6 +121,8 @@ export default {
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
 
+
+
                     if(this.itemIndex === this.data.length - 1) {
                         this.itemIndex = this.data.length - 1;
                     } else {
@@ -130,7 +132,7 @@ export default {
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) > this.scrollHeight) {
                         this.$refs.ulbox.style.top = -((this.itemIndex + 1) * this.hLi - this.scrollHeight) + 'px';
                     }
-                    this.operationKey();
+                    this.operationKey(e);
                 }
 
                 if(e.keyCode === 38) { // 向上
@@ -146,7 +148,7 @@ export default {
                     if((this.itemIndex + 1) * this.hLi - Math.abs(this.$refs.ulbox.offsetTop) <= 0) {
                         this.$refs.ulbox.style.top = -(Math.abs(this.$refs.ulbox.offsetTop) - this.hLi) + 'px';
                     }
-                    this.operationKey();
+                    this.operationKey(e);
                 }
 
                 //选中下拉列表内容触发
@@ -156,7 +158,14 @@ export default {
             }
         },
         //设置滚动条可见、高度、及top值
-        operationKey(){
+        operationKey(e){
+
+            if(e.preventDefault){
+                e.preventDefault();
+            }else{
+                e.returnValue = false;
+            }
+
             this.isFlag = true;
             this.isCode_40_38 = true;
             this.$refs.inputblur.blur();

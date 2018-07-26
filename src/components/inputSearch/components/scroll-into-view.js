@@ -7,7 +7,7 @@ export default {
             timer: null,
             isShow: 0,
             li_scrollH: 32, //和外面的li高度一致
-            minHeight: 60, //滚动条最小高度
+            minHeight: 10, //滚动条最小高度
         }
     },
     render(h) {

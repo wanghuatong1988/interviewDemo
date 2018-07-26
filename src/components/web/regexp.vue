@@ -10,7 +10,6 @@
 						return this.replace(/(^\s*)|(\s*$)/g,'');
 					}
 
-					//匹配电话号码邮箱
 
 					var reg = {
 						regEmail: /^(\w*)@[a-z1-9]*\.(\w+)$/, 邮箱

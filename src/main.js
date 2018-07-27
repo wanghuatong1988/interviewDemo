@@ -4,8 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import 'element-ui/lib/theme-chalk/index.css';
+import VuePlain from '../static/vueplain';
 import inputSearch from './components/inputSearch/index';
 Vue.use(inputSearch);
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

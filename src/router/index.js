@@ -16,6 +16,7 @@ import vant from '@/components/web/vant'
 import regexp from '@/components/web/regexp'
 import jsFn from '@/components/web/js-fn'
 import jsOther from '@/components/web/js-other'
+import elementUi from '@/components/element-ui'
 
 Vue.use(Router)
 
@@ -100,6 +101,11 @@ export default new Router({
       path: '/jsother',
       name: 'jsOther',
       component: jsOther
+    },
+    {
+      path: '/elementui',
+      name: 'elementui',
+      component: elementUi
     }
   ]
 })

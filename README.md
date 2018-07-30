@@ -5,6 +5,8 @@ npm run dev
 
 localhost:8088
 
+##工作中的一些记录
+
 > * 下拉搜索选择插件
 [下拉搜索组件git演示  /src/components/input-select](http://chuantu.biz/t6/348/1532593131x-1566688688.gif)
 做这样个插件的初衷是工作需要，而且暂时还没有找到适合的vue的下拉搜索组件，

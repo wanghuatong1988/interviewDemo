@@ -21,7 +21,7 @@
           }
       },
       mounted() {
-        axios.get('/v2/book/search?q=vue&alt=json&start=1&count=20')
+        axios.get('/v2/book/search?q=vue&alt=json&start=1&count=45')
         .then((data)=>{
             this.dataList = [];
             for(let v of data.data.books) {

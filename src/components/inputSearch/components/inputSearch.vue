@@ -111,7 +111,10 @@ export default {
         },
         //鼠标离开时清空
         leaveUl() {
-            this.$refs.scrollInto.isShow = 0;
+
+            if(this.$refs && this.$refs.scrollInto) {
+                this.$refs.scrollInto.isShow = 0;
+            }
             this.isCode_40_38 = false;
             this.isMousemove = false;
         },
@@ -170,15 +173,19 @@ export default {
             this.isCode_40_38 = true;
             this.$refs.inputblur.blur();
 
-            if(this.isMousemove) {
+            if(this.isMousemove && this.data.length > 10) {
+
                 this.$refs.scrollInto.isShow = 1;
+
+                let elH = this.scrollHeight - ((this.$refs.ulbox.clientHeight - this.scrollHeight) * 0.5), //计算滚动条高度
+                    scale = (this.itemIndex * this.hLi) / this.$refs.ulbox.clientHeight,
+                    h = elH <= 0 ? this.$refs.scrollInto.minHeight : elH,
+                    top = ((this.data.length - 1) * this.hLi == this.itemIndex * this.hLi) ? -(this.scrollHeight - h) : -scale * (this.scrollHeight - h);
+
+                this.$refs.scrollInto.el.style.height = h + 'px';
+                this.$refs.scrollInto.el.style.top =- top + 'px';
             }
 
-            let elH = this.scrollHeight - ((this.$refs.ulbox.clientHeight - this.scrollHeight) * 0.5), //计算滚动条高度
-                scale = (this.itemIndex * this.hLi) / this.$refs.ulbox.clientHeight,
-                top = ((this.data.length - 1) * this.hLi == this.itemIndex * this.hLi) ? -(this.scrollHeight - elH) : -scale * (this.scrollHeight - elH);
-            this.$refs.scrollInto.el.style.height = (elH <= 0 ? this.$refs.scrollInto.minHeight : elH) + 'px';
-            this.$refs.scrollInto.el.style.top =- top + 'px';
         },
         selectLiHandler() {
             this.$emit('input', this.data[this.itemIndex]['value']);

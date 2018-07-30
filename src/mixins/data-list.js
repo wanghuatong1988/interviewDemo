@@ -111,7 +111,7 @@ export default function(isTab, restful) {
                                 this.tabList = res;
                                 this.tag = this.$route.query.tag || res[0].tag_code;
                             },
-                            error: data=> {}
+                            error: _=> {}
                         });
                     }else {
                         resolve();

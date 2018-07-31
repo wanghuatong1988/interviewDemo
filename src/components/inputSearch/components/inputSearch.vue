@@ -1,11 +1,11 @@
 <template>
     <div class="input-search-box"  @click.stop.prevent>
-        <div class="search-box" @click="show =!show;textValue=''" :style="{width: width + 'px'}">
+        <div ref="searchbox" class="search-box" @click="show =!show;textValue=''" :style="{width: width + 'px'}">
             <span>{{ title|| '请选择'}}</span>
             <i :class="[{'icon':!show}, {'iconActive': show}]"></i>
         </div>
         <transition name="fade">
-            <div class="input-box" v-show="show" :style="{width: width + 'px'}">
+            <div ref="inputbox" class="input-box" v-show="show" :style="{width: width + 'px'}">
                 <div class="inputStyle" v-if="visibleInput">
                     <input ref="inputblur" type="input" v-model="textValue" @keyup.enter="searchBtn" @keyup="isFlag = false;" @focus="isFlag = false;" placeholder="请输入搜索内容"/>
                 </div>
@@ -34,7 +34,7 @@
  *   @params visibleInput       是否隐藏搜索框
  *   @params autoQuery          是否输入后就触发
  *   @params width              设置输入框宽度值
- *   @params delay              请求延时间隔(autoQuery属于为false时)
+ *   @params delay              请求延时间隔(autoQuery为false时)
 */
 
 import scrollIntoView from './scroll-into-view.js';
@@ -92,6 +92,12 @@ export default {
             this.show = false;
         }
 
+        window.addEventListener('resize', _=>{
+            this.throttle(this.setStyle, 500, 1000)
+        })
+
+        this.setStyle();
+
     },
     methods: {
         //鼠标移入
@@ -123,8 +129,6 @@ export default {
 
             if(this.data.length) {
                 if(e.keyCode === 40) { //向下
-
-
 
                     if(this.itemIndex === this.data.length - 1) {
                         this.itemIndex = this.data.length - 1;
@@ -206,6 +210,28 @@ export default {
             }
             this.$emit('getSearchName', this.textValue);
         },
+        setStyle() {
+            if(this.$refs.inputbox) {
+                this.$refs.inputbox.style.top = this.$refs.searchbox.offsetTop + this.hLi + 8 + 'px';
+                this.$refs.inputbox.style.left = this.$refs.searchbox.offsetLeft + 'px';
+            }
+        },
+        throttle(fn, delay, mustApplyTime) {
+            clearTimeout(fn.timer);
+            fn._cur = Date.now();
+
+            if(!fn._start){
+                fn._start = fn._cur;
+            }
+            if(fn._cur - fn._start > mustApplyTime) {
+                fn.apply(null, arguments);
+                fn._start = fn._cur;
+            }else{
+                fn.timer = setTimeout(_=>{
+                    fn.apply(null, arguments);
+                },delay);
+            }
+        },
     },
     watch: {
         textValue(val) {
@@ -229,7 +255,6 @@ export default {
     }
     .input-search-box {
         font-size: 12px;
-        position: relative;
     }
     .input-search-box .search-box{
         height: 35px;
@@ -292,8 +317,6 @@ export default {
         border: 1px solid #C0C4CC;
         border-radius: 3px;
         position: absolute;
-        top: 38px;
-        left: 0;
         padding: 10px;
         overflow: hidden;
         z-index: 99999999;

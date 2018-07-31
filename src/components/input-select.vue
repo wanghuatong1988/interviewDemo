@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <input-search
-      v-model="text"
-      @getSearchName="getName"
-      :data="dataList">
-    </input-search>
+  <div style="width:250px;overflow:hidden;margin:250px auto;">
+      <input-search
+        v-model="text"
+        @getSearchName="getName"
+        :data="dataList">
+      </input-search>
   </div>
 </template>
 

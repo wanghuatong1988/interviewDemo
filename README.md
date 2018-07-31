@@ -9,8 +9,7 @@ localhost:8088
 
 > * 下拉搜索选择插件
 [下拉搜索组件git演示  /src/components/input-select](http://chuantu.biz/t6/348/1532593131x-1566688688.gif)
-做这样个插件的初衷是工作需要，而且暂时还没有找到适合的vue的下拉搜索组件，
-这个插件并没有太多的配置功能，我只是开发他满足一般的工作需求，这些是他的基本配置
+这些是他的基本配置
 
 | 参数   |  功能  | 默认值|
 | --------  | :----:  |:----:  |
@@ -19,11 +18,7 @@ localhost:8088
 | visibleInput     |   是否隐藏搜索框   | false |
 | autoQuery     |   是否输入后就触发    | true |
 | width     |   设置输入框宽度值    | 210 |
-| delay     |   请求延时间隔(autoQuery属于为false时)    | 500 |
-
-`这里有几个要注意的点`
-1、使用该插件的时候外层不要加overflow:hidden,我这里并没有用坐标的方式去计算下拉框的位置
-2、数据格式还是严格按照[{label: '飞机', value: 1}]的方法，这个我也是参照element-ui的数据格式去做的，没有额外把它分离出来成一个组件
+| delay     |   请求延时间隔(autoQuery为false时)    | 500 |
 
 
 ---------
@@ -39,7 +34,7 @@ localhost:8088
       style="background: url('http://www.030.cn/path/pdb/201801/5a1e84cdc4c1f.jpg!bpdb');background-size: cover;">
     </div>
 ```
-放大缩小的问题是，在双指下放大缩小会出现bug，这里是通过下面的这个判断下解决的
+放大缩小其中的注意点是，在双指下放大缩小会出现bug，这里是通过下面的这个判断下解决的
 ```
 //如果是双指同时把手指离开 changedTouches 的长度就等于手指的长度, touches 和 targetTouches 为空
             //如果是双指同时把手指按下，其中有一个离开, changedTouches、touches、targetTouches长度都为1，

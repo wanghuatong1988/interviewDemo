@@ -93,7 +93,7 @@ export default {
         return val;
       },
       getVal(el, val) {
-        //缩放比小于1人时候显示
+        //缩放比小于1的时候显示
         this.show = (val.scale <= 0.9) ? true : false;
       }
     },

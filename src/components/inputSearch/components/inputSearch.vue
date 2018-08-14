@@ -84,11 +84,11 @@ export default {
     },
     mounted() {
         //全局监听上下键
-        document.onkeydown = (ev) => {
+        document.onkeydown = ev => {
             this.keyupChange(ev);
         }
 
-        document.onclick = (ev) => {
+        document.onclick = ev => {
             this.show = false;
         }
 

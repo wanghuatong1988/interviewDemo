@@ -850,43 +850,25 @@
     			setLevel(v.child, depth + 1)
     		}
     	}
-    })(arrList, 1)
+    })(arrList, 1);
 
-  //   function objP(bArr, inArr){
-	 //    var rt = [];
-	 //    for(var i = 0; i<inArr.length;i++){
-	 //        if(inArr[i].now===false){
-	 //            continue;
-	 //        } else if(inArr[i].now){
-	 //            var newBArr=bArr.concat(inArr[i].id);
-	 //            rt.push(newBArr);
-	 //            continue;
-	 //        } else if(inArr[i].child){
-	 //            var tmp=objP([inArr[i].id], inArr[i].child)
-	 //            for(var j=0;j<tmp.length;j++){
-	 //                rt.push(bArr.concat(tmp[j]));
-	 //            }
-	 //        }
-	 //    }
-	 //    return rt;
-		// }
-
-		//
-		function objP(bArr, inArr) {
-			var rt = [];
-			for(var i = 0; i < inArr.length; i++) {
-				if(inArr[i].child) {
-					var tmp = objP([inArr[i].id], inArr[i].child);
-					for(var j = 0; j < tmp.length; j++) {
-						rt.push(bArr.concat(tmp[j]));
-					}
-				} else if(inArr[i].now) {
-					var newBArr = bArr.concat(inArr[i].id);
-					rt.push(newBArr);
-					continue;
-				}
-			}
-			return rt;
+    function objP(bArr, inArr) {
+	    let rt = [];
+	    for(let i = 0; i < inArr.length; i++) {
+	        if(inArr[i].now === false) {
+	            continue;
+	        } else if(inArr[i].now) {
+	            let newBArr = bArr.concat(inArr[i].id);
+	            	rt.push(newBArr);
+	            continue;
+	        } else if(inArr[i].child) {
+	            let tmp = objP([inArr[i].id], inArr[i].child);
+	            for(let j = 0; j < tmp.length; j++) {
+	              rt.push(bArr.concat(tmp[j]));
+	            }
+	        }
+	    }
+	    return rt;
 		}
 
 		console.log(JSON.stringify(objP([],arrList)));

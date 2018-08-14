@@ -30,7 +30,7 @@ export default {
                     '-o-transition': 'opacity 0.8s ease-out',
                 },
                 on: {
-                    mousedown: ev=> {
+                    mousedown: ev => {
                         let e = ev || window.event, scrollH;
 
                         if (e.preventDefault) {
@@ -91,7 +91,7 @@ export default {
                 this.directionFn(t);
             }, false);
         } else {
-            this.ulbox.onmousewheel = ev=>{
+            this.ulbox.onmousewheel = ev =>{
                 let e = ev || window.event,
                     t = 0;
 

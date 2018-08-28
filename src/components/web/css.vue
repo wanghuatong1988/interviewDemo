@@ -420,11 +420,12 @@ $w: 100px;
   align-items: center;
   span:nth-child(1) {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    padding:40px;
     top: 50%;
     left: 50%;
+    background: #000;
     background: pink;
+    z-index: 1;
     transform: translate(-50%, -50%)
   }
   span:nth-child(2) {
@@ -438,8 +439,8 @@ $w: 100px;
     height: 100px;
   }
   span:nth-child(3) {
-    width: 100px;
-    height: 100px;
+    padding: 30px;
+    z-index: 2;
     background: blueviolet;
   }
 }

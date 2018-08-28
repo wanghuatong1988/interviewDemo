@@ -70,7 +70,8 @@
 					 module.l = true;
 
 					 // 7.返回该模块的exports
-					 return module.exports;}
+					 return module.exports;
+					}
 
 					 //8.require第一个 模块
 					 return __webpack_require__(0);

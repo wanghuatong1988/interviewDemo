@@ -88,7 +88,7 @@ export default function(isTab, restful) {
                             page: this.query.pageNum,
                             pageSize: this.query.pageSize
                         }, Object.keys(this.$route.query).length > 1 && this.onceQuery ? this.$route.query : {}),
-                        success: res=> {
+                        successAll: res=> {
                             this.dataList = res.list;
                             this.query.totalRecord = +res.total;
                             if(this.onceQuery) {

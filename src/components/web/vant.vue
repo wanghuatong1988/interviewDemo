@@ -18,9 +18,122 @@
 				</textarea>
 			</li>
 		</ul>
+
+		<ul>
+			<li>一般普通的下拉加载</li>
+			<li>
+				<infinite class="has" @infinite="loadMore" :disabled="disabled">
+	    		<div class="filters-list">
+						<ul>
+							<li v-for="(item,index) in data_list" :key="index">
+								//内容
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+	    	</infinite>
+        <div class="load-more" v-if="disabled"></div>
+        <div class="nothing" v-if="!disabled && data_list.length<=0 && finished"></div>
+			</li>
+		</ul>
+
+		<ul>
+			<li>
+					点击菜单切换内容
+			</li>
+			<li>
+				<!-- <tab v-model="index" @on-index-change="changeIndex">
+					<tab-item>客厅</tab-item>
+					<tab-item>卧室</tab-item>
+					<tab-item>餐厅</tab-item>
+				</tab>
+				<swiper v-model="index">
+					<swiper-item>1</swiper-item>
+					<swiper-item>2</swiper-item>
+					<swiper-item>3</swiper-item>
+				</swiper> -->
+			</li>
+		</ul>
+
+		<ul>
+			<li>
+				无限滚动
+			</li>
+			<li>
+				<!-- <ly-tab>
+					<ly-tab-item>
+					</ly-tab-item>
+				</ly-tab> -->
+			</li>
+		</ul>
 	</div>
 </template>
 <script>
+
+		import infinite from './components/infinite';
+
+		// 占时无法匹配less 没有安装less-loader
+
+		// import {LyTab, LyTabItem} from './components/slide';
+		// import {Tab, TabItem} from './components/swiper-tabs/tabs';
+		// import {Swiper, SwiperItem} from './components/swiper-tabs/swiper';
+
+		export default {
+			components: {
+				infinite,
+				// LyTab,
+				// LyTabItem,
+				// Tab,
+				// TabItem,
+				// Swiper,
+				// SwiperItem,
+			},
+			data() {
+				return {
+					refresh_loading: false,  //每次加载完都要设置为false,表示已加载完
+					disabled: true,
+					finished: false,
+					page: 1, //页数
+					data_list: [],
+					index: 0,
+				}
+			},
+			methods: {
+				loadMore() {
+					if(this.finished) return false;
+					this.disabled = true;
+					this.$api.ajax({
+						url: this.$api.url.applicationGetAppList,
+						type: 'post',
+						data: {
+							page: this.page,
+						},
+						success: data=> {
+							if(data && data.list.length){
+								this.page++;
+								this.finished = false;
+								this.data_list.push(...data.list);
+							}else{
+								this.finished = true;
+							}
+							this.refresh_loading = false;
+							this.disabled = false;
+						},
+						error: _=> {
+							this.$toast.fail({
+								message: '获取失败！',
+								duration: 1000
+							});
+							this.finished = true;
+							this.disabled = false;
+						}
+					});
+				},
+				changeIndex(index) {
+					this.index = index;
+				}
+			}
+		}
 </script>
 <style lang="scss" scoped="" type="text/css">
 ul,li {

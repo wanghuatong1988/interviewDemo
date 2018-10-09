@@ -199,7 +199,7 @@
           }
       },
       created() {
-
+          //scope.$index    获取行的index
       },
       mounted() {
         this.$message({

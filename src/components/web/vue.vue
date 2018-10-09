@@ -17,12 +17,25 @@
 		<ul>
 			<li><strong>Vue生命周期</strong></li>
 			<li>
-				beforeCreate、created、beforeMount、mounted、beforeUpdate、updated、beforeDestroy、destroyed
+				1、beforeCreate :创建前状态 el 和 data 并未初始化
+				2、created ：创建完毕状态 完成了 data 数据的初始化，el没有
+				3、beforeMount : 挂载前状态 完成了 el 和 data 初始化
+				4、mounted : 挂载结束状态 完成挂载
+				5、beforeUpdate : 更新前状态
+				6、updated : 更新完成状态
+				7、activated : keep-alive组件激活时调用
+				8、deactivated : keep-alive组件停用时调用
+				9、beforeDestroy : 销毁前状态
+				10、destroyed : 销毁完成状态
+
+				7-8和9-10是同一级别的
+				不使用keep-alive ：beforeRouteEnter --> created --> mounted --> destroyed
+				  使用keep-alive ：beforeRouteEnter --> created --> mounted --> activated --> deactivated
 			</li>
 		</ul>
 
 		<ul>
-			<li><strong>计算属性和Watch优先选择计算属性,因为计算属性是基于依赖进行缓存的</strong></li>
+			<li><strong>计算属性computed和侦听属性Watch优先选择计算属性,因为计算属性是基于依赖进行缓存的</strong></li>
 		</ul>
 
 		<ul>
@@ -34,6 +47,16 @@
 			<li>
 				解决方法：<br/>
 				Vue.set和splice
+			</li>
+		</ul>
+
+		<ul>
+			<li>
+					Vue 路由中 $route 和 $router 的区别
+			</li>
+			<li>
+					1、$route是“路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。
+					2、$router是“路由实例”对象包括了路由的跳转方法，钩子函数等。
 			</li>
 		</ul>
 

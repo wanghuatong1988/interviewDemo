@@ -715,190 +715,114 @@
 
     var arrList = [
     	{
-        name:"新闻",
-        id:1,
-        parent_id: 0,
+        name:"新闻", id:1, parent_id: 0,
         child:[
-        {
-          name:"广东新闻",
-          id:2,
-          parent_id: 1,
-            child:[
-              {
-                now: true,
-                  name:"深圳新闻",
-                  id:4,
-                  parent_id: 2
-              },{
-                now: false,
-                  name:"广州新闻",
-                  id:5,
-                  parent_id: 2
-              }
-          ]
-        },
-        {
-          name:"湖南新闻",
-          id:3,
-          parent_id: 1,
-          child:[
-            {
-              now: true,
-              name:"株洲新闻",
-              parent_id: 3,
-              id:6
-            },{
-              now: false,
-              name:"长沙新闻",
-              parent_id: 3,
-              id:7
-            }
-          ]
-        }]
+	        {
+	          name:"广东新闻", id:2, parent_id: 1,
+	          child:[
+	            { now: true, name:"深圳新闻", id:4, parent_id: 2 },
+	            { now: false, name:"广州新闻", id:5, parent_id: 2 }
+	          ]
+	        },
+	        {
+	        	name:"湖南新闻", id:3, parent_id: 1,
+	          child:[
+	            { now: true, name:"株洲新闻", parent_id: 3, id:6 },
+	            { now: false,name:"长沙新闻", parent_id: 3, id:7 }
+	          ]
+	        },
+        ]
       },
       {
-        name:"学院",
-        id:8,
-        parent_id: 0,
+        name:"学院", id:8, parent_id: 0,
         child:[
-        {
-          name:"广东学院",
-          id:9,
-          parent_id: 8,
-            child:[
-              {
-                now: true,
-                  name: "深圳大学",
-                  id:11,
-                  parent_id: 9
-              },{
-                now: false,
-                  name:"中山大学",
-                  id:12,
-                  parent_id: 9
-              }
-          ]
-        },
-        {
-          name:"湖南学院",
-          id:10,
-          parent_id: 8,
-          child:[
-            {
-              now: false,
-              name:"长沙师范学院",
-              parent_id: 10,
-              id:13
-            },{
-              now: false,
-              name:"株洲学院",
-              parent_id: 10,
-              id:14
-            }
-          ]
-        }]
+	        {
+	        	name:"广东学院", id:9, parent_id: 8,
+	          child:[
+	              { now: true, name: "深圳大学", id:11, parent_id: 9 },
+	              { now: false, name:"中山大学", id:12, parent_id: 9 }
+	          ]
+	        },
+	        {
+	        	name:"湖南学院", id:10, parent_id: 8,
+	          child:[
+	            { now: false, name:"长沙师范学院", parent_id: 10, id:13 },
+	            { now: false, name:"株洲学院", parent_id: 10, id:14 }
+	          ]
+	        },
+        ]
       },
       {
-        name:"篮球",
-        id:15,
-        parent_id: 0,
+      	name:"篮球", id:15, parent_id: 0,
         child:[
-        {
-          name:"湖人",
-          id:16,
-          parent_id: 15,
-            child:[
-              {
-                now: false,
-                  name: "科比",
-                  id:17,
-                  parent_id: 16
-              },{
-                now: false,
-                  name:"魔术师",
-                  id:18,
-                  parent_id: 16
-              }
-          ]
-        },
-        {
-          name:"勇士",
-          id:19,
-          parent_id: 15,
-          child:[
-            {
-              now: false,
-              name:"库里",
-              parent_id: 19,
-              id:20
-            },{
-              now: true,
-              name:"佛祖",
-              parent_id: 19,
-              id:21
-            }
-          ]
-        }]
+		      {
+		        name:"湖人", id:16, parent_id: 15,
+		        child:[
+		          { now: false, name: "科比", id:17, parent_id: 16 },
+		          { now: false, name:"魔术师", id:18, parent_id: 16 }
+		        ]
+		      },
+		      {
+		        name:"勇士", id:19, parent_id: 15,
+		        child:[
+		          { now: false, name:"库里", parent_id: 19, id:20 },
+		          { now: true, name:"佛祖", parent_id: 19, id:21 }
+		        ]
+		      }
+        ]
       },
     ];
 
     //给对象加层级
-    (function setLevel(data, depth){
-    	for(let v of data) {
-    		v.depth = depth
-    		if(v.child && v.child.length) {
-    			setLevel(v.child, depth + 1)
-    		}
-    	}
-    })(arrList, 1);
+		(function setLevel(data, depth){
+				for(let v of data) {
+					v.level = depth;
+					if(v.child && v.child.length) {
+						setLevel(v.child, depth + 1);
+					}
+				}
+		})(arrList, 1);
 
-    function objP(bArr, inArr) {
-	    let rt = [];
-	    for(let i = 0; i < inArr.length; i++) {
-	        if(inArr[i].now === false) {
-	            continue;
-	        } else if(inArr[i].now) {
-	            let newBArr = bArr.concat(inArr[i].id);
-	            	rt.push(newBArr);
-	            continue;
-	        } else if(inArr[i].child) {
-	            let tmp = objP([inArr[i].id], inArr[i].child);
-	            for(let j = 0; j < tmp.length; j++) {
-	              rt.push(bArr.concat(tmp[j]));
-	            }
-	        }
-	    }
-	    return rt;
+  //   function objP(bArr, inArr) {
+	 //    let rt = [];
+	 //    for(let i = 0; i < inArr.length; i++) {
+	 //        if(inArr[i].now === false) {
+	 //            continue;
+	 //        } else if(inArr[i].now) {
+	 //            let newBArr = bArr.concat(inArr[i].id);
+	 //            	rt.push(newBArr);
+	 //            continue;
+	 //        } else if(inArr[i].child) {
+	 //            let tmp = objP([inArr[i].id], inArr[i].child);
+	 //            for(let j = 0; j < tmp.length; j++) {
+	 //              rt.push(bArr.concat(tmp[j]));
+	 //            }
+	 //        }
+	 //    }
+	 //    return rt;
+		// }
+
+		function objP(bArr, inArr) {
+			let rt = [];
+			for(let i = 0; i < inArr.length; i++) {
+				if(inArr[i].now === false) {
+					continue;
+				} else if (inArr[i].now) {
+					let newBArr = bArr.concat(inArr[i].id);
+							rt.push(newBArr);
+							continue;
+				} else if (inArr[i].child) {
+					let tmp = objP([inArr[i].id], inArr[i].child);
+					for(let j = 0; j < tmp.length; j++) {
+						rt.push(bArr.concat(tmp[j]));
+					}
+				}
+			}
+			return rt;
 		}
 
 		console.log(JSON.stringify(objP([],arrList)));
 
-    // let arr = [], removeArr = [];
-    // function getLevel(obj) {
-    //   obj.forEach((item, index)=>{
-    //     item.index = index;
-    //     if(item.child && item.child.length) {
-    //       getLevel(item.child);
-    //     }else {
-    //       if(item.checked) {
-    //         getLastChenked([arrList[index]]);
-    //       }else {
-    //         //记录要删除的id
-    //         removeArr.push(item.id);
-    //       }
-    //     }
-    //   })
-    //   return Array.from(new Set([...new Set(arr)].filter(x=> !new Set(removeArr).has(x))));
-    // }
-
-    // function getLastChenked(obj) {
-    //   for(let v of obj) {
-    //     arr.push(v.id);
-    //     if(v.child && v.child.length) {
-    //       getLastChenked(v.child);
-    //     }
-    //   }
-    // }
 
   	/**
   	var ObjCreate = {name:'one'};

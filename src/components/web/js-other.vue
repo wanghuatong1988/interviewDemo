@@ -1,5 +1,6 @@
 <template>
 	<div>
+    <input type="text" id="input" value=""/>
 		<ul>
 			<li>js关于小数点相加的运算</li>
       <li>由于首先声明这不是bug，
@@ -14,6 +15,7 @@
         这是一个可输入数值去改变滑条的值的功能，由于取值是在2-3.5之间，为15步，事个滑动条的长度是100，15/100大约是6.6为一步
         在这整个过程用由小数位相加会有错误，所以都要把他转为整数去处理
       </li>
+			<li>
 				<textarea style="height:550px">
             <template>
               <div class="set-price-box">
@@ -129,6 +131,36 @@
 	</div>
 </template>
 <script>
+    // let el = document.getElementById('input');
+    // let obj = {
+    //   name: ''
+    // }
+
+    // function oberseve(obj) {
+    //   if (typeof obj !== 'object') return;
+    //   for(let key in obj) {
+    //     defineReactive(obj, key, obj[key]);
+    //     oberseve(obj[key]);
+    //   }
+    // }
+
+    // function defineReactive(target, property, value) {
+    //   Object.defineProperty(target, property, {
+    //     get() {
+    //       el.value = value;
+    //       return value;
+    //     },
+    //     set(newVal) {
+    //       el.value = newVal;
+    //       value = newVal;
+    //     }
+    //   })
+    // }
+
+    // oberseve(obj);
+    // el.addEventListener('input', function(){
+    //   obj.name = this.value;
+    // })
 </script>
 <style lang="scss" scoped="" type="text/css">
 ul,li {

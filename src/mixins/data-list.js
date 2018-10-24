@@ -65,20 +65,23 @@ export default function(isTab, restful) {
             //列表展示
             getDataList() {
                 if(restful[0]) {
+                    this.dataList=[];
 
-                    let strat_time = this.time[0] || '',
-                        stop_time = this.time[1] || '';
+                    if(this.time.length) {
+                        let strat_time = this.time[0] || '',
+                            stop_time = this.time[1] || '';
 
-                    if (this.isBrowser()) {
-                        strat_time = strat_time ? strat_time.replace(new RegExp(/-/gm), "/") : '';
-                        stop_time = stop_time ? stop_time.replace(new RegExp(/-/gm), "/") : '';
+                        if (this.isBrowser()) {
+                            strat_time = strat_time ? strat_time.replace(new RegExp(/-/gm), "/") : '';
+                            stop_time = stop_time ? stop_time.replace(new RegExp(/-/gm), "/") : '';
+                        }
+
+                        strat_time = strat_time ? new Date(strat_time).getTime() : '';
+                        stop_time = stop_time ? new Date(stop_time).getTime() : '';
+
+                        this.form.start_time = strat_time / 1000;
+                        this.form.stop_time = stop_time / 1000;
                     }
-
-                    strat_time = strat_time ? new Date(strat_time).getTime() : '';
-                    stop_time = stop_time ? new Date(stop_time).getTime() : '';
-
-                    this.form.start_time = strat_time / 1000;
-                    this.form.stop_time = stop_time / 1000;
 
                     this.$api.ajax({
                         type: "post",
@@ -88,14 +91,14 @@ export default function(isTab, restful) {
                             page: this.query.pageNum,
                             pageSize: this.query.pageSize
                         }, Object.keys(this.$route.query).length > 1 && this.onceQuery ? this.$route.query : {}),
-                        successAll: res=> {
+                        success: res=> {
                             this.dataList = res.list;
                             this.query.totalRecord = +res.total;
                             if(this.onceQuery) {
                                 this.onceQuery = false;
                             }
                         },
-                        error: _=> {}
+                        error: data=> {}
                     });
                 }
             },
@@ -111,7 +114,7 @@ export default function(isTab, restful) {
                                 this.tabList = res;
                                 this.tag = this.$route.query.tag || res[0].tag_code;
                             },
-                            error: _=> {}
+                            error: data=> {}
                         });
                     }else {
                         resolve();
@@ -132,6 +135,11 @@ export default function(isTab, restful) {
                 //查看是否需要带搜索参数
                 if(this.isSearch) {
                     return Object.assign({}, query, {
+                        tag: this.tag,
+                        page: this.query.pageNum,
+                    });
+                } else {
+                    return Object.assign({},{
                         tag: this.tag,
                         page: this.query.pageNum,
                     });

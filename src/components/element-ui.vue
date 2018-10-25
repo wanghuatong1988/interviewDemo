@@ -1,5 +1,14 @@
 <template>
   <div class="element-ui">
+
+      <!--
+        在使用 element ui 的el-table 组件时，表头进行v-if判断来动态显示，正常来说这样的操作时没得任何毛病的，
+        但是如果在这基础上使用 <template slot-scope="scope"> 操作的话表头一旦切换就会报错
+        这是因为在v-for或者v-if切换标签时，多个相同的标签被渲染，如果不添加key来区分则会出现复用的情况。
+        而原本这些标签每一个都是独立的，故，需要添加key来做区分！
+        <el-table :key="1" v-if="a"></el-table>
+        <el-table :key="2" v-else></el-table>
+      -->
       <!--提示-->
       <el-button type="primary" :loading="loading.query" @click="send">发送按钮</el-button>
       <el-button type="success" @click="dialogVisible = true">成功按钮</el-button>

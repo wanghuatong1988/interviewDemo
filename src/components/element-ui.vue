@@ -21,7 +21,7 @@
           title="审核"
           :close-on-click-modal="false"
           :visible.sync="dialogVisible"
-          before-close="close"
+          :before-close="close"
           width="300px">
           <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>

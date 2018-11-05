@@ -13,3 +13,26 @@ esLint规范分为下面这几种：
   或者选择最基本的eslint-config-airbnb-base(这个是通用的包含ECMAScript代码检查规范)
 2、standard,选择安装eslint-config-standard
 ```
+*javascript中的require、import和export人区别
+```
+ nodejs就遵循CommonJS规范 使用module.exports和exports暴露模块 使用require加载模块
+  function hello() {
+    console.log('Hello, world!');
+  }
+
+  function world(name) {
+    console.log('Hello, ' + name);
+  }
+  //区别
+  module.exports = {
+      hello: hello,
+      world: world
+  };
+
+  exports.hello = hello;
+  exports.world= world;
+
+---------------------
+
+ ES6标准 使用exprot导出 import引入
+```

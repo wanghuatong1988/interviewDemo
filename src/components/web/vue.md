@@ -147,3 +147,33 @@ www.dd.com/bb/12,如果是to="bb/12"它是会变成拼接最后成为"www.dd.com
 ```
 直接用ref绑在子组件上
 ```
+* 设置缓存
+```
+//在mian.js进来时先看是否第一次加载
+router.afterEach((to, from) => {
+    if (from.meta.keep) from.meta.keepFlag = store.getters.getToken + from.fullPath; //如果上一页为缓存页面，记录缓存标志
+});
+
+//然后在app.vue页加上keep-live
+<div class="router-view">
+  <!-- 非缓存页面 -->
+  <router-view v-if="!$route.meta.keep" />
+        <!-- 缓存页面 -->
+  <keep-alive>
+    <router-view v-if="$route.meta.keep" />
+  </keep-alive>
+</div>
+
+//在需要缓存的页面行加上缓存操作
+
+activated() {
+  setTimeout(() => {
+    // 如果是第一次就加载
+    if (this.$route.meta.keepFlag != store.getters.getToken + this.$route.fullPath) {
+      this.keepInit && this.keepInit();
+    } else {
+      //不加载任何方法
+    }
+  }, 100);
+},
+```

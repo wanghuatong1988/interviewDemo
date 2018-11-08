@@ -4,7 +4,7 @@
     <div class="drag"
       v-dragScaleRotate:getScaleRotate="getVal"
       ref="drag"
-      style="background: url('http://www.030.cn/path/pdb/201801/5a1e84cdc4c1f.jpg!bpdb');background-size: cover;">
+      style="background: url('http://pics-house.365haofang.com/2018/0502/15252269530886154262.jpg?imageView2/1/w/270/h/164/interlace/1/q/100');background-size: cover;">
     </div>
 
     <!--这里用指令爆露出来的数据进行放大、缩小(防止缩到太小的时候两指无法操作)-->

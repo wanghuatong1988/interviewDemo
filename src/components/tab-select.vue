@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <tab-select
       v-model="tabValue"
       location="left"
@@ -12,6 +10,10 @@
       <tab-pane label="购物" name="3">购物</tab-pane>
       <tab-pane label="历史" name="4">历史</tab-pane>
       <tab-pane label="帮助" name="5">帮助</tab-pane>
+
+      <tab-check v-model="lovingVue"></tab-check>
+
+      <tab-input v-model="val_input"></tab-input>
     </tab-select>
   </div>
 </template>
@@ -20,12 +22,16 @@
 
   import tabSelect from './tabSelect/tab-select';
   import tabPane from './tabSelect/tab-pane';
+  import tabCheck from './tabSelect/tab-check';
+  import tabInput from './tabSelect/tab-input';
 
   export default {
       name: '',
       components: {
         tabSelect,
-        tabPane
+        tabPane,
+        tabInput,
+        tabCheck
       },
       props: {
       },
@@ -40,17 +46,27 @@
                 {label: '帮助', value: '5'},
               ],
               tabValue: '',
+              lovingVue: '',
+              val_input: '',
           }
       },
       created() {
 
       },
       mounted() {
-
+        
       },
       methods: {
 
       },
+      watch: {
+         lovingVue(val) {
+           console.log(val);
+         },
+         val_input(val) {
+           console.log(val);
+         }
+      }
   }
 </script>
 

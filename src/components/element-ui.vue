@@ -159,6 +159,31 @@
                 :total="query.totalRecord">
             </el-pagination>
             <nothing :state="load_flag"/>
+      </div>
+
+      <!--form-->
+
+      <div class="common-table">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+          <el-form-item label="邮箱地址：" prop="email">
+            <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="密码：" prop="password" :required="!$route.params.id">
+              <el-input v-model="ruleForm.password" autocomplete="off" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码：" prop="repassword" :required="!$route.params.id">
+              <el-input v-model="ruleForm.repassword" autocomplete="off" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="备注：">
+              <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="ruleForm.job_title" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="排序：" prop="sort">
+            <el-input v-model="ruleForm.sort" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+          </el-form-item>
+        </el-form>
         </div>
 
   </div>
@@ -205,6 +230,44 @@
                 }
               },
               load_flag: false,
+
+              ruleForm: {
+                account: '',
+                mobile: '',
+                username: '',
+                email: '',
+                job_title: '',
+                status: 1,
+                sort: '',
+                role_id: '',
+              },
+
+              rules: {
+                account: [
+                    { required: true, message: "请输入账户", trigger: "blur" }
+                ],
+                username: [
+                    { required: true, message: "请输入姓名", trigger: "blur" }
+                ],
+                role_id: [
+                    { required: true, message: "请选择管理员角色", trigger: "change" }
+                ],
+                mobile: [
+                    { required: true, validator: this.validateMobile, trigger: "blur" }
+                ],
+                sort:  [
+                    { required: true, validator: this.validateSort, trigger: "blur" }
+                ],
+                email: [
+                    { required: false, validator: this.validateEmail, trigger: "blur" }
+                ],
+                password: [
+                    {validator: this.validatePassword, trigger: "blur" }
+                ],
+                repassword: [
+                    {validator: this.validateConfirmPwd, trigger: "blur" }
+                ]
+              }
           }
       },
       created() {
@@ -283,7 +346,87 @@
         },
         searchBtn() {
 
-        }
+        },
+        validatePassword(rule, value, callback) {
+            if (!this.$route.params.id) {
+                if (value === "") {
+                    callback(new Error("请输入密码"));
+                } else if (value.length < 6 || value.length > 20) {
+                    callback(new Error("密码长度为6~20位之间"));
+                } else {
+                    callback();
+                }
+            } else {
+                if (value) {
+                    if (value.length < 6 || value.length > 20) {
+                        callback(new Error("密码长度为6~20位之间"));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            }
+        },
+        validateConfirmPwd(rule, value, callback) {
+            if (!this.$route.params.id) {
+                if (value === "") {
+                    callback(new Error("请确认密码"));
+                } else if (value.length < 6 || value.length > 20) {
+                    callback(new Error("密码长度为6~20位之间"));
+                } else {
+                    callback();
+                }
+            } else {
+                if (value) {
+                    if (value.length < 6 || value.length > 20) {
+                        callback(new Error("密码长度为6~20位之间"));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            }
+        },
+        validateMobile(rule, value, callback) {
+            if (value === "") {
+                callback(new Error("请输入手机号码"));
+            } else if (!this.$fn.validate('mobile',value)) {
+                callback(new Error("手机输入有误"));
+            }
+            callback();
+        },
+        validateSort(rule, value, callback) {
+            if (value === "") {
+                callback(new Error("请输入排序"));
+            } else if (!/^([0]|[1-9]([0-9]+)?)$/.test(value)) {
+                callback(new Error("排序输入有误"));
+            }
+            callback();
+        },
+        validateEmail(rule, value, callback) {
+            if (!/^(\w*)@[a-z1-9]*\.(\w+)$/.test(value) && value) {
+                callback(new Error("邮箱输入有误"));
+            }
+            callback();
+        },
+        submitForm(formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+
+                    if (this.ruleForm.password !== this.ruleForm.repassword) {
+                        this.$message({
+                            message: "密码不一致",
+                            type: "warning"
+                        });
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            });
+        },
 
       },
   }

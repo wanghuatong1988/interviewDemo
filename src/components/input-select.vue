@@ -1,15 +1,21 @@
 <template>
   <div style="width:250px;overflow:hidden;margin:250px auto;">
-      <input-search
-        v-model="text"
-        @getSearchName="getName"
-        :data="dataList">
-      </input-search>
+    <ct-select
+      v-model="text"
+      :data="dataList"
+      @getSearchName="getName">
+      <ct-option 
+        v-for="(item, index) of dataList" 
+        :key="index"
+        :value="item.value"
+        :label="item.label"
+        :index="index">
+      </ct-option>
+    </ct-select>
   </div>
 </template>
 
 <script type="text/javascript">
-
   import axios from 'axios';
 
   export default {

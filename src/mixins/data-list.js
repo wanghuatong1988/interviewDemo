@@ -133,17 +133,10 @@ export default function(isTab, restful) {
                     query[v] = this.form[v] || ''
                 }
                 //查看是否需要带搜索参数
-                if(this.isSearch) {
-                    return Object.assign({}, query, {
-                        tag: this.tag,
-                        page: this.query.pageNum,
-                    });
-                } else {
-                    return Object.assign({},{
-                        tag: this.tag,
-                        page: this.query.pageNum,
-                    });
-                }
+                return Object.assign({}, (this.isSearch ? query : {}),{
+                    tag: this.tag,
+                    page: this.query.pageNum,
+                });
             }
         }
     }

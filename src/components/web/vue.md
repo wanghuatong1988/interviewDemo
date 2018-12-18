@@ -177,3 +177,6 @@ activated() {
   }, 100);
 },
 ```
+```
+同在在props、methods、data定义了相同的变量，系统会提示报错，它的优先级是props->methods->data
+```

@@ -1,11 +1,8 @@
-import inputSearch from './components/inputSearch.vue';
-const inputsearch = {
-  install(Vue) {
-    Vue.component(inputSearch.name, inputSearch);
-  }
-};
+import ctSelect from './components/ct-select.vue';
+import ctOption from './components/ct-option.vue';
 
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(inputsearch);
+export default function(Vue) {
+    Vue.component(ctSelect.name, ctSelect);
+    Vue.component(ctOption.name, ctOption);
 }
-export default inputsearch;
+export { ctSelect, ctOption }

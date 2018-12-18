@@ -12,15 +12,13 @@
                 <div class="data-list-box" :style="{ 'height': (data.length > 10 ? scrollHeight : (data.length < 2 ? 160 : data.length * hLi)) + 'px' }">
                     <div class="data-scroll" v-if="data.length">
                         <ul class="ul-box" ref="ulbox" :style="{ 'height': (data.length * hLi) + 'px', 'width': width + 'px' }" @mouseleave="leaveUl">
-                            <li v-for="(item,index) in data" @mouseover="moveLi(index)"  :class="{selectLi: index == itemIndex}" @click="selectLiHandler()" :key="index">
-                                {{item.label}}
-                            </li>
+                            <slot></slot>
                         </ul>
                         <div class="scroll-box" v-if="data.length > 10" :style="{ 'height': (data.length > 10 ? scrollHeight : data.length * hLi) + 'px' }">
                             <scroll-into-view ref="scrollInto"/>
                         </div>
                     </div>
-                    <div v-else class="tiptxt">无数据</div>
+                    <div v-else class="tiptxt">暂无数据</div>
                 </div>
             </div>
         </transition>
@@ -37,11 +35,16 @@
  *   @params delay              请求延时间隔(autoQuery为false时)
 */
 
+import ctOption from './ct-option.vue';
 import scrollIntoView from './scroll-into-view.js';
 
+
 export default {
-    name: 'input-search',
-    components: {scrollIntoView},
+    name: 'ct-select',
+    components: {
+        scrollIntoView, 
+        ctOption
+    },
     props: {
         width: {//设置选择框长度
             type: [String, Number],
@@ -49,10 +52,6 @@ export default {
         },
         value: {
             type: [String, Number],
-            default: ''
-        },
-        data: {//数据
-            type: Array,
             default: ''
         },
         visibleInput: {
@@ -66,6 +65,9 @@ export default {
         delay: {
             type: Number,
             default: 500,
+        },
+        data: {
+            type: Array
         }
     },
     data() {
@@ -82,6 +84,11 @@ export default {
             timer: null,
         }
     },
+    provide() {
+      return {
+        'select': this
+      };
+    },
     mounted() {
         //全局监听上下键
         document.onkeydown = ev => {
@@ -93,11 +100,10 @@ export default {
         }
 
         window.addEventListener('resize', _=>{
-            this.throttle(this.setStyle, 500, 1000)
+            this.throttle(this.setStyle, 300, 1000)
         })
 
         this.setStyle();
-
     },
     methods: {
         //鼠标移入
@@ -107,9 +113,7 @@ export default {
             if(this.isCode_40_38 && !this.isMousemove) {
                 this.isCode_40_38 = false;
             }
-
             this.isMousemove = true;
-
             if(!this.isCode_40_38) {
                 this.itemIndex = index;
             }
@@ -216,6 +220,7 @@ export default {
                 this.$refs.inputbox.style.left = this.$refs.searchbox.offsetLeft + 'px';
             }
         },
+        //函数节流
         throttle(fn, delay, mustApplyTime) {
             clearTimeout(fn.timer);
             fn._cur = Date.now();
@@ -241,7 +246,7 @@ export default {
                     this.reductionEmitVal();
                 },this.delay);
             }
-        }
+        },
     }
 }
 </script>
@@ -360,15 +365,7 @@ export default {
         right: 0;
         z-index: 6;
     }
-    .input-search-box .input-box .ul-box li {
-        height: 32px;
-        line-height: 32px;
-        cursor: pointer;
-        padding: 0 10px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-    }
+    
     .input-search-box .input-box .tiptxt {
         color: #C0C4CC;
         text-align: center;
@@ -389,8 +386,5 @@ export default {
     .fade-enter,
     .fade-leave-active {
         opacity: 0;
-    }
-    .selectLi {
-        background: #e4e4e4;
     }
 </style>

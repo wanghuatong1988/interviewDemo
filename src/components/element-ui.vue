@@ -29,6 +29,9 @@
           </span>
       </el-dialog>
 
+      <!---->
+      <el-switch v-model="is_nav" @change="tabNav($event, '默认change只有一个传,想传多个只需要把那个参数变为$event,因为内联语句支持')"></el-switch>
+
       <!--发送参数值最少是三个-->
       <router-link :to="{
               path: '/orders/list/detail',
@@ -158,7 +161,6 @@
                 layout="prev, pager, next"
                 :total="query.totalRecord">
             </el-pagination>
-            <nothing :state="load_flag"/>
       </div>
 
       <!--form-->
@@ -184,7 +186,10 @@
             <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
           </el-form-item>
         </el-form>
-        </div>
+      </div>
+
+      <!--自带loading加载-->
+      <el-table border style="width: 100%" v-loading="load_flag" element-loading-text="正在加载中。。。。"></el-table>
 
   </div>
 </template>
@@ -214,7 +219,7 @@
                 query_seq_3: false,
               },
               dialogVisible: false,
-
+              is_nav: true,
 
               //做个兼容处理
               item: {
@@ -230,6 +235,14 @@
                 }
               },
               load_flag: false,
+
+              form: {
+                id: '',
+                name: '',
+                sort: '',
+                icon: '',
+                attributes: []
+              },
 
               ruleForm: {
                 account: '',
@@ -271,7 +284,35 @@
           }
       },
       created() {
+           //<el-form> 单独移除某个表单验证 role_id 是某个字段
+           //this.$refs.form.validateField('role_id');
           //scope.$index    获取行的index
+
+          /*
+
+            if(row){
+              let arr = [];
+              for(let v of row.attributes) {
+                arr.push(v.id);
+              }
+              this.form = {
+                id: row.id,
+                name: row.name,
+                sort: row.sort,
+                icon: row.icon,
+                //attributes: [...arr], (正确)
+              }
+
+              //this.form.attributes = [...arr],   (错误)
+              this.attributeList = row.attributes;
+            }
+
+            像这种赋值操作不要把某个单独拎出来操作
+            比如如果把attributes拎出上面的this.form已经重新
+            赋值过了就等于对象里没有attributes
+            这就会破坏他原有的数值
+            再赋值的话数据已无法响应
+          */
       },
       mounted() {
         this.$message({
@@ -427,7 +468,9 @@
                 }
             });
         },
+        tabNav(isflag, name) {
 
+        }
       },
   }
 </script>

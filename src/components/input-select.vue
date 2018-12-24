@@ -4,14 +4,16 @@
       v-model="text"
       :data="dataList"
       @getSearchName="getName">
-      <ct-option 
-        v-for="(item, index) of dataList" 
+      <ct-option
+        v-for="(item, index) of dataList"
         :key="index"
         :value="item.value"
         :label="item.label"
         :index="index">
       </ct-option>
     </ct-select>
+
+    <!-- <colorPicker v-model="color" /> -->
   </div>
 </template>
 
@@ -24,6 +26,7 @@
           return{
               text: '',
               dataList:[],
+              color: '#000'
           }
       },
       mounted() {

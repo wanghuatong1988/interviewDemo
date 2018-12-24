@@ -4,11 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import 'v-select-search/lib/v-select-search.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import VuePlain from '../static/vueplain';
-import inputSearch from './components/inputSearch/index';
-Vue.use(inputSearch);
+import vSelectSearch from 'v-select-search';
 
+// import vcolorpicker from 'vcolorpicker';
+// Vue.use(vcolorpicker);
+
+Vue.use(vSelectSearch);
 
 Vue.config.productionTip = false
 

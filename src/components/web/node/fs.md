@@ -225,6 +225,14 @@ fs.readdir('./file',function(err,data){
 });
 ```
 
+- fs.rename重命名
+
+```
+fs.rename('./mkdir', './mkdir-rename', function(err) {
+    if (err) throw err;
+})
+```
+
 **4、链接文件操作**
 
 - fs.link 创建一个链接 

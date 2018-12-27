@@ -1,7 +1,9 @@
 #node核心模块-fs
+
 **1、文件读取**
 
  - fs.readFile
+
 `fs.readFile(filename,[encoding],[callback(error,data)]`是最简    单的文件读取函数，它接受一个必选参数filename，表示读取的文件名。
 第二个参数encoding是可选的，表示文件字符编码。callback是回调函数，用于接收文件的内容。如果不指定encoding，则callback就是第二个参数。
 回调函数提供两个参数err和data，err表示有没有错误发生，data是文件内容。
@@ -22,6 +24,7 @@
   ```
   
  - fs.writeFile
+
     `fs.writeFile(filename,data,[options],callback)`用来写文件，其中options为对象，有以下几个值：
   ```
   encoding {String | null} default='utf-8'
@@ -47,6 +50,7 @@ fs.writeFile('./file/writeFile.txt', '写入成功：hello world', function(err)
   ```
   
  - fs.writeFile
+
   `fs.appendFile(filename, data, [options], callback)`该方法以异步的方式将 data 插入到文件里，如果文件不存在会自动创建。data可以是任意字符串或者缓存。
 与fs.writeFile 方法差别就是 [options]的flag默认值是”a”，所以它以追加方式写入数据.
 
@@ -108,6 +112,7 @@ fs.open('./file/open.txt','r','0666',function(err,fd){
 ```
 
 - fs.read
+
     用法fs.read(fd, buffer, offset, length, position, callback);
 `fd`, 使用fs.open打开成功后返回的文件描述符
 `buffer`, 一个Buffer对象，v8引擎分配的一段内存
@@ -143,6 +148,7 @@ fs.open('./file/open.txt', 'r', function (err, fd) {
 ```
 
 - fs.write
+
 用法fs.write(fd, buffer, offset, length, position, callback);
 `fd`, 使用fs.open打开成功后返回的文件描述符
 `buffer`, 一个Buffer对象，v8引擎分配的一段内存
@@ -208,6 +214,7 @@ fs.rmdir('./mkdir',function(err){
 ```
 
 - fs.readdir读取目录
+
 返回的data为一个数组，包含该文件夹的所有文件
 ```
 const fs = require('fs');
@@ -221,6 +228,7 @@ fs.readdir('./file',function(err,data){
 **4、链接文件操作**
 
 - fs.link 创建一个链接 
+
 fs.link(srcpath, dstpath, [callback(err)])
 `srcpath`为源文件目录或文件的路径
 `dstpath`为转换后的路径
@@ -237,6 +245,7 @@ fs.link('./file/link.txt','./file/linkFile.txt',function(err){
 ```
 
 - fs.readlink、fs.realpath、fs.unlink
+
 `fs.readlink(path, [callback])` 读取链接源地址,注意：读取的是软连接中的实际中文名，也就是symlink设置的软连接
 `fs.realpath(path, [callback])` 获取当前目录或者文件的绝对路径
 `fs.unlink(path, [callback])` 删除某一个文件链接(删除的是硬链接)

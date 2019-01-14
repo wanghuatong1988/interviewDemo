@@ -824,6 +824,16 @@
 		console.log(JSON.stringify(objP([],arrList)));
 
 
+		var t_list = [
+			{id: 1, show:1},
+			{id: 2, show:2},
+			{id: 1, show:1},
+		]
+		let obj = {};
+    t_list = t_list.reduceRight((item, next) => {
+        obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+        return item
+    }, []);
   	/**
   	var ObjCreate = {name:'one'};
 		var ObjCreate2 = Object.create(ObjCreate);

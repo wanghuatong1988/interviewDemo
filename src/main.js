@@ -4,10 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import 'v-select-search/lib/v-select-search.css';
+//import 'v-select-search/lib/v-select-search.css';
+//import vSelectSearch from 'v-select-search';
 import 'element-ui/lib/theme-chalk/index.css';
 import VuePlain from '../static/vueplain';
-import vSelectSearch from 'v-select-search';
+import vSelectSearch from './components/inputSearch/index';
 
 // import vcolorpicker from 'vcolorpicker';
 // Vue.use(vcolorpicker);
@@ -18,8 +19,8 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
+});

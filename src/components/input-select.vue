@@ -2,18 +2,14 @@
   <div style="width:250px;overflow:hidden;margin:250px auto;">
     <ct-select
       v-model="text"
-      :data="dataList"
       @getSearchName="getName">
       <ct-option
         v-for="(item, index) of dataList"
         :key="index"
         :value="item.value"
-        :label="item.label"
-        :index="index">
+        :label="item.label">
       </ct-option>
     </ct-select>
-
-    <!-- <colorPicker v-model="color" /> -->
   </div>
 </template>
 
@@ -30,7 +26,7 @@
           }
       },
       mounted() {
-        axios.get('/v2/book/search?q=vue&alt=json&start=1&count=45')
+        axios.get('/v2/book/search?q=vue&alt=json&start=1&count=15')
         .then((data)=>{
             this.dataList = [];
             for(let v of data.data.books) {

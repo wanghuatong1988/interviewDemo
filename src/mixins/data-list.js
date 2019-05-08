@@ -29,14 +29,6 @@ export default function(isTab, restful) {
             });
         },
         methods: {
-            //时间格式的在不同浏览器的处理
-            isBrowser() {
-                if (!!window.ActiveXObject || "ActiveXObject" in window) {
-                    return true;
-                } else {
-                    return false;
-                }
-            },
             //tab的点击事件
             tabClick(val) {
                 this.query.pageNum = 1;
@@ -66,23 +58,6 @@ export default function(isTab, restful) {
             getDataList() {
                 if(restful[0]) {
                     this.dataList=[];
-
-                    if(this.time.length) {
-                        let strat_time = this.time[0] || '',
-                            stop_time = this.time[1] || '';
-
-                        if (this.isBrowser()) {
-                            strat_time = strat_time ? strat_time.replace(new RegExp(/-/gm), "/") : '';
-                            stop_time = stop_time ? stop_time.replace(new RegExp(/-/gm), "/") : '';
-                        }
-
-                        strat_time = strat_time ? new Date(strat_time).getTime() : '';
-                        stop_time = stop_time ? new Date(stop_time).getTime() : '';
-
-                        this.form.start_time = strat_time / 1000;
-                        this.form.stop_time = stop_time / 1000;
-                    }
-
                     this.$api.ajax({
                         type: "post",
                         url: this.$api.path+(restful[0] || ''),

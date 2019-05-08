@@ -180,3 +180,50 @@ activated() {
 ```
 同在在props、methods、data定义了相同的变量，系统会提示报错，它的优先级是props->methods->data
 ```
+
+```
+递归无限列表
+
+`parent`
+
+<div class="posUl">
+    <ul class="parentUl">
+        <menu-tree v-for="item in getDept" :data="item" :key="item"></menu-tree>
+    </ul>
+</div>
+
+
+`menu-tree.vue`
+
+<template>
+
+  <li>
+      <div :attr="data.code" :nodename="data.nodePath">{{data.value}}</div>
+      <span v-if="hasMenu" :class="{icon : hasMenu}"></span>
+      <ul v-if="hasMenu" class="childUl">
+          <menu-tree v-for="item in data.children" :data="item" :key="item"></menu-tree>
+      </ul>
+  </li>
+
+</template>
+
+<script>
+  export default {
+      name: 'menuTree',
+      props: {
+          data: {
+              type: [Object, Array, String]
+          }
+      },
+      computed: {
+          hasMenu: {
+              get: function() {
+                  return this.data.children && this.data.children.length > 0;
+              }
+          }
+      },
+  }
+
+</script>
+
+```

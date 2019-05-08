@@ -831,9 +831,16 @@
 		]
 		let obj = {};
     t_list = t_list.reduceRight((item, next) => {
-        obj[next.id] ? '' : obj[next.id] = true && item.push(next);
-        return item
+        // obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+        // return item
+        if(!obj[next.id]) {
+            obj[next.id] = true;
+            item.push(next);
+            return item
+        }
     }, []);
+
+    console.log(t_list)
   	/**
   	var ObjCreate = {name:'one'};
 		var ObjCreate2 = Object.create(ObjCreate);

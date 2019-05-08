@@ -60,19 +60,19 @@
           <li>
             <div class="label">订单号：</div>
             <div class="value">
-              <el-input v-model="form.order_sn" @keyup.enter.native="searchBtn"></el-input>
+              <el-input v-model="form.order_sn" spellcheck="false" @keyup.enter.native="searchBtn"></el-input>
             </div>
           </li>
           <li>
             <div class="label">买家：</div>
             <div class="value">
-              <el-input v-model="form.buy_name" @keyup.enter.native="searchBtn"></el-input>
+              <el-input v-model="form.buy_name" spellcheck="false" @keyup.enter.native="searchBtn"></el-input>
             </div>
           </li>
           <li>
             <div class="label">退款申请单：</div>
             <div class="value">
-              <el-input v-model="form.refund_sn" @keyup.enter.native="searchBtn"></el-input>
+              <el-input v-model="form.refund_sn" spellcheck="false" @keyup.enter.native="searchBtn"></el-input>
             </div>
           </li>
           <li>
@@ -168,19 +168,19 @@
       <div class="common-table">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
           <el-form-item label="邮箱地址：" prop="email">
-            <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+            <el-input v-model="ruleForm.email" spellcheck="false" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="密码：" prop="password" :required="!$route.params.id">
-              <el-input v-model="ruleForm.password" autocomplete="off" type="password"></el-input>
+              <el-input v-model="ruleForm.password" spellcheck="false" autocomplete="off" type="password"></el-input>
           </el-form-item>
           <el-form-item label="确认密码：" prop="repassword" :required="!$route.params.id">
-              <el-input v-model="ruleForm.repassword" autocomplete="off" type="password"></el-input>
+              <el-input v-model="ruleForm.repassword" spellcheck="false" autocomplete="off" type="password"></el-input>
           </el-form-item>
           <el-form-item label="备注：">
-              <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="ruleForm.job_title" autocomplete="off"></el-input>
+              <el-input type="textarea" spellcheck="false" :rows="2" placeholder="请输入内容" v-model="ruleForm.job_title" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="排序：" prop="sort">
-            <el-input v-model="ruleForm.sort" autocomplete="off"></el-input>
+            <el-input v-model="ruleForm.sort" spellcheck="false" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
@@ -275,11 +275,29 @@
                     { required: false, validator: this.validateEmail, trigger: "blur" }
                 ],
                 password: [
-                    {validator: this.validatePassword, trigger: "blur" }
+                    { required:!this.$route.params.id, message: '密码不能为空', trigger: 'blur' },
+                    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+                    { validator: (rule, value, callback)=>{
+                        if(this.ruleForm.repassword) {
+                            if(value != this.ruleForm.repassword) {
+                                callback(new Error("密码不一致"));
+                            }
+                        }
+                        callback();
+                    }, trigger: "blur" }
                 ],
-                repassword: [
-                    {validator: this.validateConfirmPwd, trigger: "blur" }
-                ]
+                re_password: [
+                    { required:!this.$route.params.id, message: '确认密码不能为空', trigger: 'blur' },
+                    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+                    { validator: (rule, value, callback)=>{
+                        if(this.ruleForm.password) {
+                            if(value != this.ruleForm.password) {
+                                callback(new Error("密码不一致"));
+                            }
+                        }
+                        callback();
+                    }, trigger: "blur" }
+                ],
               }
           }
       },
@@ -387,48 +405,6 @@
         },
         searchBtn() {
 
-        },
-        validatePassword(rule, value, callback) {
-            if (!this.$route.params.id) {
-                if (value === "") {
-                    callback(new Error("请输入密码"));
-                } else if (value.length < 6 || value.length > 20) {
-                    callback(new Error("密码长度为6~20位之间"));
-                } else {
-                    callback();
-                }
-            } else {
-                if (value) {
-                    if (value.length < 6 || value.length > 20) {
-                        callback(new Error("密码长度为6~20位之间"));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            }
-        },
-        validateConfirmPwd(rule, value, callback) {
-            if (!this.$route.params.id) {
-                if (value === "") {
-                    callback(new Error("请确认密码"));
-                } else if (value.length < 6 || value.length > 20) {
-                    callback(new Error("密码长度为6~20位之间"));
-                } else {
-                    callback();
-                }
-            } else {
-                if (value) {
-                    if (value.length < 6 || value.length > 20) {
-                        callback(new Error("密码长度为6~20位之间"));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            }
         },
         validateMobile(rule, value, callback) {
             if (value === "") {

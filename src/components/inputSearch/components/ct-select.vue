@@ -1,13 +1,13 @@
 <template>
     <div class="input-search-box"  @click.stop.prevent>
-        <div ref="searchbox" class="search-box" @click="show =!show;textValue=''" :style="{width: width + 'px'}">
-            <span>{{ title|| '请选择'}}</span>
+        <div ref="searchbox" class="search-box" @click="show =!show; textValue=''" :style="{width: width + 'px'}">
+            <span :style="{color: title ? '#606266' : '#C0C4CC'}">{{ title|| placeholder}}</span>
             <i :class="[{'icon':!show}, {'iconActive': show}]"></i>
         </div>
         <transition name="fade">
-            <div ref="inputbox" class="input-box" v-show="show" :style="{width: width + 'px'}">
+            <div ref="inputbox" class="input-box" v-show="show" :style="{width: width + 5 + 'px'}">
                 <div class="inputStyle" v-if="visibleInput">
-                    <input ref="inputblur" type="input" v-model="textValue" @keyup.enter="searchBtn" @keyup="isFlag = false;" @focus="isFlag = false;" placeholder="请输入搜索内容"/>
+                    <input ref="inputblur" spellcheck="false" type="input" v-model="textValue" @keyup.enter="searchBtn" @focus="isFlag = false;" placeholder="请输入搜索内容"/>
                 </div>
                 <div class="data-list-box" :style="{ 'height': (data.length > 10 ? scrollHeight : (data.length < 2 ? 160 : data.length * hLi)) + 'px' }">
                     <div class="data-scroll" v-show="data.length">
@@ -27,6 +27,7 @@
 
 <script>
 /**
+ *   https://www.npmjs.com/package/v-select-search
  *   @params getSearchName      获取搜索文本
  *   @params data               数据格式 [{label: '飞机', value: 1}]
  *   @params visibleInput       是否隐藏搜索框
@@ -36,16 +37,15 @@
 */
 
 import scrollIntoView from './scroll-into-view.js';
-
 export default {
     name: 'ct-select',
     components: {
-        scrollIntoView, 
+        scrollIntoView,
     },
     props: {
         width: {//设置选择框长度
             type: [String, Number],
-            default: 220,
+            default: 213,
         },
         value: {
             type: [String, Number],
@@ -63,6 +63,9 @@ export default {
             type: Number,
             default: 500,
         },
+        placeholder: {
+            type: String,
+        }
     },
     data() {
         return {
@@ -89,12 +92,15 @@ export default {
         document.onkeydown = ev => {
             this.keyupChange(ev);
         }
+
         document.onclick = ev => {
             this.show = false;
         }
+
         window.addEventListener('resize', _=>{
             this.throttle(this.setStyle, 300, 1000)
         })
+
         this.setStyle();
     },
     methods: {
@@ -181,6 +187,7 @@ export default {
             this.isCode_40_38 = false;
         },
         searchBtn(){
+            this.isFlag = false;
             if(this.textValue && this.autoQuery) {
                 this.reductionEmitVal();
             }
@@ -215,6 +222,11 @@ export default {
                 },delay);
             }
         },
+        onOptionDestroy(index) {
+            if(index > -1) {
+                this.data.splice(index, 1);
+            }
+        }
     },
     watch: {
         textValue(val) {
@@ -224,145 +236,147 @@ export default {
                     this.reductionEmitVal();
                 },this.delay);
             }
+            if(!val) {
+                this.reductionEmitVal();
+            }
         },
     }
 }
 </script>
-
-<style scoped>
-    ul,li {
-        margin: 0;
-        padding: 0px;
-        list-style-type: none;
-        text-align: left;
-    }
+<style lang="less" scoped>
     .input-search-box {
+        ::-webkit-input-placeholder {color:#C0C4CC;}
+    　　:-moz-placeholder {color:#C0C4CC;}
+    　　::-moz-placeholder {color:#C0C4CC;}
+    　　:-ms-input-placeholder {color:#C0C4CC;}
+
+        .fade-enter-active,
+        .fade-leave-active {
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all  .5s;
+        }
+        .fade-enter,
+        .fade-leave-active {
+            opacity: 0;
+        }
+
         font-size: 12px;
-    }
-    .input-search-box .search-box{
-        height: 35px;
-        border: 1px solid #DCDFE6;
-        border-radius: 3px;
-        background: #fff;
-        line-height: 35px;
-        padding: 0 10px;
-        position: relative;
-        text-align: left;
-    }
-    .input-search-box .search-box:hover {
-        border: 1px solid #C0C4CC;
-        cursor: pointer;
-    }
-    .input-search-box .search-box span {
-        width: -webkit-calc(100% - 15px);
-        width: calc(100% - 15px);
-        display: block;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        float: left;
-    }
-    .input-search-box .search-box i {
-        width: 0;
-        height: 0;
-        border: 6px solid transparent;
-        position: relative;
-        display: block;
-        float: left;
-    }
-    .input-search-box .search-box i::before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 4px solid transparent;
-    }
-    .input-search-box .search-box .icon {
-        border-color: transparent transparent #ccc transparent;
-        margin: 8px 0 0 0px;
-    }
-    .input-search-box .search-box .icon::before {
-        border-color: transparent transparent #fff transparent;
-        top: -2px;
-        left: -4px;
-    }
-    .input-search-box .search-box .iconActive {
-        border-color:#ccc transparent transparent transparent;
-        margin: 15px 0 0 0;
-    }
-    .input-search-box .search-box .iconActive::before {
-        border-color:#fff transparent transparent transparent;
-        top: -6px;
-        left: -4px;
-    }
-    .input-search-box .input-box {
-        background: #fff;
-        border: 1px solid #C0C4CC;
-        border-radius: 3px;
-        position: absolute;
-        padding: 10px;
-        overflow: hidden;
-        z-index: 99999999;
-    }
-    .input-search-box .inputStyle {
-        width: 100%;
-        height: 35px;
-        border: 1px solid #409EFF;
-        border-radius: 4px;
-        margin: 0 0 5px 0;
-    }
-    .input-search-box .inputStyle input[type="input"] {
-        width: 96%;
-        outline: none;
-        border: 0;
-        height: 33px;
-        line-height: 33px;
-        margin: 0 auto;
-        display: block;
+        .search-box{
+            height: 35px;
+            border: 1px solid #DCDFE6;
+            border-radius: 3px;
+            background: #fff;
+            line-height: 35px;
+            padding: 0 10px 0 15px;
+            position: relative;
+            text-align: left;
+            &:hover{
+                border: 1px solid #C0C4CC;
+                cursor: pointer;
+            }
+            span {
+                width: -webkit-calc(100% - 15px);
+                width: calc(100% - 15px);
+                display: block;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                float: left;
+            }
+            i {
+                width: 0;
+                height: 0;
+                border: 6px solid transparent;
+                position: relative;
+                display: block;
+                float: right;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    border: 4px solid transparent;
+                }
+            }
+            .icon {
+                border-color:#ccc transparent transparent transparent;
+                margin: 15px 0 0 0;
+                &::before{
+                    border-color:#fff transparent transparent transparent;
+                    top: -6px;
+                    left: -4px;
+                }
+            }
+            .iconActive {
+                border-color: transparent transparent #ccc transparent;
+                margin: 8px 0 0 0px;
+                &::before{
+                    border-color: transparent transparent #fff transparent;
+                    top: -2px;
+                    left: -4px;
+                }
+            }
+        }
+        .input-box {
+            background: #fff;
+            border: 1px solid #C0C4CC;
+            border-radius: 3px;
+            position: absolute;
+            padding: 10px;
+            overflow: hidden;
+            z-index: 99999999;
+            .data-list-box {
+                border: 1px solid #C0C4CC;
+                border-radius: 4px;
+                width: 100%;
+                margin: 0 auto;
+                overflow: hidden;
+                position: relative;
+                .ul-box {
+                    text-align:left;
+                    margin:0;
+                    padding:0;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                .scroll-box {
+                    width: 6px;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 6;
+                }
+                .tiptxt {
+                    color: #C0C4CC;
+                    text-align: center;
+                    height: 160px;
+                    line-height: 35px;
+                }
+            }
+        }
+        .inputStyle {
+            width: 100%;
+            height: 35px;
+            border: 1px solid #409EFF;
+            border-radius: 4px;
+            margin: 0 0 5px 0;
+            input[type="input"] {
+                font-size: 12px;
+                width: 96%;
+                outline: none;
+                border: 0;
+                height: 33px;
+                line-height: 33px;
+                margin: 0 auto;
+                display: block;
+                padding: 0 5px;
+                box-sizing: border-box;
+            }
+        }
     }
 
-    .data-list-box {
-        border: 1px solid #C0C4CC;
-        border-radius: 4px;
-        width: 100%;
-        margin: 0 auto;
-        overflow: hidden;
-        position: relative;
-    }
-    .input-search-box .input-box .ul-box {
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    .scroll-box {
-        width: 6px;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 6;
-    }
-    
-    .input-search-box .input-box .tiptxt {
-        color: #C0C4CC;
-        text-align: center;
-        height: 160px;
-        line-height: 35px;
-    }
-    ::-webkit-input-placeholder {color:#C0C4CC;}
-　　:-moz-placeholder {color:#C0C4CC;}
-　　::-moz-placeholder {color:#C0C4CC;}
-　　:-ms-input-placeholder {color:#C0C4CC;}
-
-    .fade-enter-active,
-    .fade-leave-active {
-        -webkit-transition: all .5s;
-        -moz-transition: all .5s;
-        transition: all  .5s;
-    }
-    .fade-enter,
-    .fade-leave-active {
-        opacity: 0;
-    }
 </style>

@@ -161,6 +161,392 @@
     // el.addEventListener('input', function(){
     //   obj.name = this.value;
     // })
+
+
+    //数组对象去重
+    /****
+    let obj = {};
+    this.tempProList = this.tempList.reduceRight((item,next)=>{
+        obj[next.goods_item_id] ? '' : obj[next.goods_item_id] = true && item.push(next);
+        return item;
+    }, []);
+    ****/
+
+    //比较日期大小
+    /******
+    function format (date = new Date(), split = '-') {
+        if (typeof date === 'string') {
+            // 传入的是yyyymmdd
+            if(!~date.indexOf(split)) {
+                return date.substr(0, 4) + split + date.substr(4, 2) + split + date.substr(6, 2);
+            }
+
+            date = new Date();
+        }
+
+        let arr = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
+        arr.forEach((item, i) => {
+            if (item < 10) {
+                arr[i] = '0' + item;
+            }
+        })
+        return arr.join(split);
+    }
+
+    function max (...args) {
+      let dates = args.map((date)=>{
+        return new Date(date + '00:00:00').getTime();
+      });
+
+      if(!dates.length) {
+        return null;
+      }
+      return format(new Date(Math.max(...dates)))
+    }
+    console.log(max('2016-01-02', '2016-01-03'))
+    ****/
+
+    //递归数据
+    /**
+    //数据
+      {
+          "value":[
+              {
+                  "subMenus":[],
+                  "menuName":"一级",
+                  "clickUrl":"/"
+              },
+              {
+                  "menuName":"一级",
+                  "subMenus":[{
+                      "subMenus":[],
+                      "clickUrl":"/two/a"
+                      "menuName":"二级"
+                  },{
+                      "subMenus":[],
+                      "clickUrl":"/two/b",
+                      "menuName":"二级"
+                  }]
+              }
+          ]
+      }
+
+      //最终结果
+      menus: [
+          { title: '一级', path: '/'},
+          {
+              title: '一级',
+              children: [
+                  { title: '二级', path: '/two/a' },
+                  { title: '二级', path: '/two/b' },
+              ]
+          },
+          {
+              title: '一级',
+              children: [
+                  {
+                      title: '二级',
+                      children: [
+                          {title: '三级', path: '/three/c'}
+                      ]
+                  }
+              ]
+          }
+      ]
+    function convert(data){
+        var deep = data.value || data.subMenus
+        return !deep ? [] : deep.map(function(menu){
+            return {
+                title:menu.menuName,
+                path:menu.clickUrl,
+                children:convert(menu)
+            }
+        })
+    }
+    var menus = convert(yourobject)
+    **/
+
+    //冒泡排序
+
+    /*function aaa(arr) {
+        for(var i = 0 ; i < arr.length; i++) {
+            for(var j = 0 ; j < arr.length - i; j++) {
+                toCon(j, j+1);
+            }
+        }
+
+        function toCon(prev, next) {
+            var tmp = '';
+            if(arr[prev] > arr[next]) {
+                tmp = arr[prev];
+                arr[prev] = arr[next];
+                arr[next] = tmp;
+            }
+        }
+
+        return arr;
+    }
+
+    console.log(aaa([4,7,2,3,1]))*/
+
+    //选择排序
+    /*function bbb(arr) {
+        if(arr.length === 1) {
+            return arr;
+        }
+        var iMin = arr[0];
+        var index = 0;
+
+        for(var i = 0; i < arr.length; i++) {
+            if(arr[i] < iMin) {
+                iMin = arr[i];
+                index = i;
+            }
+        }
+
+        var prev = arr.splice(index, 1);
+        return prev.concat(bbb(arr));
+    }
+    console.log(bbb([4,7,2,3,1]))*/
+
+
+    //随机排序
+    /*
+        var arr = [1,2,3,4,5,6,7,8];
+        arr.sort(function(){
+            return Math.random() - 0.5;
+        })
+        console.log(arr);
+    */
+
+    //二分查找
+    /*function binSearch (arr, data) {
+        var low = 0;
+        var high = arr.length - 1;
+        while(low <= high) {//左边一定要小于等于右边
+            var middle = Math.floor((low + high) / 2);//计算出一个中间值
+            if(arr[middle] < data) {//用中间值去比较传进来的值如果小于他左边就要变为中间值+1
+                low = middle + 1;
+            }else if (arr[middle] > data) {//如果中间值大于传进来的值右边就要变为中间值-1
+                high = middle - 1;
+            }else {//如果不是大于小于那就是等于就直接返回
+                return middle
+            }
+        }
+        return -1;//如果都没有就返回-1
+    }
+    var arr = ["a","b","c","d","e","f","g","h","i","j"];
+    console.log(binSearch(arr, 'g'));*/
+
+
+    //单例模式
+    /*var getSingle = function(fn) {
+        var result;
+        return function() {
+            return result || (result = fn.apply(this, arguments));
+        }
+    }
+
+    var createLogLayer = function() {
+        var oDiv = document.createElement('div');
+        oDiv.innerHTML = '我是登录浮窗';
+        oDiv.style.display = 'none';
+        document.getElementById('show').appendChild(oDiv);
+        return oDiv;
+    }
+
+    var createSingleLoginLayer = getSingle(createLogLayer);
+
+    document.getElementById('loginBtn').onclick = function() {
+        var loginLayer = createSingleLoginLayer();
+        loginLayer.style.display = 'block';
+    }*/
+
+    // 策略模式
+    /*var strategies = {
+        'S': function(salary) {
+            return salary * 4;
+        },
+        'A': function(salary) {
+            return salary * 3;
+        },
+        'B': function(salary) {
+            return salary * 2;
+        }
+    };
+
+    var calculateBouns = function(level, salary) {
+        return strategies[level](salary);
+    };
+
+    console.log(calculateBouns('A',20000));
+    console.log(calculateBouns('S',40000))*/
+
+    //代理模式
+    /*var mult = function() {
+        console.log('begin....');
+        var a = 1;
+        for(var i =0; i < arguments.length; i++) {
+            a = a * arguments[i];
+        }
+        return a;
+    };
+
+    //加入缓存代理:
+    var proxyMult = (function(){
+        var cache = {};
+        return function() {
+            var args = Array.prototype.join.call(arguments, ',');
+            if(args in cache) {
+                return cache[args];
+            }
+            return cache[args] = mult.apply(this, arguments);
+        }
+    })();
+
+    proxyMult(1,2,3,4);
+    proxyMult(1,2,3,4);*/
+
+    //发布订阅模式
+    //基本的发布订阅模式
+    /*var salesOffices = {};
+    salesOffices.clientList = [];
+
+    salesOffices.listen = function( fn ) {
+        this.clientList.push(fn);
+    }
+
+    salesOffices.trigger = function() {
+        for(var i = 0; i < this.clientList.length ; i++) {
+            this.clientList[i].apply(this,arguments);
+        }
+    }
+
+    salesOffices.listen(function(price, squareMeter){
+        console.log('价格=' + price);
+        console.log('squareMeter=' + squareMeter);
+    })
+
+    salesOffices.trigger(20000000000, 12000);
+    salesOffices.trigger(30000000000, 30000);*/
+
+    //发布-订阅
+    /*var event = {
+        clientList: [],
+        listen: function(key, fn) { // 负责收集
+            if(!this.clientList[key]) {
+                this.clientList[key] = [];
+            }
+            this.clientList[key].push(fn);
+        },
+        trigger: function() { // 负责传播
+            var key = Array.prototype.shift.call(arguments),
+                fns = this.clientList[key];
+
+            if( !fns || fns.length === 0 ) {
+                return false;
+            }
+
+            for( var i = 0; i < fns.length; i++ ) {
+                fns[i].apply(this, arguments);
+            }
+        }
+    };
+
+    var installEvent = function(obj) {
+        for( var i in event ) {
+            obj[i] = event[i];
+        }
+    }
+
+    var salesOffices = {};
+    installEvent(salesOffices);
+
+    salesOffices.listen('squareMeter88', function(price) {
+        console.log('价格=' + price);
+    })
+    salesOffices.listen('squareMeter100', function(price) {
+        console.log('价格=' + price);
+    })
+
+    salesOffices.trigger('squareMeter88', 2200000)
+    salesOffices.trigger('squareMeter110', 3200000)*/
+
+    //职责链模式(向下传递) ---> 可解决嵌套的if else
+    /**
+    var order500 = function(orderType,  pay, stock) {
+        if ( orderType === 1 && pay === true) {
+            console.log('500元定金预购，得到100优惠券');
+        } else {
+            return 'nextSuccesor'
+        }
+    };
+    var order200 = function(orderType, pay, stock) {
+        if ( orderType === 2 && pay === true ) {
+            console.log('200元定金预购，得到50优惠券');
+        } else {
+            return 'nextSuccesor';
+        }
+    };
+    var orderNormal = function(orderType, pay, stock) {
+        if( stock > 0) {
+            console.log('普通购买,无优惠券');
+        } else {
+            console.log('手机库存不足')
+        }
+    };
+    var Chain = function(fn) {
+        this.fn = fn;
+        this.successor = null;
+    }
+    Chain.prototype.setNextSuccessor = function(successor) {
+        return this.successor = successor;
+    }
+    Chain.prototype.passRequest = function() {
+        var ret = this.fn.apply(this, arguments);
+        if( ret === 'nextSuccesor') {
+            return this.successor && this.successor.passRequest.apply(this.successor, arguments);
+        }
+        return ret;
+    };
+    var chainOrder500 = new Chain( order500 );
+    var chainOrder200 = new Chain( order200 );
+    var chainOrderNormal = new Chain ( orderNormal );
+
+    chainOrder500.setNextSuccessor( chainOrder200 );
+    chainOrder200.setNextSuccessor( chainOrderNormal );
+    chainOrder500.passRequest(1, true, 500);
+    chainOrder500.passRequest(2, true, 500);
+    chainOrder500.passRequest(3, true, 500);
+    chainOrder500.passRequest(1, false, 0);
+    **/
+
+    //mz数据列表
+    /***
+    function search(data,p_id){
+          var temp = [];
+          for(var index in data){
+              if (data[index].parentId === p_id) {
+                  temp.push(data[index]);
+              }
+          }
+          return temp;
+      }
+
+      function test(p_id = 0){
+          var arr = [];
+          var searchResult = search(list.value,p_id);
+          for(var i in searchResult){
+              arr.push({
+                  "value": searchResult[i].nodeName,
+                  "nodePath": searchResult[i].nodePath,
+                  "code": searchResult[i].nodeId,
+                  "children": test(searchResult[i].nodeId)
+              })
+          }
+          return arr;
+      }
+    ***/
 </script>
 <style lang="scss" scoped="" type="text/css">
 ul,li {
